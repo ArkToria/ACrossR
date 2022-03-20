@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="The next GUI client for v2ray core"
 arch=("any")
 mingw_arch=("mingw32" "mingw64" "ucrt64" "clang64" "clang32")
-url="https://github.com/ArkToria/ACross"
+url="https://github.com/ArkToria/ACrossR"
 license=("GPL3")
 depends=("${MINGW_PACKAGE_PREFIX}-qt6-base" "${MINGW_PACKAGE_PREFIX}-qt6-svg" "${MINGW_PACKAGE_PREFIX}-qt6-translations"
   "${MINGW_PACKAGE_PREFIX}-qt6-tools" "${MINGW_PACKAGE_PREFIX}-qt6-imageformats" "${MINGW_PACKAGE_PREFIX}-qt6-5compat"
@@ -20,7 +20,7 @@ makedepends=("git" "${MINGW_PACKAGE_PREFIX}-cmake" "${MINGW_PACKAGE_PREFIX}-clan
 optdepends=("v2ray: use system v2ray core."
   "noto-fonts: default display fonts")
 
-source=("${_realname}-${pkgver}.tar.gz::https://github.com/ArkToria/ACross/archive/refs/tags/v${pkgver}.tar.gz")
+source=("${_realname}-${pkgver}.tar.gz::https://github.com/ArkToria/ACrossR/archive/refs/tags/v${pkgver}.tar.gz")
 
 sha256sums=("5010a2473a4e25f4fcd329ca6ff54912157744f53a3b890fcd6f80c177172b32")
 

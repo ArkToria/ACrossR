@@ -2,7 +2,7 @@ pkgbase = across-dev-git
 	pkgdesc = The next GUI client for v2ray core (Development Branch)
 	pkgver = 0.1.1.r693.c0d88ea
 	pkgrel = 1
-	url = https://github.com/ArkToria/ACross
+	url = https://github.com/ArkToria/ACrossR
 	arch = x86_64
 	license = GPL3
 	makedepends = git
@@ -31,7 +31,7 @@ pkgbase = across-dev-git
 	optdepends = noto-fonts: default display fonts
 	provides = across
 	conflicts = across
-	source = across-dev-git::git+https://github.com/ArkToria/ACross.git
+	source = across-dev-git::git+https://github.com/ArkToria/ACrossR.git
 	sha512sums = SKIP
 
 pkgname = across-dev-git

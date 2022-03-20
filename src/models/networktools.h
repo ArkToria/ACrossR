@@ -50,29 +50,6 @@ class DNSTools : QObject {
     std::shared_ptr<QDnsLookup> p_dns = nullptr;
 };
 
-class TCPPing : QObject {
-    Q_OBJECT
-  public:
-    TCPPing(QObject *parent = nullptr);
-
-    TCPPing(QString addr, unsigned int port);
-    TCPPing(const QHostAddress &addr, unsigned int port);
-
-    void setAddr(const QString &addr);
-    void setAddr(const QHostAddress &addr);
-    void setPort(unsigned int port);
-    void setTimes(int times);
-    int getAvgLatency();
-
-    static int getLatency(const QString &addr, unsigned int port);
-
-  private:
-    QString m_addr = "127.0.0.1";
-    unsigned int m_port = 80;
-    unsigned int m_times = 3;
-    static const int PING_TIMEOUT = 3000;
-};
-
 struct DownloadTask {
     qint64 id;
     QString name;

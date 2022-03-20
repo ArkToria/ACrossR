@@ -805,12 +805,12 @@
         <translation>确认从数据库中移除组</translation>
     </message>
     <message>
-        <location filename="../src/views/home/GroupListPanel.qml" line="89"/>
+        <location filename="../src/views/home/GroupListPanel.qml" line="87"/>
         <source>Updating...</source>
         <translation>更新中...</translation>
     </message>
     <message>
-        <location filename="../src/views/home/GroupListPanel.qml" line="89"/>
+        <location filename="../src/views/home/GroupListPanel.qml" line="87"/>
         <source>The default node will be reset</source>
         <translation>默认节点将会被重置</translation>
     </message>
