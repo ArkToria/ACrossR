@@ -73,10 +73,8 @@ config::Config ConfigHelper::defaultConfig() {
         acolors->set_config_path("~/.config/acolors/acolors.json");
         acolors->set_db_path("~/.config/acolors/acolors.db");
 #else
-        QDir working_dir(QCoreApplication::applicationDirPath());
-        auto acolors_dir = working_dir.filePath("acolors").toStdString();
-        acolors->set_core_path(acolors_dir);
-        auto acolors_config_dir = working_dir.filePath("acolorsConfig");
+        acolors->set_core_path("acolors");
+        auto acolors_config_dir = QString("acolorsConfig");
         acolors->set_config_path(
             (acolors_config_dir + "/acolors.json").toStdString());
         acolors->set_db_path(
