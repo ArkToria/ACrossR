@@ -70,8 +70,17 @@ config::Config ConfigHelper::defaultConfig() {
     if (auto acolors = config.mutable_acolors()) {
 #if !defined Q_OS_WIN
         acolors->set_core_path("/usr/bin/acolors");
-        acolors->set_config_path("~/.config/acolors/acolors.json");
-        acolors->set_db_path("~/.config/acolors/acolors.db");
+        acolors->set_db_path((data_dir.filePath("across.db")).toStdString());
+        QDir config_dir =
+            QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+        do {
+            if (!config_dir.mkpath(".")) {
+                qFatal("Failed to create config_dir");
+                break;
+            }
+            acolors->set_config_path(
+                config_dir.filePath("acolors.json").toStdString());
+        } while (false);
 #else
         acolors->set_core_path("acolors");
         auto acolors_config_dir = QString("acolorsConfig");
