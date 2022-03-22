@@ -62,17 +62,11 @@ class Application : public SingleApplication {
 
     void registerModels();
 
-    void wait(int msec);
-
     static void removeImageProvider(ImageProvider *img_provider);
 
   private slots:
     void onMessageReceived(quint32 clientId, const QByteArray &msg);
-    void restartAColoRS();
     void handleShutdown();
-
-  private:
-    QFuture<void> checkAndReconnect();
 
   private:
     LogView m_log;
@@ -87,10 +81,6 @@ class Application : public SingleApplication {
     across::ImageProvider *p_image_provider;
 
     ACrossExitReason exitReason = EXIT_NORMAL;
-
-    QFuture<void> reconnect;
-
-    bool acolors_restarting = false;
 
     const QString m_app_name = APP_NAME;
     QTranslator m_translator;

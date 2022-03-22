@@ -641,7 +641,16 @@ AColoRSAPITools::AColoRSAPITools(const std::string &target) {
     connect(p_notifications.get(), &AColoRSNotifications::stateChanged, this,
             &AColoRSAPITools::updateConnected);
 }
-AColoRSAPITools::~AColoRSAPITools() {}
+AColoRSAPITools::~AColoRSAPITools() { this->is_reconnect.waitForFinished(); }
+void AColoRSAPITools::init(const QString &program, uint32_t port,
+                           const QString &corePath, const QString &configPath,
+                           const QString &dbPath) {
+    this->program = program;
+    this->port = port;
+    this->corePath = corePath;
+    this->configPath = configPath;
+    this->dbPath = dbPath;
+}
 
 void AColoRSAPITools::updateConnected() {
     auto connected = this->p_notifications->getState();
@@ -657,10 +666,7 @@ void AColoRSAPITools::setTarget(const std::string target) {
     emit targetChanged(target);
 }
 
-bool AColoRSAPITools::startProcess(const QString program, uint32_t port,
-                                   const QString corePath,
-                                   const QString configPath,
-                                   const QString dbPath) {
+bool AColoRSAPITools::startProcess() {
     QStringList arguments;
     arguments.append(QString("serve"));
     arguments.append(QString("--port"));
@@ -700,4 +706,40 @@ void AColoRSAPITools::reconnect() {
     this->p_tools->setChannel(this->p_channel);
 
     this->p_notifications->start();
+}
+
+void AColoRSAPITools::restartAColoRS() {
+    this->restarting = true;
+    this->shutdown();
+    if (this->is_reconnect.isFinished()) {
+        checkAndReconnect(false);
+    };
+}
+
+void AColoRSAPITools::wait(int msec) {
+    QTimer timer;
+    QEventLoop loop;
+    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    timer.start(msec);
+    loop.exec();
+}
+
+void AColoRSAPITools::checkAndReconnect(bool enableAutoConnect) {
+    this->is_reconnect = QtConcurrent::run([&] {
+        wait(200);
+        if (this->isConnected())
+            return;
+        this->startProcess();
+        for (int i = 0; i < 10; i++) {
+            wait(200);
+            if (this->isConnected())
+                break;
+            this->reconnect();
+        }
+        if (enableAutoConnect) {
+            auto status = this->core()->run();
+            if (!status.ok())
+                qDebug() << status.error_message().c_str();
+        }
+    });
 }

@@ -209,15 +209,20 @@ class AColoRSAPITools : public QObject {
         return this->p_tools.get();
     };
 
+    void init(const QString &program, uint32_t port, const QString &corePath,
+              const QString &configPath, const QString &dbPath);
+
     bool isConnected() const { return this->connected; };
 
-    bool startProcess(const QString program, uint32_t port,
-                      const QString corePath, const QString configPath,
-                      const QString dbPath);
+    bool startProcess();
 
     void setTarget(const std::string target);
 
-    Status shutdown();
+    Q_INVOKABLE Status shutdown();
+
+    void wait(int msec);
+
+    void checkAndReconnect(bool enableAutoConnect);
 
     Q_INVOKABLE void reconnect();
 
@@ -226,13 +231,27 @@ class AColoRSAPITools : public QObject {
     void notificationsChanged();
     void connectedChanged();
 
+  public slots:
+    Q_INVOKABLE void restartAColoRS();
+
   private slots:
     void updateConnected();
+
+  public:
+    bool restarting = false;
 
   private:
     qint64 process_pid = -1;
     std::string target;
     bool connected = false;
+
+    QFuture<void> is_reconnect;
+
+    QString program;
+    uint32_t port;
+    QString corePath;
+    QString configPath;
+    QString dbPath;
 
     std::shared_ptr<Channel> p_channel;
     std::unique_ptr<acolors::Manager::Stub> p_stub;

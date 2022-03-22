@@ -62,6 +62,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/views/setting/AColoRSItem.qml" line="167"/>
+        <source>Shutdown on exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/setting/AColoRSItem.qml" line="189"/>
+        <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/setting/AColoRSItem.qml" line="196"/>
+        <source>Shutdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="150"/>
         <source>Core Path</source>
         <translation type="unfinished"></translation>

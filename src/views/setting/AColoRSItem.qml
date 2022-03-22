@@ -163,6 +163,42 @@ Item {
                         corePathWindowComponent.createObject(corePathButton).show();
             }
         }
+        Label {
+            text: qsTr("Shutdown on exit")
+            color: acrossConfig.textColor
+            font.pointSize: fontSize
+        }
+
+        SwitchBox {
+            id: apiSwitch
+
+            Layout.alignment: Qt.AlignRight
+            checked: acrossConfig.apiEnable
+            onCheckedChanged: {
+                // acrossConfig.shutdownAColoRS= checked;
+            }
+        }
+        Item {
+            Layout.fillWidth: true
+            Layout.columnSpan: 1
+        }
+
+
+        ButtonBox {
+            Layout.alignment: Qt.AlignRight
+            text: qsTr("Restart")
+            onClicked: {
+                acolors.restartAColoRS();
+            }
+        }
+        ButtonBox {
+            Layout.alignment: Qt.AlignRight
+            text: qsTr("Shutdown")
+            onClicked: {
+                acolors.shutdown();
+            }
+        }
+
 
     }
 

@@ -45,6 +45,9 @@ bool Application::initialize() {
     p_image_provider = new ImageProvider; // free by qml engine
 
     p_config->init(p_curl, p_acolors);
+    p_acolors->init(p_config->acolorsPath(), p_config->acolorsAPIPort().toInt(),
+                    p_config->corePath(), p_config->acolorsConfigPath(),
+                    p_config->acolorsDbPath());
 
     registerModels();
     setRootContext();
@@ -60,68 +63,29 @@ bool Application::initialize() {
             &across::ImageProvider::setContent);
 
     connect(p_config.get(), &across::setting::ConfigTools::corePathChanged,
-            this, &Application::restartAColoRS);
+            p_acolors.get(), &AColoRSAPITools::restartAColoRS);
     connect(p_config.get(), &across::setting::ConfigTools::acolorsPathChanged,
-            this, &Application::restartAColoRS);
+            p_acolors.get(), &AColoRSAPITools::restartAColoRS);
     connect(p_config.get(),
-            &across::setting::ConfigTools::acolorsConfigPathChanged, this,
-            &Application::restartAColoRS);
+            &across::setting::ConfigTools::acolorsConfigPathChanged,
+            p_acolors.get(), &AColoRSAPITools::restartAColoRS);
     connect(p_config.get(), &across::setting::ConfigTools::acolorsDbPathChanged,
-            this, &Application::restartAColoRS);
+            p_acolors.get(), &AColoRSAPITools::restartAColoRS);
     connect(p_acolors->notifications(),
             &across::acolorsapi::AColoRSNotifications::shutdown, this,
             &Application::handleShutdown);
 
-    this->reconnect = checkAndReconnect();
+    p_acolors->checkAndReconnect(p_config->enableAutoConnect());
 
     return true;
 }
 
-void Application::restartAColoRS() {
-    this->acolors_restarting = true;
-    this->p_acolors->shutdown();
-    if (this->reconnect.isFinished()) {
-        this->reconnect = Application::checkAndReconnect();
-    };
-}
-
 void Application::handleShutdown() {
-    if (this->acolors_restarting) {
-        this->acolors_restarting = false;
+    if (p_acolors->restarting) {
+        p_acolors->restarting = false;
         return;
     }
     this->exit(0);
-}
-
-void Application::wait(int msec) {
-    QTimer timer;
-    QEventLoop loop;
-    connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-    timer.start(msec);
-    loop.exec();
-}
-
-QFuture<void> Application::checkAndReconnect() {
-    return QtConcurrent::run([&] {
-        wait(200);
-        if (this->p_acolors->isConnected())
-            return;
-        this->p_acolors->startProcess(
-            p_config->acolorsPath(), p_config->acolorsAPIPort().toInt(),
-            p_config->corePath(), p_config->acolorsConfigPath(),
-            p_config->acolorsDbPath());
-        for (int i = 0; i < 10; i++) {
-            wait(200);
-            if (this->p_acolors->isConnected())
-                break;
-            this->p_acolors->reconnect();
-        }
-        if (this->p_config->enableAutoConnect()) {
-            auto status = this->p_acolors->core()->run();
-            if (!status.ok())
-                qDebug() << status.error_message().c_str();
-        }
-    });
 }
 
 ACrossExitReason Application::getExitReason() { return exitReason; }
