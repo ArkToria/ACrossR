@@ -37,7 +37,10 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
 
     if (pair_result.second.ok()) {
         m_node = pair_result.first;
-        setCurrentNodeByID(m_node.id);
+        emit currentGroupIDChanged();
+        emit currentNodeIDChanged();
+        emit currentNodeInfoChanged(m_node.toVariantMap());
+        emit currentNodeChanged(m_node);
         setDisplayGroupID(m_node.group_id);
     }
 

@@ -725,7 +725,7 @@ void AColoRSAPITools::wait(int msec) {
 }
 
 void AColoRSAPITools::checkAndReconnect(bool enableAutoConnect) {
-    this->is_reconnect = QtConcurrent::run([&] {
+    this->is_reconnect = QtConcurrent::run([&, enableAutoConnect] {
         wait(200);
         if (this->isConnected())
             return;
