@@ -107,6 +107,7 @@ class NodeList : public QObject {
     void setDisplayGroupID(int group_id);
     void handleLatencyChanged(qint64 group_id, int index,
                               const across::NodeInfo &node);
+    void resetCurrentNode();
 
   signals:
     void itemReset(int index);

@@ -33,24 +33,18 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
     p_config = std::move(config);
     p_core = std::move(core);
 
-    auto pair_result = p_acolors->core()->currentNode();
-
-    if (pair_result.second.ok()) {
-        m_node = pair_result.first;
-        emit currentGroupIDChanged();
-        emit currentNodeIDChanged();
-        emit currentNodeInfoChanged(m_node.toVariantMap());
-        emit currentNodeChanged(m_node);
-        setDisplayGroupID(m_node.group_id);
-    }
-
     if (tray != nullptr) {
         p_tray = tray;
     }
 
+    resetCurrentNode();
+
     connect(p_acolors->notifications(),
             &acolorsapi::AColoRSNotifications::stateChanged, this,
             &NodeList::reloadItems);
+    connect(p_acolors->notifications(),
+            &acolorsapi::AColoRSNotifications::stateChanged, this,
+            &NodeList::resetCurrentNode);
 
     connect(p_config.get(), &ConfigTools::apiEnableChanged, this, [&]() {
         if (!p_config->apiEnable() && p_api != nullptr)
@@ -386,6 +380,18 @@ void NodeList::handleLatencyChanged(qint64 group_id, int index,
 
     while (!m_tasks.isEmpty() && m_tasks.head().isFinished())
         m_tasks.dequeue();
+}
+void NodeList::resetCurrentNode() {
+    auto pair_result = p_acolors->core()->currentNode();
+
+    if (pair_result.second.ok()) {
+        m_node = pair_result.first;
+        emit currentGroupIDChanged();
+        emit currentNodeIDChanged();
+        emit currentNodeInfoChanged(m_node.toVariantMap());
+        emit currentNodeChanged(m_node);
+        setDisplayGroupID(m_node.group_id);
+    }
 }
 
 void NodeList::saveQRCodeToFile(int id, const QUrl &url) {
