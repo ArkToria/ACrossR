@@ -48,6 +48,7 @@ int CoreTools::run() {
     if (m_running)
         this->stop();
 
+    this->p_acolors->core()->setApiStatus(p_config->apiEnable());
     auto status = this->p_acolors->core()->run();
 
     if (status.ok()) {

@@ -1406,7 +1406,7 @@
 <context>
     <name>across::NodeList</name>
     <message>
-        <location filename="../src/view_models/nodelist.cpp" line="327"/>
+        <location filename="../src/view_models/nodelist.cpp" line="325"/>
         <source>Copy [%1] URL to clipboard</source>
         <translation>复制 [%1] 链接到剪贴板</translation>
     </message>
@@ -1457,12 +1457,12 @@
 <context>
     <name>across::core::CoreTools</name>
     <message>
-        <location filename="../src/models/coretools.cpp" line="57"/>
+        <location filename="../src/models/coretools.cpp" line="58"/>
         <source>Core Error</source>
         <translation>核心错误</translation>
     </message>
     <message>
-        <location filename="../src/models/coretools.cpp" line="58"/>
+        <location filename="../src/models/coretools.cpp" line="59"/>
         <source>Failed to start the process: %1</source>
         <translation>无法启动进程 %1</translation>
     </message>

@@ -74,6 +74,7 @@ APIWorker::APIWorker(const std::shared_ptr<grpc::Channel> &channel) {
 }
 
 void APIWorker::start() {
+    this->future.waitForFinished();
     this->future = QtConcurrent::run([&] {
         qDebug() << "Test";
         while (!m_stop) {

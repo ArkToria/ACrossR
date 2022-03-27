@@ -33,8 +33,6 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
     p_config = std::move(config);
     p_core = std::move(core);
 
-    this->p_acolors->core()->setApiStatus(p_config->apiEnable());
-
     if (tray != nullptr) {
         p_tray = tray;
     }
@@ -65,7 +63,7 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
             &across::acolorsapi::AColoRSNotifications::updateCoreStatus, this,
             [&]() {
                 if (p_api != nullptr) {
-                    if (p_core->isRunning()) {
+                    if (p_core->isRunning() && p_config->apiEnable()) {
                         p_api->startMonitoring();
                     } else {
                         p_api->stopMonitoring();
