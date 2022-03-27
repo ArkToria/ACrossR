@@ -134,10 +134,6 @@ Item {
             font.pointSize: fontSize
         }
 
-        Item {
-            Layout.fillWidth: true
-            Layout.columnSpan: 3
-        }
 
         SwitchBox {
             id: apiSwitch
@@ -154,27 +150,6 @@ Item {
         }
 
         Label {
-            Layout.preferredWidth: keyBoxWidth
-            visible: apiSwitch.checked
-            text: qsTr("API Port")
-            color: acrossConfig.textColor
-        }
-
-        TextFieldBox {
-            id: apiPortText
-
-            visible: apiSwitch.checked
-            Layout.preferredWidth: 72
-            placeholderText: acrossConfig.apiPort
-            readOnly: apiSwitch.checked ? false : true
-            inputMethodHints: Qt.ImhDigitsOnly
-            onTextEdited: {
-                acrossConfig.apiPort = text;
-            }
-        }
-
-        Label {
-            visible: apiSwitch.checked
             text: qsTr("Test Result")
             color: acrossConfig.textColor
         }
@@ -182,19 +157,16 @@ Item {
         TextFieldBox {
             id: testResult
 
-            visible: apiSwitch.checked
             Layout.fillWidth: true
             readOnly: true
         }
 
         ButtonBox {
-            visible: apiSwitch.checked
             Layout.alignment: Qt.AlignRight
             text: qsTr("Test")
             enabled: apiSwitch.checked
             onClicked: {
                 // sync input information
-                acrossConfig.apiPort = apiPortText.text;
                 acrossConfig.testAPI();
             }
 

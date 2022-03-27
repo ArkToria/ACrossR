@@ -502,22 +502,21 @@
         <translation>启用 API</translation>
     </message>
     <message>
-        <location filename="../src/views/setting/CoreItem.qml" line="159"/>
         <source>API Port</source>
-        <translation>API 端口</translation>
+        <translation type="vanished">API 端口</translation>
     </message>
     <message>
-        <location filename="../src/views/setting/CoreItem.qml" line="178"/>
+        <location filename="../src/views/setting/CoreItem.qml" line="153"/>
         <source>Test Result</source>
         <translation>测试结果</translation>
     </message>
     <message>
-        <location filename="../src/views/setting/CoreItem.qml" line="193"/>
+        <location filename="../src/views/setting/CoreItem.qml" line="166"/>
         <source>Test</source>
         <translation>测试</translation>
     </message>
     <message>
-        <location filename="../src/views/setting/CoreItem.qml" line="204"/>
+        <location filename="../src/views/setting/CoreItem.qml" line="176"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>

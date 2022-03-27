@@ -111,6 +111,13 @@ NotificationModel::append(const QString &title, const QString &message = "",
     return noti;
 }
 
+void NotificationModel::send_notify(const QString &title,
+                                    const QString &message, double from,
+                                    double to, double value, int duration) {
+
+    emit notify_sent(title, message, from, to, value, duration);
+}
+
 across::Notification *NotificationModel::notify(const QString &title,
                                                 const QString &message,
                                                 double from, double to,

@@ -109,11 +109,19 @@ class NotificationModel : public QAbstractListModel {
                                              const QString &message, qreal from,
                                              qreal to, qreal value);
 
+    void send_notify(const QString &title, const QString &message, double from,
+                     double to, double value, int duration = -1);
+
+    Q_INVOKABLE void remove(const int id);
+
+  signals:
+    void notify_sent(const QString &title, const QString &message, double from,
+                     double to, double value, int duration = -1);
+
+  public slots:
     across::Notification *notify(const QString &title, const QString &message,
                                  double from, double to, double value,
                                  int duration = -1);
-
-    Q_INVOKABLE void remove(const int id);
 
   private:
     QVector<Notification *> notifications;
