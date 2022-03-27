@@ -4,9 +4,9 @@
 #include <QEventLoop>
 #include <QObject>
 #include <QString>
-#include <QThread>
 #include <QTimer>
 #include <QVariant>
+#include <QtConcurrent>
 
 #include <atomic>
 #include <grpcpp/grpcpp.h>
@@ -14,21 +14,13 @@
 #include <string>
 #include <vector>
 
-#include "v2ray_api.grpc.pb.h"
+#include "acolors.grpc.pb.h"
 
 using grpc::Channel;
 using grpc::ClientAsyncResponseReader;
 using grpc::ClientContext;
 using grpc::CompletionQueue;
 using grpc::Status;
-using v2ray::core::app::stats::command::GetStatsRequest;
-using v2ray::core::app::stats::command::GetStatsResponse;
-using v2ray::core::app::stats::command::QueryStatsRequest;
-using v2ray::core::app::stats::command::QueryStatsResponse;
-using v2ray::core::app::stats::command::Stat;
-using v2ray::core::app::stats::command::StatsService;
-using v2ray::core::app::stats::command::SysStatsRequest;
-using v2ray::core::app::stats::command::SysStatsResponse;
 
 namespace across::core {
 struct TrafficInfo {
@@ -44,27 +36,30 @@ class APIWorker : public QObject {
     explicit APIWorker(const std::shared_ptr<grpc::Channel> &channel);
 
   public slots:
-    void start(const QString &tag);
+    void start();
 
     void stop();
 
   signals:
     void trafficChanged(const QVariant &data);
 
-  private:
+  public:
     bool m_stop = false;
-    QString m_tag = "ACROSS_INBOUND_API";
-    std::unique_ptr<StatsService::Stub> p_stub;
+
+  private:
+    std::unique_ptr<acolors::CoreManager::Stub> p_stub;
+
+    QFuture<void> future;
 };
 
 class APITools : public QObject {
     Q_OBJECT
   public:
-    explicit APITools(uint port);
+    explicit APITools(const std::shared_ptr<Channel> &channel);
 
     ~APITools() override;
 
-    void startMonitoring(const QString &tag);
+    void startMonitoring();
 
     void stopMonitoring();
 
@@ -91,18 +86,13 @@ class APITools : public QObject {
     void handleTrafficResult(const QVariant &data);
 
   signals:
-    void operate(const QString &tag);
-    void stop();
+    void operate();
 
     void trafficChanged(const QVariant &data);
 
   private:
-    const std::string LOCAL_HOST = "localhost";
-
     std::shared_ptr<Channel> p_channel;
-    QThread *p_thread = nullptr;
     APIWorker *p_worker = nullptr;
-    QString m_tag;
 };
 } // namespace across::core
 

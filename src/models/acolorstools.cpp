@@ -559,6 +559,13 @@ Status AColoRSCore::setDefaultConfigByNodeId(int32_t node_id) {
     SetDefaultConfigByNodeIDReply reply;
     return this->p_stub->SetDefaultConfigByNodeID(&context, request, &reply);
 }
+Status AColoRSCore::setApiStatus(bool enable) {
+    ClientContext context;
+    SetApiStatusRequest request;
+    request.set_enable(enable);
+    SetApiStatusReply reply;
+    return this->p_stub->SetApiStatus(&context, request, &reply);
+}
 
 pair<AColoRSCore::CoreInfo, Status> AColoRSCore::getCoreInfo() {
     ClientContext context;

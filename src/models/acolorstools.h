@@ -131,6 +131,7 @@ class AColoRSCore : public QObject {
     Status setCoreByTag(std::string tag);
     pair<QList<QString>, Status> listAllTags();
     Status setDefaultConfigByNodeId(int32_t node_id);
+    Status setApiStatus(bool enable);
 
     struct CoreInfo {
         QString name;
@@ -207,6 +208,9 @@ class AColoRSAPITools : public QObject {
     };
     [[nodiscard]] inline AColoRSTools *tools() const {
         return this->p_tools.get();
+    };
+    [[nodiscard]] inline const std::shared_ptr<Channel> &channel() const {
+        return this->p_channel;
     };
 
     void init(const QString &program, uint32_t port, const QString &corePath,

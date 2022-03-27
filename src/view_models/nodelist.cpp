@@ -33,6 +33,8 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
     p_config = std::move(config);
     p_core = std::move(core);
 
+    this->p_acolors->core()->setApiStatus(p_config->apiEnable());
+
     if (tray != nullptr) {
         p_tray = tray;
     }
@@ -47,6 +49,7 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
             &NodeList::resetCurrentNode);
 
     connect(p_config.get(), &ConfigTools::apiEnableChanged, this, [&]() {
+        this->p_acolors->core()->setApiStatus(p_config->apiEnable());
         if (!p_config->apiEnable() && p_api != nullptr)
             p_api->stopMonitoring();
         else {
@@ -58,32 +61,32 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
         }
     });
 
-    connect(p_config.get(), &ConfigTools::apiPortChanged, this, [&]() {
-        if (p_api != nullptr) {
-            p_api->stopMonitoring();
-            p_api.reset(new APITools(p_config->apiPort().toUInt()));
-            m_traffic_last.clear();
-            m_traffic_sum.clear();
-        }
-    });
-
-    connect(p_core.get(), &CoreTools::isRunningChanged, this, [&]() {
-        if (p_api != nullptr) {
-            if (p_core->isRunning()) {
-                p_api->startMonitoring("PROXY");
-            } else {
-                p_api->stopMonitoring();
-                m_traffic_last.clear();
-                m_traffic_sum.clear();
-            }
-        }
-    });
+    connect(p_acolors->notifications(),
+            &across::acolorsapi::AColoRSNotifications::updateCoreStatus, this,
+            [&]() {
+                if (p_api != nullptr) {
+                    if (p_core->isRunning()) {
+                        p_api->startMonitoring();
+                    } else {
+                        p_api->stopMonitoring();
+                        m_traffic_last.clear();
+                        m_traffic_sum.clear();
+                    }
+                }
+            });
 
     connect(this, &NodeList::itemLatencyChanged, this,
             &NodeList::handleLatencyChanged);
 
     if (p_config->apiEnable()) {
-        p_api = QSharedPointer<APITools>::create(p_config->apiPort().toUInt());
+        p_api = QSharedPointer<APITools>::create(p_acolors->channel());
+        if (p_core->isRunning()) {
+            p_api->startMonitoring();
+        } else {
+            p_api->stopMonitoring();
+            m_traffic_last.clear();
+            m_traffic_sum.clear();
+        }
 
         connect(p_api.get(), &APITools::trafficChanged, this,
                 [this](const QVariant &data) {

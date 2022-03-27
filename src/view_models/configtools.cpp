@@ -289,7 +289,7 @@ void ConfigTools::testAPI() {
         bool result = false;
 
         if (m_config.core().api().enable()) {
-            APITools client(m_config.core().api().port());
+            APITools client(p_acolors_api->channel());
             auto [stats, err] = client.isOk();
 
             if (stats) {
