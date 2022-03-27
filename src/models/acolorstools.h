@@ -227,7 +227,8 @@ class AColoRSAPITools : public QObject {
 
     void wait(int msec);
 
-    void checkAndReconnect(bool enableAutoConnect);
+    void checkAndReconnect();
+    void setConfig(bool enableAutoConnect, bool apiEnable);
 
     Q_INVOKABLE void reconnect();
 
@@ -249,6 +250,9 @@ class AColoRSAPITools : public QObject {
     qint64 process_pid = -1;
     std::string target;
     bool connected = false;
+
+    bool enableAutoConnect;
+    bool apiEnable;
 
     QFuture<void> is_reconnect;
 

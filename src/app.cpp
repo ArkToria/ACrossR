@@ -75,7 +75,13 @@ bool Application::initialize() {
             &across::acolorsapi::AColoRSNotifications::shutdown, this,
             &Application::handleShutdown);
 
-    p_acolors->checkAndReconnect(p_config->enableAutoConnect());
+    connect(this, &Application::aboutToQuit, this, [&] {
+        if (p_config->shutdownOnExit())
+            p_acolors->shutdown();
+    });
+
+    p_acolors->setConfig(p_config->enableAutoConnect(), p_config->apiEnable());
+    p_acolors->checkAndReconnect();
 
     return true;
 }
@@ -92,8 +98,6 @@ ACrossExitReason Application::getExitReason() { return exitReason; }
 
 Application::~Application() {
     m_engine.removeImageProvider("acrossImageProvider");
-    if (p_config->shutdownOnExit())
-        p_acolors->shutdown();
 
     spdlog::shutdown();
 }

@@ -705,7 +705,7 @@ void AColoRSAPITools::restartAColoRS() {
     this->restarting = true;
     this->shutdown();
     if (this->is_reconnect.isFinished()) {
-        checkAndReconnect(false);
+        checkAndReconnect();
     };
 }
 
@@ -717,8 +717,8 @@ void AColoRSAPITools::wait(int msec) {
     loop.exec();
 }
 
-void AColoRSAPITools::checkAndReconnect(bool enableAutoConnect) {
-    this->is_reconnect = QtConcurrent::run([&, enableAutoConnect] {
+void AColoRSAPITools::checkAndReconnect() {
+    this->is_reconnect = QtConcurrent::run([&] {
         wait(200);
         if (this->isConnected())
             return;
@@ -730,9 +730,14 @@ void AColoRSAPITools::checkAndReconnect(bool enableAutoConnect) {
             this->reconnect();
         }
         if (enableAutoConnect) {
+            this->core()->setApiStatus(apiEnable);
             auto status = this->core()->run();
             if (!status.ok())
                 qDebug() << status.error_message().c_str();
         }
     });
+}
+void AColoRSAPITools::setConfig(bool enableAutoConnect, bool apiEnable) {
+    this->enableAutoConnect = enableAutoConnect;
+    this->apiEnable = apiEnable;
 }
