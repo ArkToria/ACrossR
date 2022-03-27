@@ -91,6 +91,7 @@ config::Config ConfigHelper::defaultConfig() {
 #endif
 
         acolors->set_port(19198);
+        acolors->set_shutdown_on_exit(false);
     }
 
     if (auto core = config.mutable_core()) {

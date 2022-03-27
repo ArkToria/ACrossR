@@ -92,6 +92,8 @@ ACrossExitReason Application::getExitReason() { return exitReason; }
 
 Application::~Application() {
     m_engine.removeImageProvider("acrossImageProvider");
+    if (p_config->shutdownOnExit())
+        p_acolors->shutdown();
 
     spdlog::shutdown();
 }

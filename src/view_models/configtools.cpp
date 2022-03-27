@@ -601,15 +601,12 @@ void ConfigTools::setApiEnable(bool val) {
     emit apiEnableChanged();
 }
 
-void ConfigTools::setApiPort(QString &portStr) {
-    uint port = portStr.toUInt();
-    if (port == p_core->api().port() || portStr.isEmpty())
+void ConfigTools::setShutdownOnExit(bool val) {
+    if (val == p_acolors->shutdown_on_exit())
         return;
-    if (port >= 0 && port <= 65535) {
-        p_core->mutable_api()->set_port(port);
-        emit configChanged();
-        emit apiPortChanged();
-    }
+    p_acolors->set_shutdown_on_exit(val);
+    emit configChanged();
+    emit shutdownOnExitChanged();
 }
 
 void ConfigTools::resetInbounds() {
@@ -948,9 +945,7 @@ QString ConfigTools::dbPath() { return p_db->db_path().c_str(); }
 
 bool ConfigTools::apiEnable() { return p_core->api().enable(); }
 
-QString ConfigTools::apiPort() {
-    return std::to_string(p_core->api().port()).c_str();
-}
+bool ConfigTools::shutdownOnExit() { return p_acolors->shutdown_on_exit(); }
 
 QString ConfigTools::apiResultText() { return m_api_result_text; }
 

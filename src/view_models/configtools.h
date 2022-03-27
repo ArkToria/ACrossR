@@ -39,6 +39,8 @@ class ConfigTools : public QObject {
     Q_PROPERTY(
         QString dataDir READ dataDir WRITE setDataDir NOTIFY dataDirChanged)
     Q_PROPERTY(QString dbPath READ dbPath NOTIFY dbPathChanged)
+    Q_PROPERTY(bool shutdownOnExit READ shutdownOnExit WRITE setShutdownOnExit
+                   NOTIFY shutdownOnExitChanged)
 
     // acolors settings
     Q_PROPERTY(QString acolorsPath READ acolorsPath WRITE setAcolorsPath NOTIFY
@@ -62,8 +64,6 @@ class ConfigTools : public QObject {
         QString logLevel READ logLevel WRITE setLogLevel NOTIFY logLevelChanged)
     Q_PROPERTY(bool apiEnable READ apiEnable WRITE setApiEnable NOTIFY
                    apiEnableChanged)
-    Q_PROPERTY(
-        QString apiPort READ apiPort WRITE setApiPort NOTIFY apiPortChanged)
     Q_PROPERTY(
         QString apiResultText READ apiResultText NOTIFY apiResultTextChanged)
 
@@ -225,6 +225,7 @@ class ConfigTools : public QObject {
     QString acolorsConfigPath();
     QString acolorsDbPath();
     QString acolorsAPIPort();
+    bool shutdownOnExit();
 
     // core setting
     QString coreName();
@@ -235,7 +236,6 @@ class ConfigTools : public QObject {
     QString logLevel();
     int logLines();
     bool apiEnable();
-    QString apiPort();
     QString apiResultText();
 
     // inbounds setting
@@ -307,11 +307,11 @@ class ConfigTools : public QObject {
     void setAcolorsConfigPath(const QUrl &val);
     void setAcolorsDbPath(const QUrl &val);
     void setAcolorsAPIPort(const QString &val);
+    void setShutdownOnExit(bool val);
     void setCorePath(const QUrl &val);
     void setAssetsPath(const QUrl &val);
     void setLogLevel(const QString &val);
     void setApiEnable(bool val);
-    void setApiPort(QString &val);
     void resetInbounds();
     void setInboundAddress(const QString &val);
     void setSocksEnable(bool val);
@@ -370,13 +370,13 @@ class ConfigTools : public QObject {
     void acolorsConfigPathChanged();
     void acolorsDbPathChanged();
     void acolorsAPIPortChanged();
+    void shutdownOnExitChanged();
     void coreNameChanged();
     void coreVersionChanged();
     void corePathChanged();
     void assetsPathChanged();
     void logLevelChanged();
     void apiEnableChanged();
-    void apiPortChanged();
     void apiResultTextChanged();
     void apiStatsChanged(bool stats);
     void inboundAddressChanged();

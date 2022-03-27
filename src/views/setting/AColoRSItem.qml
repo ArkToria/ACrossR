@@ -175,7 +175,7 @@ Item {
             Layout.alignment: Qt.AlignRight
             checked: acrossConfig.apiEnable
             onCheckedChanged: {
-                // acrossConfig.shutdownAColoRS= checked;
+                acrossConfig.shutdownOnExit = checked;
             }
         }
         Item {
