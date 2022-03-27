@@ -77,6 +77,9 @@ void AColoRSNotifications::start() {
                 auto group_id = reply.empty_group().group_id();
                 emit this->emptyGroup(group_id);
             } break;
+            case AColorSignal::SignalCase::kSetApiStatus:
+                emit this->setApiStatus();
+                break;
             case AColorSignal::SignalCase::kShutdown: {
                 shutdown = true;
                 emit this->shutdown();

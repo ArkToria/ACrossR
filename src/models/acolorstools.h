@@ -59,6 +59,7 @@ class AColoRSNotifications : public QObject {
     void runtimeValueChanged(std::string key);
     void emptyGroup(int64_t group_id);
     void shutdown();
+    void setApiStatus();
 
     void channelChanged();
     void stateChanged();
