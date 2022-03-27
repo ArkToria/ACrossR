@@ -25,10 +25,7 @@ APITools::~APITools() {
     }
 }
 
-void APITools::startMonitoring() {
-    p_worker->m_stop = false;
-    emit operate();
-}
+void APITools::startMonitoring() { emit operate(); }
 
 void APITools::stopMonitoring() { p_worker->stop(); }
 
@@ -74,18 +71,15 @@ APIWorker::APIWorker(const std::shared_ptr<grpc::Channel> &channel) {
 }
 
 void APIWorker::start() {
-    this->future.waitForFinished();
+    stop();
+    this->m_stop = false;
     this->future = QtConcurrent::run([&] {
-        qDebug() << "Test";
         while (!m_stop) {
             GetTrafficInfoRequest request;
             ClientContext context;
             acolors::TrafficInfo info;
             Status status;
             status = p_stub->GetTrafficInfo(&context, request, &info);
-
-            qDebug() << "Download" << info.download();
-            qDebug() << "Upload" << info.upload();
 
             auto traffic_info = TrafficInfo{
                 .upload = info.upload(),

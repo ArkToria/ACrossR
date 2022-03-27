@@ -26,75 +26,59 @@ void AColoRSNotifications::start() {
             auto signal_case = reply.signal_case();
             switch (signal_case) {
             case AColorSignal::SignalCase::kEmpty:
-                qDebug() << "Received: Empty:";
                 emit this->empty();
                 break;
             case AColorSignal::SignalCase::kAppendGroup: {
                 auto group_id = reply.append_group().group_id();
-                qDebug() << "Received: AppendGroup:";
                 emit this->appendGroup(group_id);
             } break;
             case AColorSignal::SignalCase::kUpdateCoreStatus:
-                qDebug() << "Received: UpdateCoreStatus:";
                 emit this->updateCoreStatus();
                 break;
             case AColorSignal::SignalCase::kUpdateInbounds:
-                qDebug() << "Received: UpdateInbounds:";
                 emit this->updateInbounds();
                 break;
             case AColorSignal::SignalCase::kCoreConfigChanged:
-                qDebug() << "Received: CoreConfigChanged:";
                 emit this->coreConfigChanged();
                 break;
             case AColorSignal::SignalCase::kCoreChanged:
-                qDebug() << "Received: CoreChanged:";
                 emit this->coreChanged();
                 break;
             case AColorSignal::SignalCase::kRemoveGroupById: {
                 auto group_id = reply.remove_group_by_id().group_id();
-                qDebug() << "Received: RemoveGroupByID:" << group_id;
                 emit this->removeGroupByID(group_id);
             } break;
             case AColorSignal::SignalCase::kRemoveNodeById: {
                 auto node_id = reply.remove_node_by_id().node_id();
-                qDebug() << "Received: RemoveNodeByID:" << node_id;
                 emit this->removeNodeByID(node_id);
             } break;
             case AColorSignal::SignalCase::kSetGroupById: {
                 auto group_id = reply.set_group_by_id().group_id();
-                qDebug() << "Received: SetGroupByID:" << group_id;
                 emit this->setGroupByID(group_id);
             } break;
             case AColorSignal::SignalCase::kSetNodeById: {
                 auto node_id = reply.set_node_by_id().node_id();
-                qDebug() << "Received: SetNodeByID:" << node_id;
                 emit this->setNodeByID(node_id);
             } break;
             case AColorSignal::SignalCase::kAppendNode: {
                 auto group_id = reply.append_node().group_id();
                 auto node_id = reply.append_node().node_id();
-                qDebug() << "Received: AppendNode:" << group_id;
                 emit this->appendNode(group_id, node_id);
             } break;
             case AColorSignal::SignalCase::kUpdateGroup: {
                 auto group_id = reply.update_group().group_id();
-                qDebug() << "Received: UpdateGroup:" << group_id;
                 emit this->updateGroup(group_id);
             } break;
             case AColorSignal::SignalCase::kRuntimeValueChanged: {
                 std::string key = reply.runtime_value_changed().key();
-                qDebug() << "Received: RuntimeValueChanged:"
-                         << QString::fromStdString(key);
                 emit this->runtimeValueChanged(std::move(key));
             } break;
             case AColorSignal::SignalCase::kEmptyGroup: {
                 auto group_id = reply.empty_group().group_id();
-                qDebug() << "Received: EmptyGroup:" << group_id;
                 emit this->emptyGroup(group_id);
             } break;
             case AColorSignal::SignalCase::kShutdown: {
                 shutdown = true;
-                qDebug() << "Received: Shutdown:";
                 emit this->shutdown();
             } break;
             default:
@@ -632,7 +616,6 @@ pair<int32_t, Status> AColoRSTools::tcping(const std::string &target) {
 
 AColoRSAPITools::AColoRSAPITools(const std::string &target) {
     this->target = target;
-    qDebug() << "Creating Channel:" << QString::fromStdString(target);
     this->p_channel =
         grpc::CreateChannel(this->target, grpc::InsecureChannelCredentials());
 

@@ -43,11 +43,10 @@ class APIWorker : public QObject {
   signals:
     void trafficChanged(const QVariant &data);
 
-  public:
-    bool m_stop = false;
-
   private:
     std::unique_ptr<acolors::CoreManager::Stub> p_stub;
+
+    bool m_stop = false;
 
     QFuture<void> future;
 };
