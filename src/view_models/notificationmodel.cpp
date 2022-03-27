@@ -19,7 +19,10 @@ Notification::Notification(int index, QObject *parent) : QObject(parent) {
 }
 
 NotificationModel::NotificationModel(QObject *parent)
-    : QAbstractListModel(parent) {}
+    : QAbstractListModel(parent) {
+
+    connect(this, &NotificationModel::notifySent, &NotificationModel::notify);
+}
 
 void NotificationModel::init(QObject *popNotify) {
     this->p_popNotify = popNotify;
@@ -111,11 +114,11 @@ NotificationModel::append(const QString &title, const QString &message = "",
     return noti;
 }
 
-void NotificationModel::send_notify(const QString &title,
-                                    const QString &message, double from,
-                                    double to, double value, int duration) {
+void NotificationModel::sendNotify(const QString &title, const QString &message,
+                                   double from, double to, double value,
+                                   int duration) {
 
-    emit notify_sent(title, message, from, to, value, duration);
+    emit notifySent(title, message, from, to, value, duration);
 }
 
 across::Notification *NotificationModel::notify(const QString &title,

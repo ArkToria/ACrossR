@@ -173,7 +173,7 @@ Item {
             id: apiSwitch
 
             Layout.alignment: Qt.AlignRight
-            checked: acrossConfig.apiEnable
+            checked: acrossConfig.shutdownOnExit
             onCheckedChanged: {
                 acrossConfig.shutdownOnExit = checked;
             }

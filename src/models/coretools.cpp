@@ -54,7 +54,7 @@ int CoreTools::run() {
     if (status.ok()) {
         p_logger->info("Core is running...");
     } else {
-        p_notifications->send_notify(
+        p_notifications->sendNotify(
             tr("Core Error"),
             tr("Failed to start the process: %1")
                 .arg(QString::fromStdString(status.error_message())),

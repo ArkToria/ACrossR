@@ -115,7 +115,7 @@ Item {
 
             Layout.fillWidth: true
             Layout.columnSpan: 3
-            text: acrossConfig.coreInfo
+            text: acrossConfig.coreName + acrossConfig.coreVersion
             readOnly: true
             color: acrossConfig.textColor
         }
