@@ -7,9 +7,6 @@
 #include <QMap>
 #include <QMutex>
 #include <QThread>
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlQuery>
 
 #include "magic_enum.hpp"
 

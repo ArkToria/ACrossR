@@ -195,6 +195,7 @@ Item {
             Layout.alignment: Qt.AlignRight
             text: qsTr("Shutdown")
             onClicked: {
+                acolorsNotifications.stop();
                 acolors.shutdown();
             }
         }

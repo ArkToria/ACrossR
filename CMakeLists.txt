@@ -28,7 +28,7 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/qrc.cmake")
 
 # Qt 6.2
 find_package(Qt6 6.2 REQUIRED COMPONENTS Gui Core Quick Widgets DBus QuickControls2
-    Core5Compat Sql LinguistTools Concurrent ToolsTools )
+    Core5Compat LinguistTools Concurrent ToolsTools )
 
 # curl
 CPMAddPackage(
@@ -169,7 +169,6 @@ target_link_libraries(across PRIVATE
     Qt::Widgets
     Qt::DBus
     Qt::Core5Compat
-    Qt::Sql
     Qt::Concurrent
     Qt::QuickControls2
     CURL::libcurl
