@@ -72,6 +72,14 @@ APIWorker::APIWorker(const std::shared_ptr<grpc::Channel> &channel) {
 
 void APIWorker::start() {
     stop();
+    QFutureWatcher<void> watcher;
+    watcher.setFuture(this->future);
+    QEventLoop loop;
+    connect(&watcher, &QFutureWatcher<void>::finished, &loop,
+            &QEventLoop::quit);
+    if (!this->future.isFinished())
+        loop.exec();
+
     this->m_stop = false;
     this->future = QtConcurrent::run([&] {
         while (!m_stop) {
@@ -104,9 +112,6 @@ void APIWorker::start() {
     });
 }
 
-void APIWorker::stop() {
-    this->m_stop = true;
-    this->future.waitForFinished();
-}
+void APIWorker::stop() { this->m_stop = true; }
 
 void across::core::TrafficInfo::clear() { download = upload = 0; }

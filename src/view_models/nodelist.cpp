@@ -59,19 +59,17 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
         }
     });
 
-    connect(p_acolors->notifications(),
-            &across::acolorsapi::AColoRSNotifications::updateCoreStatus, this,
-            [&]() {
-                if (p_api != nullptr) {
-                    if (p_core->isRunning() && p_config->apiEnable()) {
-                        p_api->startMonitoring();
-                    } else {
-                        p_api->stopMonitoring();
-                        m_traffic_last.clear();
-                        m_traffic_sum.clear();
-                    }
-                }
-            });
+    connect(p_core.get(), &CoreTools::isRunningChanged, this, [&]() {
+        if (p_api != nullptr) {
+            if (p_core->isRunning() && p_config->apiEnable()) {
+                p_api->startMonitoring();
+            } else {
+                p_api->stopMonitoring();
+                m_traffic_last.clear();
+                m_traffic_sum.clear();
+            }
+        }
+    });
 
     connect(this, &NodeList::itemLatencyChanged, this,
             &NodeList::handleLatencyChanged);

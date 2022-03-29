@@ -2,6 +2,7 @@
 #define APITOOLS_H
 
 #include <QEventLoop>
+#include <QFutureWatcher>
 #include <QObject>
 #include <QString>
 #include <QTimer>
