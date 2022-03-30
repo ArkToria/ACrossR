@@ -5,9 +5,9 @@
 #include <QFutureWatcher>
 #include <QObject>
 #include <QString>
+#include <QThread>
 #include <QTimer>
 #include <QVariant>
-#include <QtConcurrent>
 
 #include <atomic>
 #include <grpcpp/grpcpp.h>
@@ -42,14 +42,13 @@ class APIWorker : public QObject {
     void stop();
 
   signals:
+    void aboutToQuit();
     void trafficChanged(const QVariant &data);
 
   private:
     std::unique_ptr<acolors::CoreManager::Stub> p_stub;
 
     bool m_stop = false;
-
-    QFuture<void> future;
 };
 
 class APITools : public QObject {
@@ -93,6 +92,7 @@ class APITools : public QObject {
   private:
     std::shared_ptr<Channel> p_channel;
     APIWorker *p_worker = nullptr;
+    QThread *p_thread = nullptr;
 };
 } // namespace across::core
 

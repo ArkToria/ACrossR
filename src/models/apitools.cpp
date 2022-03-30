@@ -9,7 +9,9 @@ APITools::APITools(const std::shared_ptr<Channel> &channel) {
     p_channel = channel;
 
     // create thread
+    p_thread = new QThread(this);
     p_worker = new APIWorker(p_channel);
+    p_worker->moveToThread(p_thread);
 
     // control signals
     connect(this, &APITools::operate, p_worker, &APIWorker::start);
@@ -18,16 +20,23 @@ APITools::APITools(const std::shared_ptr<Channel> &channel) {
 }
 
 APITools::~APITools() {
-
     if (p_worker) {
-        p_worker->stop();
+        emit p_worker->aboutToQuit();
         p_worker->deleteLater();
+    }
+    if (p_thread) {
+        p_thread->quit();
+        p_thread->wait();
     }
 }
 
-void APITools::startMonitoring() { emit operate(); }
+void APITools::startMonitoring() {
+    // qDebug() << "StartMonitoring";
+    p_thread->start();
+    emit operate();
+}
 
-void APITools::stopMonitoring() { p_worker->stop(); }
+void APITools::stopMonitoring() { emit p_worker->aboutToQuit(); }
 
 void APITools::restartMonitoring() { startMonitoring(); }
 
@@ -68,48 +77,43 @@ void APITools::handleTrafficResult(const QVariant &data) {
 
 APIWorker::APIWorker(const std::shared_ptr<grpc::Channel> &channel) {
     p_stub = acolors::CoreManager::NewStub(channel);
+    connect(this, &APIWorker::aboutToQuit, this, &APIWorker::stop);
 }
 
 void APIWorker::start() {
-    stop();
-    QFutureWatcher<void> watcher;
-    watcher.setFuture(this->future);
-    QEventLoop loop;
-    connect(&watcher, &QFutureWatcher<void>::finished, &loop,
-            &QEventLoop::quit);
-    if (!this->future.isFinished())
-        loop.exec();
 
+    // qDebug() << "StartLoop";
     this->m_stop = false;
-    this->future = QtConcurrent::run([&] {
-        while (!m_stop) {
-            GetTrafficInfoRequest request;
-            ClientContext context;
-            acolors::TrafficInfo info;
-            Status status;
-            status = p_stub->GetTrafficInfo(&context, request, &info);
+    while (!m_stop) {
+        GetTrafficInfoRequest request;
+        ClientContext context;
+        acolors::TrafficInfo info;
+        Status status;
+        status = p_stub->GetTrafficInfo(&context, request, &info);
 
-            auto traffic_info = TrafficInfo{
-                .upload = info.upload(),
-                .download = info.download(),
-            };
+        auto traffic_info = TrafficInfo{
+            .upload = info.upload(),
+            .download = info.download(),
+        };
+        // qDebug() << "Traffic:" << traffic_info.upload <<
+        // traffic_info.download;
 
-            emit trafficChanged(QVariant::fromValue<TrafficInfo>(traffic_info));
+        emit trafficChanged(QVariant::fromValue<TrafficInfo>(traffic_info));
 
-            if (!status.ok())
-                qDebug() << status.error_message().c_str();
+        if (!status.ok())
+            qDebug() << status.error_message().c_str();
 
-            if (traffic_info.upload < 0 || traffic_info.download < 0)
-                break;
-            else {
-                QTimer timer;
-                QEventLoop loop;
-                connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-                timer.start(1000);
-                loop.exec();
-            }
+        if (traffic_info.upload < 0 || traffic_info.download < 0)
+            break;
+        else {
+            QTimer timer;
+            QEventLoop loop;
+            connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+            connect(this, &APIWorker::aboutToQuit, &loop, &QEventLoop::quit);
+            timer.start(1000);
+            loop.exec();
         }
-    });
+    }
 }
 
 void APIWorker::stop() { this->m_stop = true; }
