@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="23"/>
         <source>Select AColoRS Core Path</source>
-        <translation type="unfinished"></translation>
+        <translation>选择AColoRS核心路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="33"/>
         <source>Select Config Path</source>
-        <translation type="unfinished"></translation>
+        <translation>选择配置路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="43"/>
         <source>Select Database Path</source>
-        <translation type="unfinished">选择数据库路径</translation>
+        <translation>选择数据库路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="59"/>
         <source>AColoRS Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>AColoRS 配置</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="66"/>
         <source>Core path</source>
-        <translation type="unfinished">核心路径</translation>
+        <translation>核心路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="73"/>
         <source>Enter AColoRS Core Executable Path Here</source>
-        <translation type="unfinished"></translation>
+        <translation>输入AColoRS核心路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="78"/>
@@ -39,47 +39,47 @@
         <location filename="../src/views/setting/AColoRSItem.qml" line="118"/>
         <location filename="../src/views/setting/AColoRSItem.qml" line="157"/>
         <source>Select</source>
-        <translation type="unfinished">选择</translation>
+        <translation>选择</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="86"/>
         <source>Config path</source>
-        <translation type="unfinished"></translation>
+        <translation>配置路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="93"/>
         <source>Enter Config Directory Here</source>
-        <translation type="unfinished"></translation>
+        <translation>输入配置路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="106"/>
         <source>Database path</source>
-        <translation type="unfinished"></translation>
+        <translation>存档路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="113"/>
         <source>Enter Database Directory Here</source>
-        <translation type="unfinished"></translation>
+        <translation>输入存档路径</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="167"/>
         <source>Shutdown on exit</source>
-        <translation type="unfinished"></translation>
+        <translation>界面关闭时退出</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="189"/>
         <source>Restart</source>
-        <translation type="unfinished"></translation>
+        <translation>重启</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="196"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="150"/>
         <source>Core Path</source>
-        <translation type="unfinished"></translation>
+        <translation>核心路径</translation>
     </message>
     <message>
         <source>Core Info</source>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../src/views/setting/AColoRSItem.qml" line="127"/>
         <source>API Port</source>
-        <translation type="unfinished">API 端口</translation>
+        <translation>API 端口</translation>
     </message>
     <message>
         <source>Test Result</source>
