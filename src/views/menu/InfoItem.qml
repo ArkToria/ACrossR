@@ -10,21 +10,29 @@ Item {
         anchors.fill: parent
         anchors.centerIn: parent
 
-        Label {
-            id: apiStateText
-
-            Layout.fillWidth: true
-            horizontalAlignment: Qt.AlignHCenter
-            text: "AColoRS"
-            color: acolorsNotifications.isRunning?acrossConfig.textColor:acrossConfig.warnColor;
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.LeftButton
-                onClicked: acolors.reconnect();
-                hoverEnabled: true
-                cursorShape: containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
+        Row {
+            Layout.alignment: Qt.AlignHCenter
+            Label {
+                id: apiStateText
+                text: "AColoRS"
+                color: acrossConfig.textColor;
+            }
+            SVGBox {
+                id: powerIcon
+                // visible: true
+                source: "qrc:/misc/icons/" + acrossConfig.iconStyle + ( acolorsNotifications.isRunning ? "/power.svg" : "/power_off.svg" )
+                sourceWidth: 20
+                sourceHeight: 20
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton
+                    onClicked: acolors.reconnect();
+                    hoverEnabled: true
+                    cursorShape: containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
             }
         }
+        
 
         Label {
             id: coreVersionText

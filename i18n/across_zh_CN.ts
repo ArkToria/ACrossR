@@ -882,7 +882,7 @@
         <translation type="vanished">核心</translation>
     </message>
     <message>
-        <location filename="../src/views/menu/InfoItem.qml" line="43"/>
+        <location filename="../src/views/menu/InfoItem.qml" line="51"/>
         <source>Client</source>
         <translation>客户端</translation>
     </message>
