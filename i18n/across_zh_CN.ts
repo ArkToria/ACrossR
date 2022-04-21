@@ -163,6 +163,41 @@
     </message>
 </context>
 <context>
+    <name>ApiForm</name>
+    <message>
+        <location filename="../src/views/menu/ApiForm.qml" line="11"/>
+        <source>AColoRS API settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">名称</translation>
+    </message>
+    <message>
+        <source>Enter the unique group name</source>
+        <translation type="obsolete">输入唯一的组名称</translation>
+    </message>
+    <message>
+        <source>Subscription</source>
+        <translation type="obsolete">订阅</translation>
+    </message>
+    <message>
+        <location filename="../src/views/menu/ApiForm.qml" line="50"/>
+        <source>Target</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/menu/ApiForm.qml" line="80"/>
+        <source>Accept</source>
+        <translation type="unfinished">接受</translation>
+    </message>
+    <message>
+        <location filename="../src/views/menu/ApiForm.qml" line="89"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+</context>
+<context>
     <name>AppLog</name>
     <message>
         <location filename="../src/views/log/AppLog.qml" line="20"/>
@@ -882,7 +917,7 @@
         <translation type="vanished">核心</translation>
     </message>
     <message>
-        <location filename="../src/views/menu/InfoItem.qml" line="51"/>
+        <location filename="../src/views/menu/InfoItem.qml" line="64"/>
         <source>Client</source>
         <translation>客户端</translation>
     </message>

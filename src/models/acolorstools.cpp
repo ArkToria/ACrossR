@@ -617,10 +617,10 @@ pair<int32_t, Status> AColoRSTools::tcping(const std::string &target) {
     return std::make_pair(reply.duration().nanos() / 1000000, status);
 }
 
-AColoRSAPITools::AColoRSAPITools(const std::string &target) {
+AColoRSAPITools::AColoRSAPITools(const QString &target) {
     this->target = target;
-    this->p_channel =
-        grpc::CreateChannel(this->target, grpc::InsecureChannelCredentials());
+    this->p_channel = grpc::CreateChannel(this->target.toStdString(),
+                                          grpc::InsecureChannelCredentials());
 
     this->p_stub = Manager::NewStub(p_channel);
     this->p_notifications = std::make_unique<AColoRSNotifications>(p_channel);
@@ -653,10 +653,10 @@ void AColoRSAPITools::updateConnected() {
     emit connectedChanged();
 }
 
-void AColoRSAPITools::setTarget(const std::string target) {
+void AColoRSAPITools::setTarget(const QString target) {
     this->target = target;
     reconnect();
-    emit targetChanged(target);
+    emit targetChanged();
 }
 
 bool AColoRSAPITools::startProcess() {
@@ -688,8 +688,8 @@ Status AColoRSAPITools::shutdown() {
 
 void AColoRSAPITools::reconnect() {
     this->p_notifications->stop();
-    this->p_channel =
-        grpc::CreateChannel(this->target, grpc::InsecureChannelCredentials());
+    this->p_channel = grpc::CreateChannel(this->target.toStdString(),
+                                          grpc::InsecureChannelCredentials());
 
     this->p_stub = Manager::NewStub(p_channel);
     this->p_notifications->setChannel(this->p_channel);

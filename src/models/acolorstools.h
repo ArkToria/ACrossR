@@ -190,8 +190,10 @@ class AColoRSAPITools : public QObject {
     Q_OBJECT
     Q_PROPERTY(AColoRSNotifications notifications READ notifications NOTIFY
                    notificationsChanged)
+    Q_PROPERTY(
+        QString target READ getTarget WRITE setTarget NOTIFY targetChanged)
   public:
-    explicit AColoRSAPITools(const std::string &target);
+    explicit AColoRSAPITools(const QString &target);
 
     ~AColoRSAPITools() override;
 
@@ -221,7 +223,9 @@ class AColoRSAPITools : public QObject {
 
     bool startProcess();
 
-    void setTarget(const std::string target);
+    void setTarget(const QString target);
+
+    [[nodiscard]] const QString &getTarget() { return this->target; };
 
     Q_INVOKABLE Status shutdown();
 
@@ -233,7 +237,7 @@ class AColoRSAPITools : public QObject {
     Q_INVOKABLE void reconnect();
 
   signals:
-    void targetChanged(const std::string &target);
+    void targetChanged();
     void notificationsChanged();
     void connectedChanged();
 
@@ -248,7 +252,7 @@ class AColoRSAPITools : public QObject {
 
   private:
     qint64 process_pid = -1;
-    std::string target;
+    QString target;
     bool connected = false;
 
     bool enableAutoConnect;

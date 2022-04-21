@@ -5,6 +5,16 @@ import QtQuick.Layouts
 
 Item {
     implicitHeight: apiStateText.contentHeight + coreVersionText.contentHeight + guiVersionText.contentHeight
+    property Component apiFormComponent: null
+    function openApiForm() {
+        darkBackground.show();
+        if (apiFormComponent == null)
+            apiFormComponent = Qt.createComponent("qrc:/Arktoria/ACross/src/views/menu/ApiForm.qml");
+
+        if (apiFormComponent.status === Component.Ready)
+            apiFormComponent.createObject(parent).open();
+
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -26,7 +36,10 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
-                    onClicked: acolors.reconnect();
+                    onClicked: {
+                        // acolors.reconnect();
+                        openApiForm();
+                    }
                     hoverEnabled: true
                     cursorShape: containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
                 }
