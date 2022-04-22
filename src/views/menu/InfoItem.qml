@@ -37,7 +37,6 @@ Item {
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
                     onClicked: {
-                        // acolors.reconnect();
                         openApiForm();
                     }
                     hoverEnabled: true

@@ -64,6 +64,8 @@ class Application : public SingleApplication {
 
     static void removeImageProvider(ImageProvider *img_provider);
 
+    Q_INVOKABLE void resetAcolorsConfig();
+
   private slots:
     void onMessageReceived(quint32 clientId, const QByteArray &msg);
     void handleShutdown();

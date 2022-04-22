@@ -41,7 +41,10 @@ class APIWorker : public QObject {
 
     void stop();
 
+    void setChannel(const std::shared_ptr<Channel> &channel);
+
   signals:
+    void channelChanged();
     void aboutToQuit();
     void trafficChanged(const QVariant &data);
 
@@ -63,6 +66,8 @@ class APITools : public QObject {
     void stopMonitoring();
 
     void restartMonitoring();
+
+    void setChannel(const std::shared_ptr<Channel> &channel);
 
     [[nodiscard]] std::pair<bool, std::string> isOk() const;
 
@@ -88,6 +93,8 @@ class APITools : public QObject {
     void operate();
 
     void trafficChanged(const QVariant &data);
+
+    void channelChanged();
 
   private:
     std::shared_ptr<Channel> p_channel;

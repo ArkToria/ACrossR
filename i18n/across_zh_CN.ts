@@ -72,7 +72,7 @@
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../src/views/setting/AColoRSItem.qml" line="196"/>
+        <location filename="../src/views/setting/AColoRSItem.qml" line="197"/>
         <source>Shutdown</source>
         <translation>退出</translation>
     </message>
@@ -192,7 +192,7 @@
         <translation type="unfinished">接受</translation>
     </message>
     <message>
-        <location filename="../src/views/menu/ApiForm.qml" line="89"/>
+        <location filename="../src/views/menu/ApiForm.qml" line="88"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
@@ -917,7 +917,7 @@
         <translation type="vanished">核心</translation>
     </message>
     <message>
-        <location filename="../src/views/menu/InfoItem.qml" line="64"/>
+        <location filename="../src/views/menu/InfoItem.qml" line="63"/>
         <source>Client</source>
         <translation>客户端</translation>
     </message>
@@ -1440,7 +1440,7 @@
 <context>
     <name>across::NodeList</name>
     <message>
-        <location filename="../src/view_models/nodelist.cpp" line="323"/>
+        <location filename="../src/view_models/nodelist.cpp" line="326"/>
         <source>Copy [%1] URL to clipboard</source>
         <translation>复制 [%1] 链接到剪贴板</translation>
     </message>

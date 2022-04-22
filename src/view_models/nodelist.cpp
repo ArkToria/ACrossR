@@ -76,6 +76,9 @@ void NodeList::init(QSharedPointer<across::setting::ConfigTools> config,
 
     if (p_config->apiEnable()) {
         p_api = QSharedPointer<APITools>::create(p_acolors->channel());
+        connect(p_acolors.get(), &acolorsapi::AColoRSAPITools::targetChanged,
+                p_api.get(),
+                [&]() { p_api->setChannel(p_acolors->channel()); });
         if (p_core->isRunning()) {
             p_api->startMonitoring();
         } else {

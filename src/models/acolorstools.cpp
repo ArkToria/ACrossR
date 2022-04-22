@@ -719,6 +719,7 @@ void AColoRSAPITools::wait(int msec) {
 
 void AColoRSAPITools::checkAndReconnect() {
     this->is_reconnect = QtConcurrent::run([&] {
+        this->setTarget(QString("127.0.0.1:%1").arg(this->port));
         wait(200);
         if (this->isConnected())
             return;

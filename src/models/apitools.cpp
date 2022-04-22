@@ -40,6 +40,11 @@ void APITools::stopMonitoring() { emit p_worker->aboutToQuit(); }
 
 void APITools::restartMonitoring() { startMonitoring(); }
 
+void APITools::setChannel(const std::shared_ptr<Channel> &channel) {
+    p_channel = channel;
+    p_worker->setChannel(channel);
+}
+
 std::pair<bool, std::string> APITools::isOk() const {
     auto p_stub = acolors::CoreManager::NewStub(p_channel);
 
@@ -117,5 +122,11 @@ void APIWorker::start() {
 }
 
 void APIWorker::stop() { this->m_stop = true; }
+
+void APIWorker::setChannel(const std::shared_ptr<Channel> &channel) {
+    qDebug() << "setchannel";
+    this->p_stub = acolors::CoreManager::NewStub(channel);
+    emit channelChanged();
+}
 
 void across::core::TrafficInfo::clear() { download = upload = 0; }

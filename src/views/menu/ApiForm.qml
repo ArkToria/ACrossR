@@ -80,7 +80,6 @@ Popup {
                     text: qsTr("Accept")
                     onClicked: {
                         acolors.target = target.text
-                        acolors.reconnect();
                         popWindow.close();
                     }
                 }

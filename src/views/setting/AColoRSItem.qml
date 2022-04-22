@@ -188,6 +188,7 @@ Item {
             Layout.alignment: Qt.AlignRight
             text: qsTr("Restart")
             onClicked: {
+                acrossApplication.resetAcolorsConfig();
                 acolors.restartAColoRS();
             }
         }

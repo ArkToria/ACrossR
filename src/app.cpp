@@ -45,9 +45,7 @@ bool Application::initialize() {
     p_image_provider = new ImageProvider; // free by qml engine
 
     p_config->init(p_curl, p_acolors);
-    p_acolors->init(p_config->acolorsPath(), p_config->acolorsAPIPort().toInt(),
-                    p_config->corePath(), p_config->acolorsConfigPath(),
-                    p_config->acolorsDbPath());
+    resetAcolorsConfig();
 
     registerModels();
     setRootContext();
@@ -117,6 +115,8 @@ void Application::setRootContext() {
         Qt::QueuedConnection);
 
     m_engine.addImportPath(u"qrc:/"_qs);
+    m_engine.rootContext()->setContextProperty(
+        QStringLiteral("acrossApplication"), this);
     m_engine.rootContext()->setContextProperty(QStringLiteral("acrossLogView"),
                                                &m_log);
     m_engine.rootContext()->setContextProperty(QStringLiteral("acrossConfig"),
@@ -198,6 +198,12 @@ void Application::registerModels() {
                                            "NodeFormModel");
     qmlRegisterType<across::Notification>(qml_model_name.c_str(), 1, 0,
                                           "Notification");
+}
+
+Q_INVOKABLE void Application::resetAcolorsConfig() {
+    p_acolors->init(p_config->acolorsPath(), p_config->acolorsAPIPort().toInt(),
+                    p_config->corePath(), p_config->acolorsConfigPath(),
+                    p_config->acolorsDbPath());
 }
 
 void Application::onMessageReceived(quint32 clientId, const QByteArray &msg) {
