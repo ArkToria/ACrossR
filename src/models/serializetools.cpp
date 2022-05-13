@@ -85,7 +85,7 @@ std::optional<QUrl> SerializeTools::sip002Encode(const URLMetaObject &meta) {
     QUrl url;
     auto outbound = &meta.outbound;
     auto setting = outbound->settings().shadowsocks();
-    const auto& server = setting.servers(0);
+    const auto &server = setting.servers(0);
 
     QString user_info =
         QString("%1:%2")
@@ -183,7 +183,7 @@ std::optional<QUrl> SerializeTools::trojanEncode(const URLMetaObject &meta) {
 
     auto outbound = &meta.outbound;
     auto setting = outbound->settings().trojan();
-    const auto& server = setting.servers(0);
+    const auto &server = setting.servers(0);
 
     url.setScheme(outbound->protocol().c_str());
     url.setHost(server.address().c_str());
@@ -192,10 +192,10 @@ std::optional<QUrl> SerializeTools::trojanEncode(const URLMetaObject &meta) {
     url.setFragment(meta.name.c_str());
 
     if (outbound->has_streamsettings()) {
-        const auto& stream = outbound->streamsettings();
+        const auto &stream = outbound->streamsettings();
 
         if (stream.has_tlssettings()) {
-            const auto& tls = stream.tlssettings();
+            const auto &tls = stream.tlssettings();
             query.addQueryItem("sni", tls.servername().c_str());
 
             if (tls.allowinsecure()) {
@@ -424,9 +424,9 @@ SerializeTools::vmessBase64Encode(const URLMetaObject &meta) {
     QUrl url;
     auto outbound = &meta.outbound;
     auto settings = outbound->settings().vmess();
-    const auto& server = settings.vnext(0);
-    const auto& user = server.users(0);
-    const auto& stream = outbound->streamsettings();
+    const auto &server = settings.vnext(0);
+    const auto &user = server.users(0);
+    const auto &stream = outbound->streamsettings();
 
     url.setScheme(outbound->protocol().c_str());
 
@@ -473,20 +473,20 @@ SerializeTools::vmessBase64Encode(const URLMetaObject &meta) {
             }
 
             if (stream.network() == "ws" && stream.has_wssettings()) {
-                const auto& websocket = stream.wssettings();
+                const auto &websocket = stream.wssettings();
                 root["host"] = websocket.headers().at("Host");
                 root["path"] = websocket.path();
                 break;
             }
 
             if (stream.network() == "grpc" && stream.has_grpcsettings()) {
-                const auto& grpc = stream.grpcsettings();
+                const auto &grpc = stream.grpcsettings();
                 root["path"] = grpc.servicename();
                 break;
             }
 
             if (stream.network() == "quic" && stream.has_quicsettings()) {
-                const auto& quic = stream.quicsettings();
+                const auto &quic = stream.quicsettings();
                 root["type"] = quic.header().type();
                 root["host"] = quic.security();
                 root["path"] = quic.key();
@@ -534,9 +534,9 @@ bool SerializeTools::setShadowsocksOutboundFromURL(NodeInfo &node,
 
     auto outbound = meta->outbound;
     auto shadowsocks = outbound.settings().shadowsocks();
-    const auto& server = shadowsocks.servers(0);
+    const auto &server = shadowsocks.servers(0);
 
-    node.protocol = EntryType::shadowsocks;
+    node.protocol = "shadowsocks";
     node.name = meta->name.c_str();
     node.address = server.address().c_str();
     node.port = server.port();
@@ -554,10 +554,10 @@ bool SerializeTools::setVMessOutboundFromBase64(NodeInfo &node,
 
     auto outbound = meta->outbound;
     auto vmess = outbound.settings().vmess();
-    const auto& server = vmess.vnext(0);
-    const auto& user = server.users(0);
+    const auto &server = vmess.vnext(0);
+    const auto &user = server.users(0);
 
-    node.protocol = EntryType::vmess;
+    node.protocol = "vmess";
     node.name = meta->name.c_str();
     node.address = server.address().c_str();
     node.port = server.port();
@@ -575,9 +575,9 @@ bool SerializeTools::setTrojanOutboundFromURL(NodeInfo &node,
 
     auto outbound = meta->outbound;
     auto trojan = outbound.settings().trojan();
-    const auto& server = trojan.servers(0);
+    const auto &server = trojan.servers(0);
 
-    node.protocol = EntryType::trojan;
+    node.protocol = "trojan";
     node.name = meta->name.c_str();
     node.address = server.address().c_str();
     node.port = server.port();

@@ -17,16 +17,6 @@ enum SubscriptionType : int {
     jsonraw = 2,
 };
 
-enum EntryType : int {
-    vmess,
-    shadowsocks,
-    trojan,
-    raw,
-    scheme,
-    unknown,
-    naiveproxy,
-};
-
 struct NodeInfo {
     qint64 id = 0;
     QString name = "";
@@ -34,7 +24,7 @@ struct NodeInfo {
     QString group_name = "";
     qint64 routing_id = 0;
     QString routing_name;
-    EntryType protocol;
+    QString protocol = "";
     QString address = "";
     uint port = 0;
     QString password = "";

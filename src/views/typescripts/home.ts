@@ -306,24 +306,6 @@ function shadowsocksComponentSetting(visible: boolean, components: any, model: a
     }
 }
 
-function displayProtocolText(protocol: number): string {
-    switch (protocol) {
-        case 0:
-            return "vmess"
-        case 1:
-            return "shadowsocks"
-        case 2:
-            return "trojan"
-        case 4:
-            return "raw"
-        case 5:
-            return "scheme"
-        case 6:
-            return "naiveproxy"
-        default:
-            return "unknown"
-    }
-}
 
 function isCurrentNode(nodes: any, groupID: number, nodeID: number, core: any): boolean {
     let result = false

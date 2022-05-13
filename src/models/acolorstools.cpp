@@ -327,32 +327,7 @@ across::NodeInfo AColoRSProfile::nodeFrom(const acolors::NodeData &data) {
     result.group_name = QString::fromStdString(data.group_name());
     result.routing_id = data.routing_id();
     result.routing_name = QString::fromStdString(data.routing_name());
-    switch (data.protocol()) {
-    case acolors::EntryType::VMESS:
-        result.protocol = across::EntryType::vmess;
-        break;
-    case acolors::EntryType::SHADOWSOCKS:
-        result.protocol = across::EntryType::shadowsocks;
-        break;
-    case acolors::EntryType::TROJAN:
-        result.protocol = across::EntryType::trojan;
-        break;
-    case acolors::EntryType::RAW:
-        result.protocol = across::EntryType::raw;
-        break;
-    case acolors::EntryType::SCHEME:
-        result.protocol = across::EntryType::scheme;
-        break;
-    case acolors::EntryType::UNKNOWN:
-        result.protocol = across::EntryType::unknown;
-        break;
-    case acolors::EntryType::NAIVEPROXY:
-        result.protocol = across::EntryType::naiveproxy;
-        break;
-
-    default:
-        break;
-    }
+    result.protocol = QString::fromStdString(data.protocol());
     result.address = QString::fromStdString(data.address());
     result.port = data.port();
     result.password = QString::fromStdString(data.password());
@@ -473,32 +448,7 @@ acolors::NodeData AColoRSProfile::nodeTo(const NodeInfo &data) {
     result.set_group_name(data.group_name.toStdString());
     result.set_routing_id(int32_t(data.routing_id));
     result.set_routing_name(data.routing_name.toStdString());
-    switch (data.protocol) {
-    case across::EntryType::vmess:
-        result.set_protocol(acolors::EntryType::VMESS);
-        break;
-    case across::EntryType::shadowsocks:
-        result.set_protocol(acolors::EntryType::SHADOWSOCKS);
-        break;
-    case across::EntryType::trojan:
-        result.set_protocol(acolors::EntryType::TROJAN);
-        break;
-    case across::EntryType::raw:
-        result.set_protocol(acolors::EntryType::RAW);
-        break;
-    case across::EntryType::scheme:
-        result.set_protocol(acolors::EntryType::SCHEME);
-        break;
-    case across::EntryType::unknown:
-        result.set_protocol(acolors::EntryType::UNKNOWN);
-        break;
-    case across::EntryType::naiveproxy:
-        result.set_protocol(acolors::EntryType::NAIVEPROXY);
-        break;
-
-    default:
-        break;
-    }
+    result.set_protocol(data.protocol.toStdString());
     result.set_address(data.address.toStdString());
     result.set_port(int32_t(data.port));
     result.set_password(data.password.toStdString());

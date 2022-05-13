@@ -123,7 +123,7 @@ Item {
                 id: protocolText
 
                 Layout.fillWidth: true
-                text: HomeJS.displayProtocolText(protocol)
+                text: protocol
                 color: textColor
             }
 

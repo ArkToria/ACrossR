@@ -110,33 +110,10 @@ bool NodeFormModel::manualSetting(NodeInfo &node, const QVariantMap &values) {
         node.address = values.value("address").toString();
         node.port = values.value("port").toUInt();
         node.password = values.value("password").toString();
-        node.protocol =
-            magic_enum::enum_value<EntryType>(values.value("protocol").toInt());
+        node.protocol = values.value("protocol").toString();
 
         if (node.port == 0)
             node.port = 443;
-
-        switch (node.protocol) {
-        case EntryType::vmess:
-            if (values.contains("vmess") && !values.value("vmess").isNull()) {
-                auto vmess = values.value("vmess").toMap();
-                return setVMessOutboud(node, vmess);
-            }
-            break;
-        case EntryType::shadowsocks:
-            if (values.contains("shadowsocks") &&
-                !values.value("shadowsocks").isNull()) {
-                auto shadowsocks = values.value("shadowsocks").toMap();
-                return setShadowsocksOutbound(node, shadowsocks);
-            }
-        case EntryType::trojan:
-            if (values.contains("trojan") && !values.value("trojan").isNull()) {
-                auto trojan = values.value("trojan").toMap();
-                return setTrojanOutbound(node, trojan);
-            }
-        default:
-            break;
-        }
     }
 
     return false;
@@ -436,7 +413,7 @@ bool NodeFormModel::setRawOutbound(NodeInfo &node, const QVariantMap &values) {
                 continue;
 
             node.name = config_name;
-            node.protocol = EntryType::vmess;
+            node.protocol = "vmess";
             node.address = server["address"].get<std::string>().c_str();
             node.port = server["port"].get<uint>();
             node.password = user["id"].get<std::string>().c_str();
@@ -458,9 +435,9 @@ bool NodeFormModel::setRawOutbound(NodeInfo &node, const QVariantMap &values) {
                 continue;
 
             if (protocol == "trojan")
-                node.protocol = EntryType::trojan;
+                node.protocol = "trojan";
             else
-                node.protocol = EntryType::shadowsocks;
+                node.protocol = "shadowsocks";
 
             node.name = config_name;
             node.address = server["address"].get<std::string>().c_str();

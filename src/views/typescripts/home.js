@@ -253,24 +253,6 @@ function shadowsocksComponentSetting(visible, components, model = null) {
         }
     }
 }
-function displayProtocolText(protocol) {
-    switch (protocol) {
-        case 0:
-            return "vmess";
-        case 1:
-            return "shadowsocks";
-        case 2:
-            return "trojan";
-        case 4:
-            return "raw";
-        case 5:
-            return "scheme";
-        case 6:
-            return "naiveproxy"
-        default:
-            return "unknown";
-    }
-}
 function isCurrentNode(nodes, groupID, nodeID, core) {
     let result = false;
     do {

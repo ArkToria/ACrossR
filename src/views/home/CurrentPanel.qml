@@ -17,7 +17,7 @@ Item {
         function onCurrentNodeInfoChanged(nodeModel) {
             currentNodeName.text = nodeModel["name"];
             currentGroupText.text = nodeModel["group"];
-            currentNodeProtocol.text = HomeJS.displayProtocolText(nodeModel["protocol"]);
+            currentNodeProtocol.text = nodeModel["protocol"];
             currentNodeAddress.text = nodeModel["address"];
             currentNodePort.text = nodeModel["port"];
         }

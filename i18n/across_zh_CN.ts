@@ -1432,7 +1432,7 @@
 <context>
     <name>across::NodeFormModel</name>
     <message>
-        <location filename="../src/view_models/nodeformmodel.cpp" line="471"/>
+        <location filename="../src/view_models/nodeformmodel.cpp" line="448"/>
         <source>custom configuration encoding to url is not supported</source>
         <translation>未支持自定义配置编码到链接格式</translation>
     </message>
