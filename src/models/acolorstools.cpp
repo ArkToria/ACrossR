@@ -618,7 +618,7 @@ bool AColoRSAPITools::startProcess() {
     arguments.append(configPath);
     arguments.append(QString("--dbpath"));
     arguments.append(dbPath);
-    arguments.append(QString("--corepath"));
+    arguments.append(QString("--core-path"));
     arguments.append(corePath);
     QProcess process;
     process.setProgram(program);
