@@ -27,6 +27,11 @@ Window {
         anchors.leftMargin: 0
         anchors.topMargin: 0
         currentIndex: mainPanelList.currentIndex
+        onCurrentIndexChanged: {
+            if (mainPanelList.currentIndex != currentIndex) {
+                mainPanelList.currentIndex = currentIndex
+            }
+        }
 
         HomePage {
             id: homePage
@@ -97,6 +102,7 @@ Window {
 
                 ListView {
                     id: mainPanelList
+                    boundsBehavior: Flickable.OvershootBounds
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
@@ -106,7 +112,6 @@ Window {
                         property bool completed: false
                         Component.onCompleted: {
                             append({
-                                       "checked": true,
                                        "name": qsTr("Home"),
                                        "buttonImage": "../misc/icons/dark/across.svg",
                                        "buttonColor": Colors.panelButtonColor.toString()
@@ -127,14 +132,20 @@ Window {
                                        "buttonColor": Colors.panelButtonColor.toString()
                                    })
                             completed = true
-                            console.log(Colors.panelButtonColor)
                         }
                     }
+
                     delegate: Item {
                         height: 56
                         width: 88
                         MainPanelButton {
                             anchors.centerIn: parent
+                            checked: parent.ListView.isCurrentItem
+                            onClicked: {
+                                if (mainPanelList.currentIndex != index) {
+                                    mainPanelList.currentIndex = index
+                                }
+                            }
                         }
                     }
                 }

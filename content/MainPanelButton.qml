@@ -12,8 +12,10 @@ Item {
     implicitWidth: 70
     implicitHeight: 56
 
+    signal clicked
+
     //property alias text: label.text
-    //property bool checked: false
+    property bool checked: false
     //property color buttonColor: "white"
     //property alias source: image.source
     ColumnLayout {
@@ -25,7 +27,7 @@ Item {
             width: 56
             height: 32
             radius: 100
-            color: mainPanelList.currentIndex == index ? buttonColor : "transparent"
+            color: checked ? buttonColor : "transparent"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Ripple {
                 id: ripple
@@ -84,8 +86,6 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: {
-            mainPanelList.currentIndex = index
-        }
+        onClicked: button.clicked()
     }
 }
