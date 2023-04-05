@@ -11,4 +11,5 @@ Item {
     property color surface1: "#25232a"
     property color onSurfaceVariant: "#cac4d0"
     property color onSurface: "#e6e1e5"
+    property color primary: "#d0bcff"
 }

@@ -17,15 +17,12 @@ Window {
 
     SwipeView {
         id: swipeView
+        interactive: false
         anchors.left: mainPanel.right
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         orientation: Qt.Vertical
-        anchors.bottomMargin: 0
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 0
         currentIndex: mainPanelList.currentIndex
         onCurrentIndexChanged: {
             if (mainPanelList.currentIndex != currentIndex) {
@@ -72,13 +69,13 @@ Window {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 anchors.topMargin: 0
                 layoutDirection: Qt.LeftToRight
-                spacing: 40
+                spacing: 32
 
                 ColumnLayout {
                     id: menuAndFab
                     width: 80
                     height: 108
-                    Layout.topMargin: 32
+                    Layout.topMargin: 12
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
 
                     ToolButton {
@@ -92,11 +89,6 @@ Window {
                             acceptedDevices: PointerDevice.Mouse
                             cursorShape: Qt.PointingHandCursor
                         }
-                    }
-
-                    Fab {
-                        id: fab1
-                        color: Colors.fabColor
                     }
                 }
 
@@ -117,18 +109,18 @@ Window {
                                        "buttonColor": Colors.panelButtonColor.toString()
                                    })
                             append({
+                                       "name": qsTr("Groups"),
+                                       "buttonImage": "../misc/icons/dark/dataset.svg",
+                                       "buttonColor": Colors.panelButtonColor.toString()
+                                   })
+                            append({
+                                       "name": qsTr("Routing"),
+                                       "buttonImage": "../misc/icons/dark/routing.svg",
+                                       "buttonColor": Colors.panelButtonColor.toString()
+                                   })
+                            append({
                                        "name": qsTr("Logs"),
                                        "buttonImage": "../misc/icons/dark/log.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
-                                   })
-                            append({
-                                       "name": qsTr("Setting"),
-                                       "buttonImage": "../misc/icons/dark/setting.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
-                                   })
-                            append({
-                                       "name": qsTr("Help"),
-                                       "buttonImage": "../misc/icons/dark/help.svg",
                                        "buttonColor": Colors.panelButtonColor.toString()
                                    })
                             completed = true
