@@ -116,7 +116,6 @@ Rectangle {
                             height: 192
                             color: colorCode
                             radius: 12
-                            anchors.horizontalCenter: parent.parent.horizontalCenter
                         }
                     }
                 }
