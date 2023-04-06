@@ -40,6 +40,83 @@ Rectangle {
                 anchors.bottomMargin: 12
                 anchors.rightMargin: 12
             }
+
+            ColumnLayout {
+                id: columnLayout
+                anchors.fill: parent
+                anchors.leftMargin: 12
+                anchors.rightMargin: 12
+                anchors.bottomMargin: 12
+                anchors.topMargin: 12
+
+                Rectangle {
+                    id: searchBar
+                    clip: true
+                    height: 28
+                    color: Colors.surface3
+                    radius: 28
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                    Layout.fillWidth: true
+
+                    RowLayout {
+                        id: rowLayout2
+                        anchors.fill: parent
+                        spacing: 4
+
+                        Item {
+                            id: searchText
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 4
+                            anchors.topMargin: 4
+                            Layout.rightMargin: 10
+                            Layout.leftMargin: 10
+                            Layout.fillWidth: true
+                            MouseArea {
+                                id: mouseArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                enabled: true
+                                cursorShape: Qt.IBeamCursor
+                            }
+                            TextInput {
+                                id: text1
+                                text: qsTr("Hinted search text")
+                                anchors.fill: parent
+
+                                font.pixelSize: 12
+                                verticalAlignment: Text.AlignVCenter
+                                wrapMode: Text.NoWrap
+                                selectionColor: Colors.secondary
+                                cursorVisible: false
+
+                                color: Colors.onSurfaceVariant
+                            }
+                        }
+                        Item {
+                            Layout.rightMargin: 14
+                            Layout.preferredHeight: 24
+                            Layout.preferredWidth: 24
+                            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                            Layout.bottomMargin: 2
+                            Layout.topMargin: 2
+                            Layout.fillHeight: true
+                            MouseArea {
+                                id: searchButtonArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                enabled: true
+                                cursorShape: Qt.PointingHandCursor
+                            }
+                            Image {
+                                id: image
+                                anchors.fill: parent
+                                source: "../misc/icons/dark/search.svg"
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         ColumnLayout {
