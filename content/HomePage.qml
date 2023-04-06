@@ -65,8 +65,9 @@ Rectangle {
 
                         Item {
                             id: searchText
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
+                            Layout.bottomMargin: 4
+                            Layout.topMargin: 4
+                            Layout.fillHeight: true
                             anchors.bottomMargin: 4
                             anchors.topMargin: 4
                             Layout.rightMargin: 10
