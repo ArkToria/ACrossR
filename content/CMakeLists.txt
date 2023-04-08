@@ -13,6 +13,7 @@ qt6_add_qml_module(content
         LogsPage.qml
         MainPanelButton.qml
         SettingPage.qml
+        NodeCard.ui.qml
     RESOURCES
         fonts/fonts.txt
 )

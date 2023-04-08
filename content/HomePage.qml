@@ -96,6 +96,7 @@ Rectangle {
                             }
                         }
                         Item {
+                            id: searchButton
                             Layout.rightMargin: 14
                             Layout.preferredHeight: 24
                             Layout.preferredWidth: 24
@@ -134,12 +135,13 @@ Rectangle {
                             text: parent.section
                             color: Colors.onSurfaceVariant
                             font.pixelSize: 14
-                            font.family: "Roboto Medium"
+                            font.styleName: "Medium"
+                            font.family: "Roboto"
                         }
                     }
                 }
                 ListView {
-                    id: listView
+                    id: groupListView
                     clip: true
                     Layout.fillHeight: true
                     Layout.fillWidth: true
@@ -166,7 +168,8 @@ Rectangle {
                                 color: Colors.onSurfaceVariant
                                 Layout.alignment: Qt.AlignHCenter
                                 font.pixelSize: 14
-                                font.family: "Roboto Medium"
+                                font.styleName: "Medium"
+                                font.family: "Roboto"
                             }
                             Item {
                                 Layout.fillWidth: true
@@ -178,7 +181,8 @@ Rectangle {
                                 Layout.alignment: Qt.AlignHCenter
                                 color: Colors.onSurfaceVariant
                                 font.pixelSize: 14
-                                font.family: "Roboto Medium"
+                                font.styleName: "Medium"
+                                font.family: "Roboto"
                             }
                         }
                     }
@@ -304,10 +308,9 @@ Rectangle {
 
                 delegate: Column {
                     Item {
-                        Rectangle {
+                        NodeCard {
                             width: cardList.cellWidth - 8
                             height: 192
-                            color: colorCode
                             radius: 12
                         }
                     }
@@ -315,23 +318,35 @@ Rectangle {
 
                 model: ListModel {
                     ListElement {
-                        name: "Grey"
-                        colorCode: "grey"
+                        nodeName: "Node 1"
+                        address: "example.arktoria.org"
+                        protocol: "vmess"
+                        routings: "default_routings"
+                        latency: "114ms"
                     }
 
                     ListElement {
-                        name: "Red"
-                        colorCode: "red"
+                        nodeName: "Node 2"
+                        address: "example.arktoria.org"
+                        protocol: "vmess"
+                        routings: "default_routings"
+                        latency: "114ms"
                     }
 
                     ListElement {
-                        name: "Blue"
-                        colorCode: "blue"
+                        nodeName: "Node 3"
+                        address: "example.arktoria.org"
+                        protocol: "vmess"
+                        routings: "default_routings"
+                        latency: "114ms"
                     }
 
                     ListElement {
-                        name: "Green"
-                        colorCode: "green"
+                        nodeName: "Node 4"
+                        address: "example.arktoria.org"
+                        protocol: "vmess"
+                        routings: "default_routings"
+                        latency: "114ms"
                     }
                 }
             }

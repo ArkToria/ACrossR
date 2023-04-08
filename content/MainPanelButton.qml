@@ -75,9 +75,10 @@ Item {
         Label {
             id: label
             text: name
+            font.styleName: "Medium"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: Colors.onSurface
-            font.family: "Roboto Medium"
+            font.family: "Roboto"
         }
     }
 
