@@ -14,9 +14,9 @@ Item {
 
     signal clicked
 
-    //property alias text: label.text
-    property bool checked: false
-    //property color buttonColor: "white"
+    //property alias text: name ? name !== null : "Button"
+    property bool checked: true
+    //property color buttonColor: buttonColor !== null ? buttonColor : "#e8def8"
     //property alias source: image.source
     ColumnLayout {
         id: columnLayout
@@ -50,7 +50,6 @@ Item {
                 id: rectangle
                 width: 56
                 height: 32
-                //color: !checked&&mouseArea.containsMouse?buttonColor:"transparent"
                 color: mouseArea.containsMouse ? buttonColor : "transparent"
                 opacity: 0.25
                 radius: 100
@@ -75,9 +74,10 @@ Item {
 
         Label {
             id: label
-            text: qsTr(name)
+            text: name
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: Colors.onSurface
+            font.family: "Roboto Medium"
         }
     }
 

@@ -16,6 +16,7 @@ Rectangle {
     id: rectangle
     width: 56
     height: 56
+    color: "#633b48"
     radius: 16
     Image {
         width: 24

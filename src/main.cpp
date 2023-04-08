@@ -3,6 +3,7 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QIcon>
 
 #include "app_environment.h"
 #include "import_qml_components_plugins.h"
@@ -13,6 +14,9 @@ int main(int argc, char *argv[])
     set_qt_environment();
 
     QGuiApplication app(argc, argv);
+
+    app.setApplicationName("ACross");
+    app.setWindowIcon(QIcon(":misc/design/logo.svg"));
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:Main/main.qml"_qs);

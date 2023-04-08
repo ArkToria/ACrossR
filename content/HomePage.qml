@@ -37,6 +37,7 @@ Rectangle {
                 color: Colors.fabColor
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
+                z: 1
                 anchors.bottomMargin: 12
                 anchors.rightMargin: 12
             }
@@ -114,6 +115,120 @@ Rectangle {
                                 anchors.fill: parent
                                 source: "../misc/icons/dark/search.svg"
                             }
+                        }
+                    }
+                }
+                Component {
+                    id: sectionHeading
+                    Rectangle {
+                        id: rectangle4
+                        height: 56
+                        color: "lightsteelblue"
+
+                        required property string section
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.leftMargin: 16
+                            text: parent.section
+                            color: Colors.onSurfaceVariant
+                            font.pixelSize: 14
+                            font.family: "Roboto Medium"
+                        }
+                    }
+                }
+                ListView {
+                    id: listView
+                    clip: true
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    delegate: Item {
+                        height: 56
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.leftMargin: 16
+                            anchors.rightMargin: 24
+                            anchors.bottomMargin: 16
+                            anchors.topMargin: 16
+                            spacing: 12
+                            id: row1
+                            Rectangle {
+                                width: 24
+                                height: 24
+                                color: colorCode
+                            }
+
+                            Text {
+                                text: name
+                                color: Colors.onSurfaceVariant
+                                Layout.alignment: Qt.AlignHCenter
+                                font.pixelSize: 14
+                                font.family: "Roboto Medium"
+                            }
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            Text {
+                                width: 32
+                                text: count
+                                Layout.alignment: Qt.AlignHCenter
+                                color: Colors.onSurfaceVariant
+                                font.pixelSize: 14
+                                font.family: "Roboto Medium"
+                            }
+                        }
+                    }
+                    section.property: "group"
+                    section.delegate: sectionHeading
+                    model: ListModel {
+                        ListElement {
+                            name: "Default Group"
+                            colorCode: "grey"
+                            group: "Section 1"
+                            count: "100+"
+                        }
+
+                        ListElement {
+                            name: "Public"
+                            colorCode: "red"
+                            group: "Section 1"
+                            count: "100+"
+                        }
+                        ListElement {
+                            name: "vmess"
+                            colorCode: "yellow"
+                            group: "Section 1"
+                            count: "100+"
+                        }
+                        ListElement {
+                            name: "Hallo"
+                            colorCode: "brown"
+                            group: "Section 1"
+                            count: "100+"
+                        }
+
+                        ListElement {
+                            name: "Eins"
+                            colorCode: "blue"
+                            group: "Section Header"
+                            count: "100+"
+                        }
+
+                        ListElement {
+                            name: "Zwei"
+                            colorCode: "green"
+                            group: "Section Header"
+                            count: "100+"
+                        }
+                        ListElement {
+                            name: "Drei"
+                            colorCode: "purple"
+                            group: "Section Header"
+                            count: "100+"
                         }
                     }
                 }

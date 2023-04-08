@@ -6,8 +6,11 @@ import QtQuick.Controls.Material
 
 Window {
     id: window
+
     width: Constants.width
     height: Constants.height
+    minimumWidth: Constants.width
+    minimumHeight: Constants.height
 
     color: Colors.background
     Material.theme: Material.Dark
