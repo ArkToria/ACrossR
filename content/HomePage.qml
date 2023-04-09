@@ -125,9 +125,9 @@ Rectangle {
                     Item {
                         height: hasDivider ? 57 : 56
 
-                        property bool hasDivider: groupListView.count
-                                                  > 0 ? (section !== groupListView.itemAtIndex(
-                                                             1).group) : 0
+                        property bool hasDivider: groupListView.itemAtIndex(
+                                                      1) ? (section !== groupListView.itemAtIndex(
+                                                                1).group) : 0
                         property alias section: textItem.section
                         anchors.left: parent.left
                         anchors.right: parent.right
