@@ -9,6 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import ACross
+import QtQuick.Shapes
 import QtQuick.Layouts 6.3
 
 Rectangle {
@@ -121,22 +122,43 @@ Rectangle {
                 }
                 Component {
                     id: sectionHeading
-                    Rectangle {
-                        id: rectangle4
-                        height: 56
-                        color: "lightsteelblue"
+                    Item {
+                        height: hasDivider ? 57 : 56
 
-                        required property string section
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
+                        property bool hasDivider: groupListView.count
+                                                  > 0 ? (section !== groupListView.itemAtIndex(
+                                                             1).group) : 0
+                        property alias section: textItem.section
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        Rectangle {
                             anchors.left: parent.left
+                            anchors.right: parent.right
                             anchors.leftMargin: 16
-                            text: parent.section
-                            color: Colors.onSurfaceVariant
-                            font.pixelSize: 14
-                            font.styleName: "Medium"
-                            font.family: "Roboto"
+                            anchors.rightMargin: 16
+                            height: 1
+                            color: Colors.outlineVariant
+                            visible: parent.hasDivider
+                        }
+
+                        Item {
+                            id: textItem
+                            height: 56
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            required property string section
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 16
+                                text: parent.section
+                                color: Colors.onSurfaceVariant
+                                font.pixelSize: 14
+                                font.styleName: "Medium"
+                                font.family: "Roboto"
+                            }
                         }
                     }
                 }
@@ -157,10 +179,15 @@ Rectangle {
                             anchors.topMargin: 16
                             spacing: 12
                             id: row1
-                            Rectangle {
+                            Item {
                                 width: 24
                                 height: 24
-                                color: colorCode
+                                GroupIcon {
+                                    width: 14
+                                    height: 14
+                                    anchors.centerIn: parent
+                                    sides: sidesCount
+                                }
                             }
 
                             Text {
@@ -194,6 +221,7 @@ Rectangle {
                             colorCode: "grey"
                             group: "Section 1"
                             count: "100+"
+                            sidesCount: 36
                         }
 
                         ListElement {
@@ -201,18 +229,21 @@ Rectangle {
                             colorCode: "red"
                             group: "Section 1"
                             count: "100+"
+                            sidesCount: 3
                         }
                         ListElement {
                             name: "vmess"
                             colorCode: "yellow"
                             group: "Section 1"
                             count: "100+"
+                            sidesCount: 4
                         }
                         ListElement {
                             name: "Hallo"
                             colorCode: "brown"
                             group: "Section 1"
                             count: "100+"
+                            sidesCount: 5
                         }
 
                         ListElement {
@@ -220,6 +251,7 @@ Rectangle {
                             colorCode: "blue"
                             group: "Section Header"
                             count: "100+"
+                            sidesCount: 36
                         }
 
                         ListElement {
@@ -227,12 +259,14 @@ Rectangle {
                             colorCode: "green"
                             group: "Section Header"
                             count: "100+"
+                            sidesCount: 3
                         }
                         ListElement {
                             name: "Drei"
                             colorCode: "purple"
                             group: "Section Header"
                             count: "100+"
+                            sidesCount: 4
                         }
                     }
                 }

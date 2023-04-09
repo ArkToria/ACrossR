@@ -34,6 +34,7 @@ Rectangle {
                     font.pixelSize: 16
                     font.styleName: "Medium"
                     font.family: "Roboto"
+                    color: Colors.onSurface
                 }
 
                 Label {
@@ -42,6 +43,7 @@ Rectangle {
                     font.pixelSize: 14
                     font.styleName: "Regular"
                     font.family: "Roboto"
+                    color: Colors.onSurface
                 }
             }
             Item {
@@ -70,6 +72,7 @@ Rectangle {
                 text: protocol
                 font.pixelSize: 16
                 font.family: "Roboto"
+                color: Colors.onSurface
             }
 
             Label {
@@ -78,6 +81,7 @@ Rectangle {
                 font.pixelSize: 14
                 font.styleName: "Regular"
                 font.family: "Roboto"
+                color: Colors.onSurfaceVariant
             }
         }
 

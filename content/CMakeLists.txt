@@ -14,6 +14,7 @@ qt6_add_qml_module(content
         MainPanelButton.qml
         SettingPage.qml
         NodeCard.ui.qml
+        GroupIcon.qml
     RESOURCES
         fonts/fonts.txt
 )

@@ -14,8 +14,8 @@ import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: rectangle
-    width: 56
-    height: 56
+    implicitWidth: 56
+    implicitHeight: 56
     color: "#633b48"
     radius: 16
     Image {
