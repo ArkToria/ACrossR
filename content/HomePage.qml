@@ -9,6 +9,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 6.4
 import QtQuick.Controls 6.4
 import QtQuick.Controls.Basic as Basic
+import QtQuick.Templates as T
 import ACross
 import QtQuick.Controls.Material.impl 2.15
 import Qt5Compat.GraphicalEffects
@@ -223,38 +224,41 @@ Rectangle {
                                 font.family: "Roboto"
                             }
                         }
-                        Rectangle {
-                            id: hoveredRectangle
+                        T.Button {
+                            id: buttonInside
                             anchors.fill: parent
-                            color: Colors.secondaryContainer
-                            visible: groupListMouseArea.containsMouse
-                            opacity: 0.25
-                            radius: 100
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            Ripple {
-                                id: ripple
+
+                            onClicked: groupListView.currentIndex = index
+                            background: Rectangle {
+                                id: hoveredRectangle
                                 anchors.fill: parent
-                                anchor: hoveredRectangle
-                                clipRadius: 4
-                                pressed: groupListMouseArea.pressed
-                                active: groupListMouseArea.containsPress
-                                layer.enabled: true
-                                color: "#20FFFFFF"
-                                layer.effect: OpacityMask {
-                                    maskSource: Rectangle {
-                                        width: ripple.width
-                                        height: ripple.height
-                                        radius: hoveredRectangle.radius
-                                    }
+                                color: Colors.secondaryContainer
+                                visible: buttonInside.hovered
+                                opacity: 0.25
+                                radius: 100
+                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                                Ripple {
+                                    clip: true
+                                    clipRadius: parent.radius
+                                    width: parent.width
+                                    height: parent.height
+                                    pressed: buttonInside.pressed
+                                    anchor: buttonInside
+                                    active: buttonInside.enabled
+                                            && (buttonInside.down
+                                                || buttonInsides.visualFocus
+                                                || buttonInside.hovered)
+                                    color: "#20FFFFFF"
                                 }
                             }
                         }
+
                         MouseArea {
                             id: groupListMouseArea
+                            enabled: false
                             anchors.fill: parent
-                            hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: groupListView.currentIndex = index
                         }
                     }
                     section.property: "group"

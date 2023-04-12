@@ -134,6 +134,9 @@ Window {
                         height: 56
                         width: 88
                         MainPanelButton {
+                            text: name
+                            color: buttonColor
+                            image: buttonImage
                             anchors.centerIn: parent
                             checked: parent.ListView.isCurrentItem
                             onClicked: {

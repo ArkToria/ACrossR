@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 6.3
+import QtQuick.Templates as T
 import QtQuick.Controls.Material.impl 2.15
 import Qt5Compat.GraphicalEffects
 import ACross
@@ -13,10 +14,11 @@ Item {
     implicitHeight: 56
 
     signal clicked
-
+    property string text: "Button"
+    property color color: "#4a4458"
+    property url image: "../misc/icons/dark/across.svg"
     //property alias text: name ? name !== null : "Button"
     property bool checked: true
-    //property color buttonColor: buttonColor !== null ? buttonColor : "#e8def8"
     //property alias source: image.source
     ColumnLayout {
         id: columnLayout
@@ -27,44 +29,49 @@ Item {
             width: 56
             height: 32
             radius: 100
-            color: checked ? buttonColor : "transparent"
+            color: checked ? button.color : "transparent"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Ripple {
-                id: ripple
-                anchors.fill: parent
-                anchor: rectangle
-                clipRadius: 4
-                pressed: mouseArea.pressed
-                active: mouseArea.containsPress
-                layer.enabled: true
-                color: "#20FFFFFF"
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        width: ripple.width
-                        height: ripple.height
-                        radius: rectangle.radius
+
+            T.Button {
+                id: buttonInside
+                width: 56
+                height: 32
+
+                onClicked: button.clicked()
+                Component.onCompleted: buttonInside.__behavior.cursorShape = Qt.PointingHandCursor
+                background: Rectangle {
+                    id: rectangle
+                    anchors.fill: parent
+                    color: button.color
+                    visible: buttonInside.hovered
+                    opacity: 0.25
+                    radius: 100
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    Ripple {
+                        clip: true
+                        clipRadius: parent.radius
+                        width: parent.width
+                        height: parent.height
+                        pressed: buttonInside.pressed
+                        anchor: buttonInside
+                        active: buttonInside.enabled
+                                && (buttonInside.down
+                                    || buttonInsides.visualFocus
+                                    || buttonInside.hovered)
+                        color: "#20FFFFFF"
                     }
                 }
             }
-            Rectangle {
-                id: rectangle
-                width: 56
-                height: 32
-                color: buttonColor
-                visible: mouseArea.containsMouse
-                opacity: 0.25
-                radius: 100
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            }
             ColumnLayout {
                 id: imageLayout
-                anchors.fill: rectangle
+                anchors.fill: buttonInside
 
                 Image {
                     id: image
                     width: 24
                     height: 24
-                    source: buttonImage
+                    source: button.image
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     sourceSize.height: 24
                     sourceSize.width: 24
@@ -75,19 +82,17 @@ Item {
 
         Label {
             id: label
-            text: name
+            text: button.text
             font.styleName: "Medium"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: Colors.onSurface
             font.family: "Roboto"
         }
     }
-
     MouseArea {
-        id: mouseArea
         anchors.fill: parent
-        hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: button.clicked()
+        propagateComposedEvents: true
+        enabled: false
     }
 }
