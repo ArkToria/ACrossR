@@ -50,7 +50,8 @@ Item {
                 id: rectangle
                 width: 56
                 height: 32
-                color: mouseArea.containsMouse ? buttonColor : "transparent"
+                color: buttonColor
+                visible: mouseArea.containsMouse
                 opacity: 0.25
                 radius: 100
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

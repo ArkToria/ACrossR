@@ -109,22 +109,22 @@ Window {
                             append({
                                        "name": qsTr("Home"),
                                        "buttonImage": "../misc/icons/dark/across.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
+                                       "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
                                        "name": qsTr("Groups"),
                                        "buttonImage": "../misc/icons/dark/dataset.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
+                                       "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
                                        "name": qsTr("Routing"),
                                        "buttonImage": "../misc/icons/dark/routing.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
+                                       "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
                                        "name": qsTr("Logs"),
                                        "buttonImage": "../misc/icons/dark/log.svg",
-                                       "buttonColor": Colors.panelButtonColor.toString()
+                                       "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             completed = true
                         }

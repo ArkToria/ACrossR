@@ -8,7 +8,10 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 */
 import QtQuick 6.4
 import QtQuick.Controls 6.4
+import QtQuick.Controls.Basic as Basic
 import ACross
+import QtQuick.Controls.Material.impl 2.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Shapes
 import QtQuick.Layouts 6.3
 
@@ -123,12 +126,14 @@ Rectangle {
                 Component {
                     id: sectionHeading
                     Item {
-                        height: hasDivider ? 57 : 56
+                        id: sectionHeadingItem
 
+                        height: hasDivider ? 57 : 56
                         property bool hasDivider: groupListView.itemAtIndex(
-                                                      1) ? (section !== groupListView.itemAtIndex(
-                                                                1).group) : 0
-                        property alias section: textItem.section
+                                                      0) ? (section !== groupListView.itemAtIndex(
+                                                                0).group) : 0
+                        required property string section
+
                         anchors.left: parent.left
                         anchors.right: parent.right
                         Rectangle {
@@ -147,7 +152,7 @@ Rectangle {
                             anchors.left: parent.left
                             anchors.right: parent.right
 
-                            required property string section
+                            property alias section: sectionHeadingItem.section
 
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
@@ -167,11 +172,16 @@ Rectangle {
                     clip: true
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+                    ScrollBar.vertical: Basic.ScrollBar {
+                        active: hovered || pressed
+                        hoverEnabled: true
+                    }
                     delegate: Item {
                         height: 56
                         anchors.left: parent.left
                         anchors.right: parent.right
                         RowLayout {
+                            z: 1
                             anchors.fill: parent
                             anchors.leftMargin: 16
                             anchors.rightMargin: 24
@@ -203,6 +213,7 @@ Rectangle {
                             }
 
                             Text {
+                                z: 1
                                 width: 32
                                 text: count
                                 Layout.alignment: Qt.AlignHCenter
@@ -212,13 +223,50 @@ Rectangle {
                                 font.family: "Roboto"
                             }
                         }
+                        Rectangle {
+                            id: hoveredRectangle
+                            anchors.fill: parent
+                            color: Colors.secondaryContainer
+                            visible: groupListMouseArea.containsMouse
+                            opacity: 0.25
+                            radius: 100
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            Ripple {
+                                id: ripple
+                                anchors.fill: parent
+                                anchor: hoveredRectangle
+                                clipRadius: 4
+                                pressed: groupListMouseArea.pressed
+                                active: groupListMouseArea.containsPress
+                                layer.enabled: true
+                                color: "#20FFFFFF"
+                                layer.effect: OpacityMask {
+                                    maskSource: Rectangle {
+                                        width: ripple.width
+                                        height: ripple.height
+                                        radius: hoveredRectangle.radius
+                                    }
+                                }
+                            }
+                        }
+                        MouseArea {
+                            id: groupListMouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: groupListView.currentIndex = index
+                        }
                     }
                     section.property: "group"
                     section.delegate: sectionHeading
+                    highlight: Rectangle {
+                        color: Colors.secondaryContainer
+                        radius: 100
+                    }
+                    highlightMoveVelocity: -1
                     model: ListModel {
                         ListElement {
                             name: "Default Group"
-                            colorCode: "grey"
                             group: "Section 1"
                             count: "100+"
                             sidesCount: 36
@@ -226,21 +274,18 @@ Rectangle {
 
                         ListElement {
                             name: "Public"
-                            colorCode: "red"
                             group: "Section 1"
                             count: "100+"
                             sidesCount: 3
                         }
                         ListElement {
                             name: "vmess"
-                            colorCode: "yellow"
                             group: "Section 1"
                             count: "100+"
                             sidesCount: 4
                         }
                         ListElement {
                             name: "Hallo"
-                            colorCode: "brown"
                             group: "Section 1"
                             count: "100+"
                             sidesCount: 5
@@ -248,7 +293,6 @@ Rectangle {
 
                         ListElement {
                             name: "Eins"
-                            colorCode: "blue"
                             group: "Section Header"
                             count: "100+"
                             sidesCount: 36
@@ -256,14 +300,12 @@ Rectangle {
 
                         ListElement {
                             name: "Zwei"
-                            colorCode: "green"
                             group: "Section Header"
                             count: "100+"
                             sidesCount: 3
                         }
                         ListElement {
                             name: "Drei"
-                            colorCode: "purple"
                             group: "Section Header"
                             count: "100+"
                             sidesCount: 4

@@ -9,7 +9,7 @@ Item {
     height: 14
     antialiasing: true
     layer.enabled: true
-    layer.samples: 4
+    layer.samples: 2
     id: rect
 
     property int sides: 6
