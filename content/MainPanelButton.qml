@@ -57,7 +57,7 @@ Item {
                         anchor: buttonInside
                         active: buttonInside.enabled
                                 && (buttonInside.down
-                                    || buttonInsides.visualFocus
+                                    || buttonInside.visualFocus
                                     || buttonInside.hovered)
                         color: "#20FFFFFF"
                     }
