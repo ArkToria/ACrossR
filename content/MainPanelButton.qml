@@ -38,7 +38,6 @@ Item {
                 height: 32
 
                 onClicked: button.clicked()
-                Component.onCompleted: buttonInside.__behavior.cursorShape = Qt.PointingHandCursor
                 background: Rectangle {
                     id: rectangle
                     anchors.fill: parent
