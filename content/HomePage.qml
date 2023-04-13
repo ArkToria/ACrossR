@@ -100,26 +100,26 @@ Rectangle {
                                 color: Colors.onSurfaceVariant
                             }
                         }
-                        Item {
+                        ToolButton {
                             id: searchButton
-                            Layout.rightMargin: 14
-                            Layout.preferredHeight: 24
-                            Layout.preferredWidth: 24
+                            Layout.rightMargin: 8
+                            Layout.preferredHeight: 32
+                            Layout.preferredWidth: 32
                             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                            Layout.bottomMargin: 2
-                            Layout.topMargin: 2
+                            Layout.bottomMargin: -8
+                            Layout.topMargin: -8
                             Layout.fillHeight: true
+                            display: AbstractButton.IconOnly
+                            icon.source: "../misc/icons/dark/search.svg"
+                            icon.height: 32
+                            icon.width: 32
+
                             MouseArea {
                                 id: searchButtonArea
                                 anchors.fill: parent
-                                hoverEnabled: true
-                                enabled: true
+
+                                enabled: false
                                 cursorShape: Qt.PointingHandCursor
-                            }
-                            Image {
-                                id: image
-                                anchors.fill: parent
-                                source: "../misc/icons/dark/search.svg"
                             }
                         }
                     }
@@ -229,28 +229,20 @@ Rectangle {
                             anchors.fill: parent
 
                             onClicked: groupListView.currentIndex = index
-                            background: Rectangle {
-                                id: hoveredRectangle
+                            background: Ripple {
                                 anchors.fill: parent
-                                color: Colors.secondaryContainer
-                                visible: buttonInside.hovered
-                                opacity: 0.25
-                                radius: 100
                                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-                                Ripple {
-                                    clip: true
-                                    clipRadius: parent.radius
-                                    width: parent.width
-                                    height: parent.height
-                                    pressed: buttonInside.pressed
-                                    anchor: buttonInside
-                                    active: buttonInside.enabled
-                                            && (buttonInside.down
-                                                || buttonInside.visualFocus
-                                                || buttonInside.hovered)
-                                    color: "#20FFFFFF"
-                                }
+                                clip: true
+                                clipRadius: 100
+                                width: parent.width
+                                height: parent.height
+                                pressed: buttonInside.pressed
+                                anchor: buttonInside
+                                active: buttonInside.enabled
+                                        && (buttonInside.down
+                                            || buttonInside.visualFocus
+                                            || buttonInside.hovered)
+                                color: ListView.isCurrentItem ? control.Material.highlightedRippleColor : buttonInside.Material.rippleColor
                             }
                         }
 

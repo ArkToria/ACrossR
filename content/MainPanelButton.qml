@@ -26,40 +26,31 @@ Item {
         spacing: 4
 
         Rectangle {
+            id: rect
             width: 56
             height: 32
             radius: 100
-            color: checked ? button.color : "transparent"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            color: checked ? button.color : "transparent"
 
             T.Button {
                 id: buttonInside
-                width: 56
-                height: 32
+                anchors.fill: parent
 
                 onClicked: button.clicked()
-                background: Rectangle {
-                    id: rectangle
+                background: Ripple {
                     anchors.fill: parent
-                    color: button.color
-                    visible: buttonInside.hovered
-                    opacity: 0.25
-                    radius: 100
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-                    Ripple {
-                        clip: true
-                        clipRadius: parent.radius
-                        width: parent.width
-                        height: parent.height
-                        pressed: buttonInside.pressed
-                        anchor: buttonInside
-                        active: buttonInside.enabled
-                                && (buttonInside.down
-                                    || buttonInside.visualFocus
-                                    || buttonInside.hovered)
-                        color: "#20FFFFFF"
-                    }
+                    clip: true
+                    clipRadius: 100
+                    width: parent.width
+                    height: parent.height
+                    pressed: buttonInside.pressed
+                    anchor: buttonInside
+                    active: buttonInside.enabled && (buttonInside.down
+                                                     || buttonInside.visualFocus
+                                                     || buttonInside.hovered)
+                    color: ListView.isCurrentItem ? control.Material.highlightedRippleColor : buttonInside.Material.rippleColor
                 }
             }
             ColumnLayout {
