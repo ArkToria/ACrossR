@@ -8,14 +8,14 @@ Item {
     width: 14
     height: 14
     antialiasing: true
-    layer.enabled: true
-    layer.samples: 2
+
     id: rect
 
     property int sides: 6
     property real pRotate: (sides % 2 ? 1 : (sides == 4 ? 1 / 2 : 0)) * Math.PI / 2
 
     Shape {
+        smooth: true
         anchors.fill: parent
 
         id: hexagon

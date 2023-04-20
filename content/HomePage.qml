@@ -326,6 +326,54 @@ Rectangle {
                 Layout.rightMargin: 8
                 Layout.leftMargin: 8
                 Layout.fillWidth: true
+
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                        width: stackedCard.width
+                        height: stackedCard.height
+                        radius: stackedCard.radius
+                    }
+                }
+
+                RowLayout {
+                    id: row
+                    anchors.fill: parent
+                    spacing: 0
+
+                    Dashboard {}
+
+                    Column {
+                        id: column
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        Column {
+                            id: column1
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.topMargin: 16
+                            anchors.leftMargin: 16
+
+                            Text {
+                                id: text2
+                                color: Colors.onSurface
+                                text: qsTr("TextNode")
+                                font.pixelSize: 22
+                                font.family: "Roboto"
+                            }
+
+                            Text {
+                                id: text3
+                                text: qsTr("Group: Default Group\nProtocol: vmess\nAddress: across.example.org\nPort: 443")
+                                font.pixelSize: 14
+                                font.styleName: "Regular"
+                                font.family: "Roboto"
+                                color: Colors.onSurfaceVariant
+                            }
+                        }
+                    }
+                }
             }
 
             RowLayout {
