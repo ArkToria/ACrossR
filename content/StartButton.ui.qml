@@ -11,24 +11,25 @@ import QtQuick.Controls 2.15
 import QtQuick.Templates as T
 import QtQuick.Controls.Material.impl 2.15
 import Qt5Compat.GraphicalEffects
+import ACross
 
 T.Button {
     id: button
     implicitWidth: 56
     implicitHeight: 56
-
-    property alias color: rectangle.color
+    property bool running: false
+    onClicked: running = !running
 
     background: Rectangle {
         id: rectangle
         anchors.fill: parent
-        color: "#633b48"
-        radius: 16
+        color: Colors.primary
+        radius: button.width / 2
         Image {
-            width: 24
-            height: 24
+            width: button.width / 2
+            height: button.height / 2
             anchors.verticalCenter: parent.verticalCenter
-            source: "../misc/icons/dark/add.svg"
+            source: running ? "../misc/icons/dark/stop.svg" : "../misc/icons/dark/play.svg"
             sourceSize.height: 24
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit
@@ -50,7 +51,6 @@ T.Button {
             active: button.enabled && (button.down || button.visualFocus
                                        || button.hovered)
             layer.enabled: true
-            color: "#20FFFFFF"
             layer.effect: OpacityMask {
                 maskSource: Rectangle {
                     width: ripple.width
@@ -60,4 +60,30 @@ T.Button {
             }
         }
     }
+    states: [
+        State {
+            name: "running"
+            when: running
+            PropertyChanges {
+                target: ripple
+                color: Material.highlightedRippleColor
+            }
+            PropertyChanges {
+                target: rectangle
+                color: Colors.fabColor
+            }
+        },
+        State {
+            name: "stopped"
+            when: !running
+            PropertyChanges {
+                target: ripple
+                color: Material.rippleColor
+            }
+            PropertyChanges {
+                target: rectangle
+                color: Colors.primary
+            }
+        }
+    ]
 }

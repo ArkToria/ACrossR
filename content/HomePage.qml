@@ -49,19 +49,40 @@ Rectangle {
                 spacing: 5
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 Layout.fillWidth: false
-                layoutDirection: Qt.RightToLeft
+                layoutDirection: Qt.LeftToRight
 
                 CustomButton {
-                    id: rectangle1
+                    id: createButton
+                    text: qsTr("Create")
+                    imageSource: "../misc/icons/dark/add_circle.svg"
                     width: 100
                     height: 40
                 }
                 CustomButton {
+                    id: copyButton
+                    text: qsTr("Copy")
+                    imageSource: "../misc/icons/dark/copy.svg"
                     width: 100
                     height: 40
                 }
                 CustomButton {
-
+                    id: qrcodeButton
+                    text: qsTr("QRCode")
+                    imageSource: "../misc/icons/dark/qr_code.svg"
+                    width: 100
+                    height: 40
+                }
+                CustomButton {
+                    id: searchbutton
+                    text: qsTr("Search")
+                    imageSource: "../misc/icons/dark/search.svg"
+                    width: 100
+                    height: 40
+                }
+                CustomButton {
+                    id: locatebutton
+                    text: qsTr("Locate")
+                    imageSource: "../misc/icons/dark/location.svg"
                     width: 100
                     height: 40
                 }

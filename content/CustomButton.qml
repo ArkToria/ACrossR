@@ -68,6 +68,7 @@ T.Button {
                                                                  control.height)
             height: 0.45 * Math.min(control.width, control.height)
             visible: imageSource.length != 0
+            anchors.verticalCenter: parent.verticalCenter
             source: imageSource
 
             fillMode: Image.PreserveAspectFit

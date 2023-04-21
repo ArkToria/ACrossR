@@ -20,6 +20,7 @@ qt6_add_qml_module(content
         MainPanelButton.qml
         NodeCard.ui.qml
         SettingPage.qml
+        StartButton.ui.qml
     RESOURCES
         fonts/fonts.txt
 )

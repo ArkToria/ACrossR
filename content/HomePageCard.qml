@@ -55,6 +55,16 @@ Rectangle {
                     color: Colors.onSurfaceVariant
                 }
             }
+
+            StartButton {
+                id: startButton
+                width: 60
+                height: 60
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 16
+                anchors.rightMargin: 16
+            }
         }
     }
 }
