@@ -56,13 +56,7 @@ Rectangle {
                     Layout.rightMargin: 10
                     Layout.leftMargin: 10
                     Layout.fillWidth: true
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        enabled: true
-                        cursorShape: Qt.IBeamCursor
-                    }
+
                     TextInput {
                         id: text1
                         text: qsTr("Hinted search text")
@@ -75,6 +69,12 @@ Rectangle {
                         cursorVisible: false
 
                         color: Colors.onSurfaceVariant
+                        selectByMouse: true
+
+                        HoverHandler {
+                            id: hoverHandler
+                            cursorShape: Qt.IBeamCursor
+                        }
                     }
                 }
                 ToolButton {
