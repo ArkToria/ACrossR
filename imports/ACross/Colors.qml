@@ -15,4 +15,6 @@ Item {
     property color surface3: "#302d38"
     property color secondary: "#cac0d9"
     property color outlineVariant: "#49454f"
+    property color outline: "#938f99"
+    property color surfaceTint: "#d0bcff"
 }

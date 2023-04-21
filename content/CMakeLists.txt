@@ -7,14 +7,19 @@ qt6_add_qml_module(content
     VERSION 1.0
     QML_FILES
         App.qml
+        CardGrid.qml
+        CustomButton.qml
+        Dashboard.qml
         Fab.qml
+        GroupIcon.qml
         HelpPage.qml
         HomePage.qml
+        HomePageCard.qml
+        HomePageDrawer.qml
         LogsPage.qml
         MainPanelButton.qml
-        SettingPage.qml
         NodeCard.ui.qml
-        GroupIcon.qml
+        SettingPage.qml
     RESOURCES
         fonts/fonts.txt
 )

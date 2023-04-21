@@ -35,11 +35,8 @@ T.Button {
             sourceSize.width: 24
         }
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            enabled: false
-            propagateComposedEvents: true
+        HoverHandler {
+            acceptedDevices: PointerDevice.Mouse
             cursorShape: Qt.PointingHandCursor
         }
         Ripple {

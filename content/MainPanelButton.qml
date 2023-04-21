@@ -19,7 +19,16 @@ Item {
     property url image: "../misc/icons/dark/across.svg"
     //property alias text: name ? name !== null : "Button"
     property bool checked: true
+
     //property alias source: image.source
+    MouseArea {
+        id: mouseArea
+        anchors.fill: button
+        onClicked: button.clicked()
+
+        propagateComposedEvents: true
+        cursorShape: Qt.PointingHandCursor
+    }
     ColumnLayout {
         id: columnLayout
         anchors.fill: parent
@@ -36,8 +45,10 @@ Item {
             T.Button {
                 id: buttonInside
                 anchors.fill: parent
-
                 onClicked: button.clicked()
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
                 background: Ripple {
                     anchors.fill: parent
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -78,11 +89,5 @@ Item {
             color: Colors.onSurface
             font.family: "Roboto"
         }
-    }
-    MouseArea {
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        propagateComposedEvents: true
-        enabled: false
     }
 }
