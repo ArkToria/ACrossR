@@ -55,7 +55,7 @@ T.Button {
     }
     contentItem: contentRow
 
-    Row {
+    Item {
         id: contentRow
         anchors.fill: parent
         anchors.rightMargin: 16

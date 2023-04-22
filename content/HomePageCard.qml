@@ -26,7 +26,7 @@ Rectangle {
 
         Dashboard {}
 
-        Column {
+        Item {
             id: column
             Layout.fillHeight: true
             Layout.fillWidth: true

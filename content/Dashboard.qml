@@ -6,7 +6,13 @@ Rectangle {
     id: dashboard
     width: 220
     height: 220
-
+    property var content: null
+    function setContent(qmlCode) {
+        if (content !== null) {
+            content.destory()
+        }
+        content = Qt.createQmlObject(qmlCode, dashboard, "dashboardContent")
+    }
     Component.onCompleted: {
         let qmlCode = `import QtQuick 2.15
         import QtQuick.Controls 2.15
@@ -92,6 +98,6 @@ Rectangle {
         }
         }
         `
-        Qt.createQmlObject(qmlCode, dashboard, "dashboardItem")
+        dashboard.setContent(qmlCode)
     }
 }
