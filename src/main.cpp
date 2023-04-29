@@ -1,25 +1,43 @@
-// Copyright (C) 2021 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
-
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
+#include <QFont>
 
-#include "app_environment.h"
-#include "import_qml_components_plugins.h"
-#include "import_qml_plugins.h"
+inline const QStringList FONT_LIST() {
+    const static QStringList default_fonts = {
+        "Noto Sans",     "Segoe UI Variable", "Segoe UI",
+        "Noto Sans CJK", "PingFang SC",       "Microsoft YaHei UI",
+    };
 
+    auto fonts_fallback = QStringLiteral("Noto Sans, Segoe UI Variable, Segoe UI, Noto Sans CJK, PingFang SC, Microsoft YaHei UI");
+    do {
+        if (fonts_fallback.isEmpty())
+            break;
+
+        QStringList temp_fonts;
+        for (auto &font : fonts_fallback.split(",")) {
+            temp_fonts.append(font.trimmed());
+        }
+
+        if (temp_fonts.isEmpty())
+            break;
+
+        return temp_fonts;
+    } while (false);
+
+    return default_fonts;
+}
 int main(int argc, char *argv[])
 {
-    set_qt_environment();
-
+    auto fonts = FONT_LIST();
     QGuiApplication app(argc, argv);
 
     app.setApplicationName("ACross");
-    app.setWindowIcon(QIcon(":misc/design/logo.svg"));
+    app.setWindowIcon(QIcon(":qt/qml/misc/design/logo.svg"));
+    app.setFont(QFont(fonts,11));
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:Main/main.qml"_qs);
+    const QUrl url(u"qrc:/qt/qml/Main/main.qml"_qs);
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,
         [url](QObject *obj, const QUrl &objUrl) {

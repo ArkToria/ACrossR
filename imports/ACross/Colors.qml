@@ -1,7 +1,6 @@
 pragma Singleton
 
 import QtQuick 6.4
-import QtQuick.Studio.Application
 
 Item {
     property bool darkTheme: true

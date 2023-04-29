@@ -18,6 +18,9 @@ Rectangle {
         import QtQuick.Controls 2.15
         import QtQuick.Shapes 1.5
 
+        Item {
+        width: 220
+        height: 220
         Rectangle {
         id: rectangle
         width: 220
@@ -25,6 +28,14 @@ Rectangle {
         color: "#dadce0"
 
         Shape {
+        layer.enabled: true
+        layer.samples: 8
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 40
+
+        width: 56
+        height: 56
         ShapePath {
         startX: 28
         startY: 0
@@ -45,15 +56,10 @@ Rectangle {
         fillColor: "#9aa0a6"
         strokeColor: "#9aa0a6"
         }
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 40
-
-        width: 56
-        height: 56
         }
 
         Rectangle {
+        y: height / 2 - 28
         width: 56
         height: 56
         color: "#9aa0a6"
@@ -63,30 +69,10 @@ Rectangle {
         anchors.bottomMargin: 40
         radius: 3
         }
-
-        Shape {
+        Rectangle {
         id: circle
 
-        ShapePath {
-        startX: 28
-        startY: 0
-        PathArc {
-        x: 28
-        y: 56
-        radiusX: 28
-        radiusY: 28
-        useLargeArc: true
-        }
-        PathArc {
-        x: 28
-        y: 0
-        radiusX: 28
-        radiusY: 28
-        useLargeArc: true
-        }
-        fillColor: "#9aa0a6"
-        strokeColor: "#9aa0a6"
-        }
+        color: "#9aa0a6"
 
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -95,6 +81,8 @@ Rectangle {
 
         width: 56
         height: 56
+        radius: height / 2
+        }
         }
         }
         `

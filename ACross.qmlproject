@@ -66,10 +66,11 @@ Project {
 
     Environment {
         QT_QUICK_CONTROLS_CONF: "qtquickcontrols2.conf"
-        QT_AUTO_SCREEN_SCALE_FACTOR: "1"
         QML_COMPAT_RESOLVE_URLS_ON_ASSIGNMENT: "1"
         QT_LOGGING_RULES: "qt.qml.connections=false"
-        QT_ENABLE_HIGHDPI_SCALING: "0"
+        QT_ENABLE_HIGHDPI_SCALING: "1"
+
+
         /* Useful for debugging
        QSG_VISUALIZE=batches
        QSG_VISUALIZE=clip
@@ -81,7 +82,7 @@ Project {
     qt6Project: true
 
     /* List of plugin directories passed to QML runtime */
-    importPaths: [ "imports", "asset_imports" ]
+    importPaths: ["imports", "asset_imports"]
 
     /* Required for deployment */
     targetDirectory: "/opt/ACross"
@@ -93,19 +94,19 @@ Project {
     /* If any modules the project imports require widgets (e.g. QtCharts), widgetApp must be true */
     widgetApp: true
 
+
     /* args: Specifies command line arguments for qsb tool to generate shaders.
        files: Specifies target files for qsb tool. If path is included, it must be relative to this file.
               Wildcard '*' can be used in the file name part of the path.
               e.g. files: [ "content/shaders/*.vert", "*.frag" ]  */
     ShaderTool {
         args: "-s --glsl \"100 es,120,150\" --hlsl 50 --msl 12"
-        files: [ "content/shaders/*" ]
+        files: ["content/shaders/*"]
     }
 
     multilanguageSupport: true
     supportedLanguages: ["en"]
     primaryLanguage: "en"
-
 
     mainUiFile: "content/CustomButton.qml"
 }

@@ -207,20 +207,25 @@ Rectangle {
                         acceptedDevices: PointerDevice.Mouse
                         cursorShape: Qt.PointingHandCursor
                     }
-                    background: Ripple {
-                        anchors.fill: parent
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        clip: true
-                        clipRadius: 100
-                        width: parent.width
-                        height: parent.height
-                        pressed: buttonInside.pressed
-                        anchor: buttonInside
-                        active: buttonInside.enabled
-                                && (buttonInside.down
-                                    || buttonInside.visualFocus
-                                    || buttonInside.hovered)
-                        color: ListView.isCurrentItem ? control.Material.highlightedRippleColor : buttonInside.Material.rippleColor
+                    background: Item {
+                        Ripple {
+                            anchors.fill: parent
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            clip: true
+                            clipRadius: 100
+                            width: parent.width
+                            height: parent.height
+                            pressed: buttonInside.pressed
+                            anchor: buttonInside
+                            color: ListView.isCurrentItem ? control.Material.highlightedRippleColor : buttonInside.Material.rippleColor
+                        }
+                        Rectangle {
+                            radius: 100
+
+                            opacity: buttonInside.hovered ? 1.0 : 0.0
+                            color: ListView.isCurrentItem ? control.Material.highlightedRippleColor : buttonInside.Material.rippleColor
+                            anchors.fill: parent
+                        }
                     }
                 }
             }
