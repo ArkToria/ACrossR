@@ -43,7 +43,7 @@ Rectangle {
                     color: Colors.onSurface
                     text: qsTr("TextNode")
                     font.pixelSize: 22
-                    font.family: "Roboto"
+                    
                 }
 
                 Text {
@@ -51,7 +51,7 @@ Rectangle {
                     text: qsTr("Group: Default Group\nProtocol: vmess\nAddress: across.example.org\nPort: 443")
                     font.pixelSize: 14
                     font.styleName: "Regular"
-                    font.family: "Roboto"
+                    
                     color: Colors.onSurfaceVariant
                 }
             }

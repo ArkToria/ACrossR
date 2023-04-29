@@ -84,7 +84,7 @@ T.Button {
             color: Colors.primary
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            font.family: "Roboto Medium"
+
         }
     }
 

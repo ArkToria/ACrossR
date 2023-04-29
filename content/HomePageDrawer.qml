@@ -137,7 +137,7 @@ Rectangle {
                         color: Colors.onSurfaceVariant
                         font.pixelSize: 14
                         font.styleName: "Medium"
-                        font.family: "Roboto"
+                        
                     }
                 }
             }
@@ -181,7 +181,7 @@ Rectangle {
                         Layout.alignment: Qt.AlignHCenter
                         font.pixelSize: 14
                         font.styleName: "Medium"
-                        font.family: "Roboto"
+                        
                     }
                     Item {
                         Layout.fillWidth: true
@@ -195,7 +195,7 @@ Rectangle {
                         color: Colors.onSurfaceVariant
                         font.pixelSize: 14
                         font.styleName: "Medium"
-                        font.family: "Roboto"
+                        
                     }
                 }
                 T.Button {

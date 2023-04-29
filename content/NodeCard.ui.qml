@@ -33,7 +33,7 @@ Rectangle {
                     text: nodeName
                     font.pixelSize: 16
                     font.styleName: "Medium"
-                    font.family: "Roboto"
+                    
                     color: Colors.onSurface
                 }
 
@@ -42,7 +42,7 @@ Rectangle {
                     text: address
                     font.pixelSize: 14
                     font.styleName: "Regular"
-                    font.family: "Roboto"
+                    
                     color: Colors.onSurface
                 }
             }
@@ -71,7 +71,7 @@ Rectangle {
                 id: label3
                 text: protocol
                 font.pixelSize: 16
-                font.family: "Roboto"
+                
                 color: Colors.onSurface
             }
 
@@ -80,7 +80,7 @@ Rectangle {
                 text: routings
                 font.pixelSize: 14
                 font.styleName: "Regular"
-                font.family: "Roboto"
+                
                 color: Colors.onSurfaceVariant
             }
         }

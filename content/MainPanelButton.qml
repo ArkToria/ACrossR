@@ -94,7 +94,7 @@ Item {
             font.styleName: "Medium"
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             color: Colors.onSurface
-            font.family: "Roboto"
+            
         }
     }
 }
