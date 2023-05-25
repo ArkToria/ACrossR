@@ -24,7 +24,7 @@ Rectangle {
         anchors.fill: parent
         spacing: 0
 
-        HomePageDrawer {
+        GroupPageDrawer {
             Layout.leftMargin: 1
             Layout.fillHeight: true
         }
@@ -33,17 +33,10 @@ Rectangle {
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.fillHeight: true
 
-            HomePageCard {
-                Layout.topMargin: 8
-                Layout.rowSpan: 6
-                Layout.rightMargin: 8
-                Layout.leftMargin: 8
-                Layout.fillWidth: true
-            }
             RowLayout {
                 id: rowLayout1
                 width: 100
-
+                height: 100
                 Layout.leftMargin: 8
                 Layout.rightMargin: 8
                 spacing: 5
@@ -88,15 +81,16 @@ Rectangle {
                 }
             }
             CardGrid {
-                id: homePageCardList
+
+                id: groupPageCardList
                 Layout.rightMargin: 0
                 Layout.leftMargin: 8
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 delegate: Column {
                     Item {
-                        NodeCard {
-                            width: homePageCardList.cellWidth - 8
+                        GroupCard {
+                            width: groupPageCardList.cellWidth - 8
                             height: 192
                             radius: 12
                         }
@@ -105,35 +99,35 @@ Rectangle {
 
                 model: ListModel {
                     ListElement {
-                        nodeName: "Node 1"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
+                        groupName: "Group 1"
+                        updateTime: "Updated on 5 - 18"
+                        type: "Basic"
+                        subType: "Raw"
+                        nodeCount: 120
                     }
 
                     ListElement {
-                        nodeName: "Node 2"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
+                        groupName: "Group 2"
+                        updateTime: "Updated on 5 - 18"
+                        type: "Subscription"
+                        subType: "SIP008"
+                        nodeCount: 20
                     }
 
                     ListElement {
-                        nodeName: "Node 3"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
+                        groupName: "Group 3"
+                        updateTime: "Updated on 5 - 18"
+                        type: "Subscription"
+                        subType: "OOCv1"
+                        nodeCount: 5
                     }
 
                     ListElement {
-                        nodeName: "Node 4"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
+                        groupName: "Group 4"
+                        updateTime: "Updated on 5 - 18"
+                        type: "Subscription"
+                        subType: "Raw"
+                        nodeCount: 6
                     }
                 }
             }

@@ -31,8 +31,8 @@ T.Button {
     background: buttonBackground
     Rectangle {
         id: buttonBackground
-        implicitWidth: 100
-        implicitHeight: 40
+        implicitWidth: control.width
+        implicitHeight: control.height
         radius: 100
         border.color: outline ? Colors.outline : "transparent"
         HoverHandler {
@@ -84,7 +84,6 @@ T.Button {
             color: Colors.primary
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-
         }
     }
 

@@ -37,16 +37,19 @@ Window {
             id: homePage
         }
 
+        GroupPage {
+            id: groupPage
+        }
+
+        RoutePage {
+            id: routingPage
+        }
+
         LogsPage {
             id: logsPage
         }
-
-        SettingPage {
-            id: settingPage
-        }
-
-        HelpPage {
-            id: helpPage
+        AboutPage {
+            id: aboutPage
         }
     }
 
@@ -112,18 +115,23 @@ Window {
                                        "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
-                                       "name": qsTr("Groups"),
+                                       "name": qsTr("Group"),
                                        "buttonImage": "../misc/icons/dark/dataset.svg",
                                        "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
-                                       "name": qsTr("Routing"),
+                                       "name": qsTr("Route"),
                                        "buttonImage": "../misc/icons/dark/routing.svg",
                                        "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             append({
                                        "name": qsTr("Logs"),
                                        "buttonImage": "../misc/icons/dark/log.svg",
+                                       "buttonColor": Colors.secondaryContainer.toString()
+                                   })
+                            append({
+                                       "name": qsTr("About"),
+                                       "buttonImage": "../misc/icons/dark/help.svg",
                                        "buttonColor": Colors.secondaryContainer.toString()
                                    })
                             completed = true
