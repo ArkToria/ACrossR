@@ -16,6 +16,4 @@ qt6_add_qml_module(ACross
 		Constants.qml
         Colors.qml
 		DirectoryFontLoader.qml
-		EventListModel.qml
-		EventListSimulator.qml
 )

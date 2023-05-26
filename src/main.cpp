@@ -3,7 +3,14 @@
 #include <QIcon>
 #include <QFont>
 
+#include "rusty_bridge/lib.h"
+extern "C" {
+int32_t rusty_extern_c_integer();
+}
+
+
 inline const QStringList FONT_LIST() {
+    qDebug()<<rusty_cxxbridge_integer();
     const static QStringList default_fonts = {
         "Noto Sans",     "Segoe UI Variable", "Segoe UI",
         "Noto Sans CJK", "PingFang SC",       "Microsoft YaHei UI",

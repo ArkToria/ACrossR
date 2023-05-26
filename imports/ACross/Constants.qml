@@ -1,7 +1,6 @@
 pragma Singleton
 
 import QtQuick 6.2
-import QtQuick.Studio.Application
 
 QtObject {
     readonly property int width: 960
@@ -20,8 +19,4 @@ QtObject {
                                               })
 
     readonly property color backgroundColor: "#c2c2c2"
-
-    property StudioApplication application: StudioApplication {
-        fontPath: Qt.resolvedUrl("../../content/" + relativeFontDirectory)
-    }
 }
