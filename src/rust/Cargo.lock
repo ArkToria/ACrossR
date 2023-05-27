@@ -6,7 +6,9 @@ version = 3
 name = "across-core"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "cxx",
+ "lazy_static",
  "prost",
  "prost-types",
  "tokio",

@@ -8,8 +8,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(BUILD_QDS_COMPONENTS ON CACHE BOOL "Build design studio components")
-
 project(across LANGUAGES CXX)
 set(APP_NAME ${PROJECT_NAME})
 
