@@ -1,24 +1,26 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QIcon>
 #include <QFont>
+#include <QGuiApplication>
+#include <QIcon>
+#include <QQmlApplicationEngine>
 
 #include "rusty_bridge/lib.h"
 
-inline const QStringList FONT_LIST() {
-    //across::core::set_default_endpoint();
+inline const QStringList FONT_LIST()
+{
     const static QStringList default_fonts = {
-        "Noto Sans",     "Segoe UI Variable", "Segoe UI",
-        "Noto Sans CJK", "PingFang SC",       "Microsoft YaHei UI",
+        "Noto Sans", "Segoe UI Variable", "Segoe UI", "Noto Sans CJK", "PingFang SC", "Microsoft YaHei UI",
     };
 
-    auto fonts_fallback = QStringLiteral("Noto Sans, Segoe UI Variable, Segoe UI, Noto Sans CJK, PingFang SC, Microsoft YaHei UI");
-    do {
+    auto fonts_fallback = QStringLiteral("Noto Sans, Segoe UI Variable, Segoe UI, Noto Sans CJK, "
+                                         "PingFang SC, Microsoft YaHei UI");
+    do
+    {
         if (fonts_fallback.isEmpty())
             break;
 
         QStringList temp_fonts;
-        for (auto &font : fonts_fallback.split(",")) {
+        for (auto &font : fonts_fallback.split(","))
+        {
             temp_fonts.append(font.trimmed());
         }
 
@@ -32,12 +34,15 @@ inline const QStringList FONT_LIST() {
 }
 int main(int argc, char *argv[])
 {
+    across::core::set_channel("http://127.0.0.1:11451");
+    qDebug() << across::core::count_groups();
+    auto group_list = across::core::list_all_groups();
     auto fonts = FONT_LIST();
     QGuiApplication app(argc, argv);
 
     app.setApplicationName("ACross");
     app.setWindowIcon(QIcon(":qt/qml/misc/design/logo.svg"));
-    app.setFont(QFont(fonts,11));
+    app.setFont(QFont(fonts, 11));
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/qt/qml/Main/main.qml"_qs);
@@ -54,7 +59,8 @@ int main(int argc, char *argv[])
 
     engine.load(url);
 
-    if (engine.rootObjects().isEmpty()) {
+    if (engine.rootObjects().isEmpty())
+    {
         return -1;
     }
 

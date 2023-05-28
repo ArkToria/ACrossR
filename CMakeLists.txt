@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21.1)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
@@ -74,7 +74,7 @@ qt_add_resources(${APP_NAME} "configuration"
 target_compile_definitions(${APP_NAME}
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries(${APP_NAME} PRIVATE
+set(LIBS 
     rusty_bridge
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Gui
@@ -82,6 +82,13 @@ target_link_libraries(${APP_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Qml
     Qt${QT_VERSION_MAJOR}::Core5Compat
 )
+if (WIN32)
+    list(APPEND LIBS ntdll)
+endif()
+target_link_libraries(${APP_NAME} PRIVATE
+    ${LIBS}
+)
+
 
 qt_add_resources(${APP_NAME} misc
     PREFIX "/qt/qml/misc/"
