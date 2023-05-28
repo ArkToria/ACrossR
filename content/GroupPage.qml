@@ -23,11 +23,6 @@ Rectangle {
         id: rowLayout
         anchors.fill: parent
         spacing: 0
-
-        GroupPageDrawer {
-            Layout.leftMargin: 1
-            Layout.fillHeight: true
-        }
         ColumnLayout {
             spacing: 8
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop

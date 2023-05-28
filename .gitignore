@@ -125,3 +125,6 @@ CMakeSettings.json
 # Clangd
 .cache
 .clangd
+
+# Qt Design Studio
+*.qmlproject.qtds

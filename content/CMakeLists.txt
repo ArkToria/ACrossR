@@ -12,7 +12,6 @@ qt6_add_qml_module(content
         GroupCard.ui.qml
         GroupIcon.qml
         GroupPage.qml
-        GroupPageDrawer.qml
         HomePage.qml
         HomePageCard.qml
         HomePageDrawer.qml

@@ -98,47 +98,27 @@ Rectangle {
                 }
             }
         }
-        Component {
-            id: sectionHeading
+        Item {
+            id: headline
+
+            height: 56
+
+            Layout.fillWidth: true
+
             Item {
-                id: sectionHeadingItem
-
-                height: hasDivider ? 57 : 56
-                property bool hasDivider: groupListView.itemAtIndex(
-                                              0) ? (section !== groupListView.itemAtIndex(
-                                                        0).group) : 0
-                required property string section
-
+                id: textItem
+                height: 56
                 anchors.left: parent.left
                 anchors.right: parent.right
-                Rectangle {
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
-                    anchors.right: parent.right
                     anchors.leftMargin: 16
-                    anchors.rightMargin: 16
-                    height: 1
-                    color: Colors.outlineVariant
-                    visible: parent.hasDivider
-                }
-
-                Item {
-                    id: textItem
-                    height: 56
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    property alias section: sectionHeadingItem.section
-
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left
-                        anchors.leftMargin: 16
-                        text: parent.section
-                        color: Colors.onSurfaceVariant
-                        font.pixelSize: 14
-                        font.styleName: "Medium"
-                        
-                    }
+                    text: qsTr("Groups")
+                    color: Colors.onSurfaceVariant
+                    font.pixelSize: 14
+                    font.styleName: "Medium"
                 }
             }
         }
@@ -181,7 +161,6 @@ Rectangle {
                         Layout.alignment: Qt.AlignHCenter
                         font.pixelSize: 14
                         font.styleName: "Medium"
-                        
                     }
                     Item {
                         Layout.fillWidth: true
@@ -195,7 +174,6 @@ Rectangle {
                         color: Colors.onSurfaceVariant
                         font.pixelSize: 14
                         font.styleName: "Medium"
-                        
                     }
                 }
                 T.Button {
@@ -229,8 +207,6 @@ Rectangle {
                     }
                 }
             }
-            section.property: "group"
-            section.delegate: sectionHeading
             highlight: Rectangle {
                 color: Colors.secondaryContainer
                 radius: 100
@@ -239,46 +215,39 @@ Rectangle {
             model: ListModel {
                 ListElement {
                     name: "Default Group"
-                    group: "Section 1"
                     count: "100+"
                     sidesCount: 36
                 }
 
                 ListElement {
                     name: "Public"
-                    group: "Section 1"
                     count: "100+"
                     sidesCount: 3
                 }
                 ListElement {
                     name: "vmess"
-                    group: "Section 1"
                     count: "100+"
                     sidesCount: 4
                 }
                 ListElement {
                     name: "Hallo"
-                    group: "Section 1"
                     count: "100+"
                     sidesCount: 5
                 }
 
                 ListElement {
                     name: "Eins"
-                    group: "Section Header"
                     count: "100+"
                     sidesCount: 36
                 }
 
                 ListElement {
                     name: "Zwei"
-                    group: "Section Header"
                     count: "100+"
                     sidesCount: 3
                 }
                 ListElement {
                     name: "Drei"
-                    group: "Section Header"
                     count: "100+"
                     sidesCount: 4
                 }

@@ -34,9 +34,6 @@ inline const QStringList FONT_LIST()
 }
 int main(int argc, char *argv[])
 {
-    across::core::set_channel("http://127.0.0.1:11451");
-    qDebug() << across::core::count_groups();
-    auto group_list = across::core::list_all_groups();
     auto fonts = FONT_LIST();
     QGuiApplication app(argc, argv);
 

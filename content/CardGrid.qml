@@ -6,7 +6,7 @@ GridView {
 
     clip: true
 
-    cellWidth: width / Math.floor(width / 300)
+    cellWidth: width / Math.floor(width / 275)
     cellHeight: 200
 
     delegate: Column {
