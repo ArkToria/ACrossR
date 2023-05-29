@@ -12,6 +12,7 @@ dependencies = [
  "lazy_static",
  "prost",
  "prost-types",
+ "rand",
  "tokio",
  "tonic",
  "tonic-build",
