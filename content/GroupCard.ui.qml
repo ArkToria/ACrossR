@@ -30,7 +30,7 @@ Rectangle {
 
                 Label {
                     id: label1
-                    text: groupName
+                    text: name
                     font.pixelSize: 16
                     font.styleName: "Medium"
 
@@ -39,7 +39,7 @@ Rectangle {
 
                 Label {
                     id: label2
-                    text: updateTime
+                    text: modifiedAt
                     font.pixelSize: 14
                     font.styleName: "Regular"
 
@@ -102,7 +102,7 @@ Rectangle {
 
             Label {
                 id: label
-                text: nodeCount + qsTr(" Proxies")
+                text: count + qsTr(" Proxies")
                 color: Colors.onSurfaceVariant
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }

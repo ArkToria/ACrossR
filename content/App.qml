@@ -17,7 +17,9 @@ Window {
     Material.accent: Material.Purple
 
     visible: true
-
+    CxxObject {
+        id: cxxObject
+    }
     SwipeView {
         id: swipeView
         interactive: false

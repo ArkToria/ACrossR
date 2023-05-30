@@ -2,8 +2,9 @@
 #include <QGuiApplication>
 #include <QIcon>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
-#include "rusty_bridge/lib.h"
+#include "groupmodel.h"
 
 inline const QStringList FONT_LIST()
 {
@@ -53,6 +54,9 @@ int main(int argc, char *argv[])
 
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
+
+    GroupModel group_model;
+    engine.rootContext()->setContextProperty(QStringLiteral("cxxGroupModel"),&group_model);
 
     engine.load(url);
 

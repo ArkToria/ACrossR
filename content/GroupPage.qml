@@ -92,39 +92,7 @@ Rectangle {
                     }
                 }
 
-                model: ListModel {
-                    ListElement {
-                        groupName: "Group 1"
-                        updateTime: "Updated on 5 - 18"
-                        type: "Basic"
-                        subType: "Raw"
-                        nodeCount: 120
-                    }
-
-                    ListElement {
-                        groupName: "Group 2"
-                        updateTime: "Updated on 5 - 18"
-                        type: "Subscription"
-                        subType: "SIP008"
-                        nodeCount: 20
-                    }
-
-                    ListElement {
-                        groupName: "Group 3"
-                        updateTime: "Updated on 5 - 18"
-                        type: "Subscription"
-                        subType: "OOCv1"
-                        nodeCount: 5
-                    }
-
-                    ListElement {
-                        groupName: "Group 4"
-                        updateTime: "Updated on 5 - 18"
-                        type: "Subscription"
-                        subType: "Raw"
-                        nodeCount: 6
-                    }
-                }
+                model: cxxObject.acrossGroupModel
             }
         }
     }

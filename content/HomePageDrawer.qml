@@ -151,7 +151,7 @@ Rectangle {
                             width: 14
                             height: 14
                             anchors.centerIn: parent
-                            sides: sidesCount
+                            sides: 5
                         }
                     }
 
@@ -212,46 +212,7 @@ Rectangle {
                 radius: 100
             }
             highlightMoveVelocity: -1
-            model: ListModel {
-                ListElement {
-                    name: "Default Group"
-                    count: "100+"
-                    sidesCount: 36
-                }
-
-                ListElement {
-                    name: "Public"
-                    count: "100+"
-                    sidesCount: 3
-                }
-                ListElement {
-                    name: "vmess"
-                    count: "100+"
-                    sidesCount: 4
-                }
-                ListElement {
-                    name: "Hallo"
-                    count: "100+"
-                    sidesCount: 5
-                }
-
-                ListElement {
-                    name: "Eins"
-                    count: "100+"
-                    sidesCount: 36
-                }
-
-                ListElement {
-                    name: "Zwei"
-                    count: "100+"
-                    sidesCount: 3
-                }
-                ListElement {
-                    name: "Drei"
-                    count: "100+"
-                    sidesCount: 4
-                }
-            }
+            model: cxxObject.acrossGroupModel
         }
     }
 }
