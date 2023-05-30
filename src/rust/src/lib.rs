@@ -32,10 +32,12 @@ mod ffi {
         pub length: u64,
         pub entries: Vec<GroupData>,
     }
+    #[derive(Clone, Debug)]
     pub struct NodeList {
         pub length: u64,
         pub entries: Vec<NodeData>,
     }
+    #[derive(Clone, Debug)]
     pub struct NodeData {
         pub id: i64,
         pub name: String,
@@ -410,29 +412,5 @@ impl AcrossRpc {
     }
     pub fn set_channel(&mut self, channel: Endpoint) {
         self.endpoint = Some(channel);
-    }
-}
-#[cfg(test)]
-mod tests {
-    use crate::{count_groups, set_channel};
-    use acolors_proto::profile_manager_client::ProfileManagerClient;
-    use acolors_proto::ListAllGroupsRequest;
-    use core_protobuf::acolors_proto;
-    use tonic::transport::Channel;
-    #[tokio::test]
-    async fn my_test() -> Result<(), Box<dyn std::error::Error>> {
-        let channel = Channel::builder("http://127.0.0.1:11451".parse().unwrap());
-        let mut client = ProfileManagerClient::connect(channel).await?;
-        let request = tonic::Request::new(ListAllGroupsRequest {});
-        let response = client.list_all_groups(request).await?;
-        print!("{:?}", response.into_inner());
-        Ok(())
-    }
-    #[test]
-    fn test_count_groups() -> Result<(), Box<dyn std::error::Error>> {
-        set_channel("http://127.0.0.1:11451")?;
-
-        dbg!(count_groups()?);
-        Ok(())
     }
 }

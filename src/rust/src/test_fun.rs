@@ -8,15 +8,13 @@ mod tests {
     };
     use lazy_static::lazy_static;
     use rand::{distributions::Alphanumeric, rngs::ThreadRng, Rng};
+    use serial_test::serial;
     use std::net::TcpListener;
     use std::time::Duration;
     use tokio::runtime::Runtime;
     use tonic::{transport::Server, Request, Response, Status};
 
-    use crate::count_groups;
-    use crate::count_nodes;
-    use crate::list_all_groups;
-    use crate::set_channel;
+    use crate::*;
 
     fn random_alphanumeric_string(rng: &mut ThreadRng, length: usize) -> String {
         rng.sample_iter(&Alphanumeric)
@@ -223,6 +221,7 @@ mod tests {
     }
 
     #[test]
+    #[serial]
     fn test_count_groups() -> Result<()> {
         let rt = Runtime::new().unwrap();
         let port = create_server(&rt)?;
@@ -235,6 +234,21 @@ mod tests {
         Ok(())
     }
     #[test]
+    #[serial]
+    fn test_list_all_groups() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let groups = list_all_groups()?;
+        dbg!(&groups);
+        let groups: GroupList = groups.into();
+        assert_eq!(groups, GROUP_LIST.clone());
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
     fn test_count_nodes() -> Result<()> {
         let rt = Runtime::new().unwrap();
         let port = create_server(&rt)?;
@@ -247,17 +261,165 @@ mod tests {
         Ok(())
     }
     #[test]
-    fn test_list_all_groups() -> Result<()> {
+    #[serial]
+    fn test_list_all_nodes() -> Result<()> {
         let rt = Runtime::new().unwrap();
         let port = create_server(&rt)?;
         let uri = format!("http://127.0.0.1:{port}");
         set_channel(&uri)?;
-        let group_list: GroupList = list_all_groups()?.into();
-        assert_eq!(group_list, GROUP_LIST.clone());
+        let node_list = list_all_nodes(GROUP_ID)?;
+        dbg!(&node_list);
+        let node_list: NodeList = node_list.into();
+        assert_eq!(node_list, NODE_LIST.clone());
 
         Ok(())
     }
+    #[test]
+    #[serial]
+    fn test_get_group_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let group_data = get_group_by_id(GROUP_ID)?;
+        dbg!(&group_data);
+        let group_data: GroupData = group_data.into();
+        assert_eq!(group_data, GROUP_DATA.clone());
 
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_get_node_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let node_data = get_node_by_id(NODE_ID)?;
+        dbg!(&node_data);
+        let node_data: NodeData = node_data.into();
+        assert_eq!(node_data, NODE_DATA.clone());
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_set_group_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        set_group_by_id(GROUP_ID, GROUP_DATA.clone().into())?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_set_node_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        set_node_by_id(NODE_ID, NODE_DATA.clone().into())?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_set_node_by_url() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let mut rng = rand::thread_rng();
+        set_node_by_url(GROUP_ID, random_alphanumeric_string(&mut rng, 15))?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_remove_group_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        remove_group_by_id(GROUP_ID)?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_remove_node_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        remove_node_by_id(NODE_ID)?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_append_group() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let group_id = append_group(GROUP_DATA.clone().into())?;
+        dbg!(group_id);
+        assert_eq!(group_id, GROUP_ID);
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_append_node() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let node_id = append_node(GROUP_ID, NODE_DATA.clone().into())?;
+        dbg!(node_id);
+        assert_eq!(node_id, NODE_ID);
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_append_node_by_url() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        let mut rng = rand::thread_rng();
+        let node_id = append_node_by_url(GROUP_ID, random_alphanumeric_string(&mut rng, 15))?;
+        dbg!(node_id);
+        assert_eq!(node_id, NODE_ID);
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_update_group_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        update_group_by_id(GROUP_ID, true)?;
+
+        Ok(())
+    }
+    #[test]
+    #[serial]
+    fn test_empty_group_by_id() -> Result<()> {
+        let rt = Runtime::new().unwrap();
+        let port = create_server(&rt)?;
+        let uri = format!("http://127.0.0.1:{port}");
+        set_channel(&uri)?;
+        empty_group_by_id(GROUP_ID)?;
+
+        Ok(())
+    }
     fn create_server(rt: &Runtime) -> Result<u16, anyhow::Error> {
         let server = TestServer::default();
         let port = tcp_get_available_port(11451..19198).ok_or(anyhow!("No available ports"))?;
