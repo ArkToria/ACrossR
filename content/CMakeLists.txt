@@ -3,8 +3,8 @@ qt6_add_qml_module(content
     URI "content"
     VERSION 1.0
     QML_FILES
-        AboutPage.qml
         App.qml
+        AboutPage.qml
         CardGrid.qml
         CustomButton.qml
         Dashboard.qml

@@ -72,7 +72,6 @@ void NodeModel::setList(std::unique_ptr<across::core::NodeList> p_list)
 
     beginResetModel();
 
-    qDebug()<<"Length"<<p_list->length;
     this->p_list = std::move(p_list);
 
     endResetModel();

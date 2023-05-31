@@ -2,4 +2,3 @@ Module ACross
 singleton Constants 1.0 Constants.qml
 singleton Colors 1.0 Colors.qml
 DirectoryFontLoader 1.0 DirectoryFontLoader.qml
-

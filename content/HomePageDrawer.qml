@@ -181,7 +181,6 @@ Rectangle {
                     anchors.fill: parent
 
                     onClicked: {
-                        console.log("SelectId:" + id)
                         groupListView.currentIndex = index
                         cxxObject.acrossNodeModel.select(id)
                     }
