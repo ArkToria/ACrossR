@@ -14,7 +14,7 @@ pub mod ffi {
         pub group_type: i32,
         pub url: String,
         pub cycle_time: i32,
-        pub create_at: i64,
+        pub created_at: i64,
         pub modified_at: i64,
     }
     #[derive(Clone, Debug)]
@@ -44,7 +44,7 @@ pub mod ffi {
         pub latency: i32,
         pub upload: i64,
         pub download: i64,
-        pub create_at: i64,
+        pub created_at: i64,
         pub modified_at: i64,
     }
 

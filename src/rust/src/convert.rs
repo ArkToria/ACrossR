@@ -9,7 +9,7 @@ impl From<crate::profile::ffi::GroupData> for acolors_proto::GroupData {
             group_type: group_data.group_type,
             url: group_data.url,
             cycle_time: group_data.cycle_time,
-            create_at: group_data.create_at,
+            created_at: group_data.created_at,
             modified_at: group_data.modified_at,
         }
     }
@@ -23,7 +23,7 @@ impl From<acolors_proto::GroupData> for crate::profile::ffi::GroupData {
             group_type: group_data.group_type,
             url: group_data.url,
             cycle_time: group_data.cycle_time,
-            create_at: group_data.create_at,
+            created_at: group_data.created_at,
             modified_at: group_data.modified_at,
         }
     }
@@ -46,7 +46,7 @@ impl From<crate::profile::ffi::NodeData> for acolors_proto::NodeData {
             latency: node_data.latency,
             upload: node_data.upload,
             download: node_data.download,
-            create_at: node_data.create_at,
+            created_at: node_data.created_at,
             modified_at: node_data.modified_at,
         }
     }
@@ -69,7 +69,7 @@ impl From<acolors_proto::NodeData> for crate::profile::ffi::NodeData {
             latency: node_data.latency,
             upload: node_data.upload,
             download: node_data.download,
-            create_at: node_data.create_at,
+            created_at: node_data.created_at,
             modified_at: node_data.modified_at,
         }
     }

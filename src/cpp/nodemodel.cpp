@@ -52,7 +52,7 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
     case DownloadRole:
         return QVariant(item.download);
     case CreatedAtRole:
-        return QVariant(item.create_at);
+        return QVariant(item.created_at);
     case ModifiedAtRole:
         return QVariant(item.modified_at);
     default:

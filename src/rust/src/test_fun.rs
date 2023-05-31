@@ -40,7 +40,7 @@ mod tests {
             latency: rng.gen(),
             upload: rng.gen(),
             download: rng.gen(),
-            create_at: rng.gen(),
+            created_at: rng.gen(),
             modified_at: rng.gen(),
         }
     }
@@ -59,7 +59,7 @@ mod tests {
             group_type: rng.gen_range(0..=2),
             url: random_alphanumeric_string(&mut rng, 7),
             cycle_time: rng.gen(),
-            create_at: rng.gen(),
+            created_at: rng.gen(),
             modified_at: rng.gen(),
         }
     }
