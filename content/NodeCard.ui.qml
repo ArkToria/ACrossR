@@ -30,10 +30,10 @@ Rectangle {
 
                 Label {
                     id: label1
-                    text: nodeName
+                    text: name
                     font.pixelSize: 16
                     font.styleName: "Medium"
-                    
+
                     color: Colors.onSurface
                 }
 
@@ -42,7 +42,7 @@ Rectangle {
                     text: address
                     font.pixelSize: 14
                     font.styleName: "Regular"
-                    
+
                     color: Colors.onSurface
                 }
             }
@@ -71,16 +71,16 @@ Rectangle {
                 id: label3
                 text: protocol
                 font.pixelSize: 16
-                
+
                 color: Colors.onSurface
             }
 
             Label {
                 id: label4
-                text: routings
+                text: routingName
                 font.pixelSize: 14
                 font.styleName: "Regular"
-                
+
                 color: Colors.onSurfaceVariant
             }
         }
@@ -93,7 +93,7 @@ Rectangle {
 
             Label {
                 id: label
-                text: latency
+                text: latency === -1 ? "" : latency + qsTr("ms")
                 color: Colors.onSurfaceVariant
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }

@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Basic as ControlsBasic
 
 GridView {
     id: cardList
@@ -51,5 +52,9 @@ GridView {
             routings: "default_routings"
             latency: "114ms"
         }
+    }
+    ScrollBar.vertical: ControlsBasic.ScrollBar {
+        policy: ScrollBar.AsNeeded
+        smooth: true
     }
 }

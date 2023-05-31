@@ -103,39 +103,7 @@ Rectangle {
                     }
                 }
 
-                model: ListModel {
-                    ListElement {
-                        nodeName: "Node 1"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
-                    }
-
-                    ListElement {
-                        nodeName: "Node 2"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
-                    }
-
-                    ListElement {
-                        nodeName: "Node 3"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
-                    }
-
-                    ListElement {
-                        nodeName: "Node 4"
-                        address: "example.arktoria.org"
-                        protocol: "vmess"
-                        routings: "default_routings"
-                        latency: "114ms"
-                    }
-                }
+                model: cxxObject.acrossNodeModel
             }
         }
     }

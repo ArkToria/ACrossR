@@ -180,7 +180,11 @@ Rectangle {
                     id: buttonInside
                     anchors.fill: parent
 
-                    onClicked: groupListView.currentIndex = index
+                    onClicked: {
+                        console.log("SelectId:" + id)
+                        groupListView.currentIndex = index
+                        cxxObject.acrossNodeModel.select(id)
+                    }
                     HoverHandler {
                         acceptedDevices: PointerDevice.Mouse
                         cursorShape: Qt.PointingHandCursor

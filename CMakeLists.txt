@@ -50,11 +50,11 @@ corrosion_add_cxxbridge(rusty_bridge
     lib.rs
 )
 
+aux_source_directory(src/cpp/ CPP_FILES)
+
 qt_add_executable(${APP_NAME}
     MANUAL_FINALIZATION
-    src/main.cpp
-    src/groupmodel.h
-    src/groupmodel.cpp
+    ${CPP_FILES}
     misc/across.rc
 )
 
