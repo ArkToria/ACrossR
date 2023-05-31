@@ -1,7 +1,7 @@
 use core_protobuf::acolors_proto;
 
-impl From<crate::ffi::GroupData> for acolors_proto::GroupData {
-    fn from(group_data: crate::ffi::GroupData) -> Self {
+impl From<crate::profile::ffi::GroupData> for acolors_proto::GroupData {
+    fn from(group_data: crate::profile::ffi::GroupData) -> Self {
         acolors_proto::GroupData {
             id: group_data.id,
             name: group_data.name,
@@ -14,9 +14,9 @@ impl From<crate::ffi::GroupData> for acolors_proto::GroupData {
         }
     }
 }
-impl From<acolors_proto::GroupData> for crate::ffi::GroupData {
+impl From<acolors_proto::GroupData> for crate::profile::ffi::GroupData {
     fn from(group_data: acolors_proto::GroupData) -> Self {
-        crate::ffi::GroupData {
+        crate::profile::ffi::GroupData {
             id: group_data.id,
             name: group_data.name,
             is_subscription: group_data.is_subscription,
@@ -28,8 +28,8 @@ impl From<acolors_proto::GroupData> for crate::ffi::GroupData {
         }
     }
 }
-impl From<crate::ffi::NodeData> for acolors_proto::NodeData {
-    fn from(node_data: crate::ffi::NodeData) -> Self {
+impl From<crate::profile::ffi::NodeData> for acolors_proto::NodeData {
+    fn from(node_data: crate::profile::ffi::NodeData) -> Self {
         acolors_proto::NodeData {
             id: node_data.id,
             name: node_data.name,
@@ -51,9 +51,9 @@ impl From<crate::ffi::NodeData> for acolors_proto::NodeData {
         }
     }
 }
-impl From<acolors_proto::NodeData> for crate::ffi::NodeData {
+impl From<acolors_proto::NodeData> for crate::profile::ffi::NodeData {
     fn from(node_data: acolors_proto::NodeData) -> Self {
-        crate::ffi::NodeData {
+        crate::profile::ffi::NodeData {
             id: node_data.id,
             name: node_data.name,
             group_id: node_data.group_id,
@@ -75,34 +75,34 @@ impl From<acolors_proto::NodeData> for crate::ffi::NodeData {
     }
 }
 
-impl From<crate::ffi::GroupList> for acolors_proto::GroupList {
-    fn from(group_data: crate::ffi::GroupList) -> Self {
+impl From<crate::profile::ffi::GroupList> for acolors_proto::GroupList {
+    fn from(group_data: crate::profile::ffi::GroupList) -> Self {
         acolors_proto::GroupList {
             length: group_data.length,
             entries: group_data.entries.into_iter().map(|d| d.into()).collect(),
         }
     }
 }
-impl From<acolors_proto::GroupList> for crate::ffi::GroupList {
+impl From<acolors_proto::GroupList> for crate::profile::ffi::GroupList {
     fn from(group_data: acolors_proto::GroupList) -> Self {
-        crate::ffi::GroupList {
+        crate::profile::ffi::GroupList {
             length: group_data.length,
             entries: group_data.entries.into_iter().map(|d| d.into()).collect(),
         }
     }
 }
 
-impl From<crate::ffi::NodeList> for acolors_proto::NodeList {
-    fn from(group_data: crate::ffi::NodeList) -> Self {
+impl From<crate::profile::ffi::NodeList> for acolors_proto::NodeList {
+    fn from(group_data: crate::profile::ffi::NodeList) -> Self {
         acolors_proto::NodeList {
             length: group_data.length,
             entries: group_data.entries.into_iter().map(|d| d.into()).collect(),
         }
     }
 }
-impl From<acolors_proto::NodeList> for crate::ffi::NodeList {
+impl From<acolors_proto::NodeList> for crate::profile::ffi::NodeList {
     fn from(group_data: acolors_proto::NodeList) -> Self {
-        crate::ffi::NodeList {
+        crate::profile::ffi::NodeList {
             length: group_data.length,
             entries: group_data.entries.into_iter().map(|d| d.into()).collect(),
         }

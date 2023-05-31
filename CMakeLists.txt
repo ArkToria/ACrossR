@@ -47,7 +47,7 @@ corrosion_add_cxxbridge(rusty_bridge
     MANIFEST_PATH
     src/rust
     FILES
-    lib.rs
+    profile.rs
 )
 
 aux_source_directory(src/cpp/ CPP_FILES)

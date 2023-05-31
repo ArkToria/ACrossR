@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <memory>
 
-#include "rusty_bridge/lib.h"
+#include "rusty_bridge/profile.h"
 
 class GroupModel : public QAbstractListModel
 {
@@ -31,7 +31,7 @@ class GroupModel : public QAbstractListModel
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    void setList(std::unique_ptr<across::core::GroupList> p_list);
+    void setList(std::unique_ptr<across::profile::GroupList> p_list);
 
     // Editable:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
@@ -41,7 +41,7 @@ class GroupModel : public QAbstractListModel
     virtual QHash<int, QByteArray> roleNames() const override;
 
   private:
-    std::unique_ptr<across::core::GroupList> p_list;
+    std::unique_ptr<across::profile::GroupList> p_list;
 };
 
 #endif // GROUPMODEL_H

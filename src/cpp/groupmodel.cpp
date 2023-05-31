@@ -17,7 +17,7 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || p_list == nullptr || index.row() >= rowCount())
         return {};
 
-    const across::core::GroupData item = p_list->entries.at(index.row());
+    const across::profile::GroupData item = p_list->entries.at(index.row());
 
     switch (role)
     {
@@ -36,13 +36,13 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
     case ModifiedAtRole:
         return QVariant(item.modified_at);
     case CountRole:
-        return QVariant(across::core::count_nodes(item.id));
+        return QVariant(across::profile::count_nodes(item.id));
     default:
         return {};
     }
 }
 
-void GroupModel::setList(std::unique_ptr<across::core::GroupList> p_list)
+void GroupModel::setList(std::unique_ptr<across::profile::GroupList> p_list)
 {
     this->p_list = std::move(p_list);
 }

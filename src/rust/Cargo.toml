@@ -25,6 +25,8 @@ cxx = "1.0"
 lazy_static = "1.0"
 anyhow = "1.0"
 core_protobuf = { path = "components/core_protobuf" }
+serde = "1.0"
+serde_json = "1.0"
 
 [dev-dependencies]
 core_protobuf = { path = "components/core_protobuf" }

@@ -14,7 +14,7 @@ mod tests {
     use tokio::runtime::Runtime;
     use tonic::{transport::Server, Request, Response, Status};
 
-    use crate::*;
+    use crate::profile::*;
 
     fn random_alphanumeric_string(rng: &mut ThreadRng, length: usize) -> String {
         rng.sample_iter(&Alphanumeric)

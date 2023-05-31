@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <memory>
 
-#include "rusty_bridge/lib.h"
+#include "rusty_bridge/profile.h"
 
 class NodeModel : public QAbstractListModel
 {
@@ -41,7 +41,7 @@ class NodeModel : public QAbstractListModel
 
     Q_INVOKABLE void select(::std::int64_t group_id);
 
-    void setList(std::unique_ptr<across::core::NodeList> p_list);
+    void setList(std::unique_ptr<across::profile::NodeList> p_list);
 
     // Editable:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
@@ -51,7 +51,7 @@ class NodeModel : public QAbstractListModel
     virtual QHash<int, QByteArray> roleNames() const override;
 
   private:
-    std::unique_ptr<across::core::NodeList> p_list;
+    std::unique_ptr<across::profile::NodeList> p_list;
 };
 
 #endif // NODEMODEL_H

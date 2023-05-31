@@ -17,7 +17,7 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || p_list == nullptr || index.row() >= rowCount())
         return {};
 
-    const across::core::NodeData item = p_list->entries.at(index.row());
+    const across::profile::NodeData item = p_list->entries.at(index.row());
 
     switch (role)
     {
@@ -62,10 +62,10 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
 
 void NodeModel::select(int64_t group_id)
 {
-    auto node_list = std::make_unique<across::core::NodeList>(across::core::list_all_nodes(group_id));
+    auto node_list = std::make_unique<across::profile::NodeList>(across::profile::list_all_nodes(group_id));
     this->setList(std::move(node_list));
 }
-void NodeModel::setList(std::unique_ptr<across::core::NodeList> p_list)
+void NodeModel::setList(std::unique_ptr<across::profile::NodeList> p_list)
 {
     if (!p_list)
         return;
