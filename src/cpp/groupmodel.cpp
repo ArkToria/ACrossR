@@ -22,7 +22,7 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case IdRole:
-        return QVariant(item.id);
+        return QVariant::fromValue(item.id);
     case NameRole:
         return QVariant(QString::fromStdString(std::string(item.name)));
     case IsSubscriptionRole:
@@ -34,9 +34,9 @@ QVariant GroupModel::data(const QModelIndex &index, int role) const
     case CycleTimeRole:
         return QVariant(item.cycle_time);
     case ModifiedAtRole:
-        return QVariant(item.modified_at);
+        return QVariant::fromValue(item.modified_at);
     case CountRole:
-        return QVariant(across::profile::count_nodes(item.id));
+        return QVariant::fromValue(across::profile::count_nodes(item.id));
     default:
         return {};
     }

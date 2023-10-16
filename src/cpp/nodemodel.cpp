@@ -22,11 +22,11 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case IdRole:
-        return QVariant(item.id);
+        return QVariant::fromValue(item.id);
     case NameRole:
         return QVariant(QString::fromStdString(std::string(item.name)));
     case GroupIdRole:
-        return QVariant(item.group_id);
+        return QVariant::fromValue(item.group_id);
     case GroupNameRole:
         return QVariant(QString::fromStdString(std::string(item.group_name)));
     case RoutingIdRole:
@@ -48,13 +48,13 @@ QVariant NodeModel::data(const QModelIndex &index, int role) const
     case LatencyRole:
         return QVariant(item.latency);
     case UploadRole:
-        return QVariant(item.upload);
+        return QVariant::fromValue(item.upload);
     case DownloadRole:
-        return QVariant(item.download);
+        return QVariant::fromValue(item.download);
     case CreatedAtRole:
-        return QVariant(item.created_at);
+        return QVariant::fromValue(item.created_at);
     case ModifiedAtRole:
-        return QVariant(item.modified_at);
+        return QVariant::fromValue(item.modified_at);
     default:
         return {};
     }
