@@ -34,24 +34,57 @@ Rectangle {
             Column {
                 id: column1
                 anchors.left: parent.left
+                anchors.right: parent.right
                 anchors.top: parent.top
+                anchors.rightMargin: 16
+
                 anchors.topMargin: 16
                 anchors.leftMargin: 16
 
                 Text {
-                    id: text2
+                    id: homePageCardTitle
                     color: Colors.onSurface
-                    text: qsTr("TextNode")
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    elide: Text.ElideRight
+                    text: qsTr("TextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNodeTextNode")
                     font.pixelSize: 22
-                    
                 }
 
                 Text {
-                    id: text3
-                    text: qsTr("Group: Default Group\nProtocol: vmess\nAddress: across.example.org\nPort: 443")
+                    width: parent.width
+                    text: qsTr("Group: Default GroupGroupGroupGroupGroupGroupGroupGroup")
                     font.pixelSize: 14
                     font.styleName: "Regular"
-                    
+                    elide: Text.ElideRight
+
+                    color: Colors.onSurfaceVariant
+                }
+                Text {
+                    width: parent.width
+                    text: qsTr("Protocol: vmessvmessvmessvmessvmessvmessvmessvmess")
+                    font.pixelSize: 14
+                    font.styleName: "Regular"
+                    elide: Text.ElideRight
+
+                    color: Colors.onSurfaceVariant
+                }
+                Text {
+                    width: parent.width
+                    text: qsTr("Address: across.example.orgacross.example.orgacross.example.orgacross.example.org")
+                    font.pixelSize: 14
+                    font.styleName: "Regular"
+                    elide: Text.ElideRight
+
+                    color: Colors.onSurfaceVariant
+                }
+                Text {
+                    width: parent.width
+                    text: qsTr("Port: 443443443443443443443443443443443443443443443443")
+                    font.pixelSize: 14
+                    font.styleName: "Regular"
+                    elide: Text.ElideRight
+
                     color: Colors.onSurfaceVariant
                 }
             }

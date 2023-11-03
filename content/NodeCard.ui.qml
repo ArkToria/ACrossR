@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 import ACross 1.0
 
 Rectangle {
+    id: card
     width: 300
     height: 192
     color: Colors.surface1
@@ -19,13 +20,14 @@ Rectangle {
             spacing: 0
             Layout.bottomMargin: 12
             Layout.topMargin: 12
-            Layout.rightMargin: 4
+            Layout.rightMargin: 16
             Layout.leftMargin: 16
             Layout.fillWidth: true
 
             ColumnLayout {
                 id: columnLayout1
                 spacing: 4
+
                 Layout.fillWidth: true
 
                 Label {
@@ -33,16 +35,18 @@ Rectangle {
                     text: name
                     font.pixelSize: 16
                     font.styleName: "Medium"
-
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
                     color: Colors.onSurface
                 }
 
                 Label {
                     id: label2
                     text: address
+                    Layout.fillWidth: true
                     font.pixelSize: 14
                     font.styleName: "Regular"
-
+                    elide: Text.ElideRight
                     color: Colors.onSurface
                 }
             }
@@ -64,6 +68,7 @@ Rectangle {
 
         ColumnLayout {
             id: columnLayout
+
             spacing: 0
             Layout.margins: 16
 
@@ -71,7 +76,8 @@ Rectangle {
                 id: label3
                 text: protocol
                 font.pixelSize: 16
-
+                Layout.fillWidth: true
+                elide: Text.ElideRight
                 color: Colors.onSurface
             }
 
@@ -80,7 +86,8 @@ Rectangle {
                 text: routingName
                 font.pixelSize: 14
                 font.styleName: "Regular"
-
+                Layout.fillWidth: true
+                elide: Text.ElideRight
                 color: Colors.onSurfaceVariant
             }
         }
@@ -93,8 +100,11 @@ Rectangle {
 
             Label {
                 id: label
+                Layout.fillWidth: true
                 text: latency === -1 ? "" : latency + qsTr("ms")
                 color: Colors.onSurfaceVariant
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignRight
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
         }

@@ -34,6 +34,9 @@ Rectangle {
                     font.pixelSize: 16
                     font.styleName: "Medium"
 
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+
                     color: Colors.onSurface
                 }
 
@@ -42,6 +45,9 @@ Rectangle {
                     text: modifiedAt
                     font.pixelSize: 14
                     font.styleName: "Regular"
+
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
 
                     color: Colors.onSurface
                 }
@@ -81,6 +87,9 @@ Rectangle {
                 text: type
                 font.pixelSize: 16
 
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+
                 color: Colors.onSurface
             }
 
@@ -89,6 +98,9 @@ Rectangle {
                 text: subType
                 font.pixelSize: 14
                 font.styleName: "Regular"
+
+                Layout.fillWidth: true
+                elide: Text.ElideRight
 
                 color: Colors.onSurfaceVariant
             }
@@ -104,6 +116,11 @@ Rectangle {
                 id: label
                 text: count + qsTr(" Proxies")
                 color: Colors.onSurfaceVariant
+
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignRight
+
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
         }

@@ -159,6 +159,8 @@ Rectangle {
                         text: name
                         color: Colors.onSurfaceVariant
                         Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: true
+                        elide: Text.ElideRight
                         font.pixelSize: 14
                         font.styleName: "Medium"
                     }
