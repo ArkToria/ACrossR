@@ -92,7 +92,7 @@ Rectangle {
                     }
                 }
 
-                model: cxxObject.acrossGroupModel
+                model: across.groupModel
             }
         }
     }

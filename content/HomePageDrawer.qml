@@ -184,7 +184,7 @@ Rectangle {
 
                     onClicked: {
                         groupListView.currentIndex = index
-                        cxxObject.acrossNodeModel.select(id)
+                        across.nodeModel.select(id)
                     }
                     HoverHandler {
                         acceptedDevices: PointerDevice.Mouse
@@ -217,7 +217,7 @@ Rectangle {
                 radius: 100
             }
             highlightMoveVelocity: -1
-            model: cxxObject.acrossGroupModel
+            model: across.groupModel
         }
     }
 }

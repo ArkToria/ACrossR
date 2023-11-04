@@ -103,7 +103,7 @@ Rectangle {
                     }
                 }
 
-                model: cxxObject.acrossNodeModel
+                model: across.nodeModel
             }
         }
     }

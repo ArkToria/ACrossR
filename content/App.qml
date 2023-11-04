@@ -17,8 +17,8 @@ Window {
     Material.accent: Material.Purple
 
     visible: true
-    CxxObject {
-        id: cxxObject
+    AcrossCpp {
+        id: across
     }
     SwipeView {
         id: swipeView

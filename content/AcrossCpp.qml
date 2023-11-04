@@ -11,10 +11,10 @@ Item {
         return (typeof o !== "undefined") ? o : default_object
     }
 
-    property var acrossGroupModel: testObject(across.groupModel,cxxObject.createObject(
+    property var groupModel: testObject(acrossCxx.groupModel,cxxObject.createObject(
                                                            "GroupModelExample.qml",
                                                            cxxObject))
-    property var acrossNodeModel:  testObject(across.nodeModel,cxxObject.createObject(
+    property var nodeModel:  testObject(acrossCxx.nodeModel,cxxObject.createObject(
                                                           "NodeModelExample.qml",
                                                           cxxObject))
 }
