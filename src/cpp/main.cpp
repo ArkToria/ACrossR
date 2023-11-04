@@ -4,9 +4,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "groupmodel.h"
-#include "nodemodel.h"
 #include "rusty_bridge/profile.h"
+#include "across.h"
 
 inline const QStringList FONT_LIST()
 {
@@ -57,13 +56,9 @@ int main(int argc, char *argv[])
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
 
-    across::profile::set_channel("http://127.0.0.1:11451");
-    GroupModel group_model;
-    auto group_list = std::make_unique<across::profile::GroupList>(across::profile::list_all_groups());
-    group_model.setList(std::move(group_list));
-    NodeModel node_model;
-    engine.rootContext()->setContextProperty(QStringLiteral("cxxGroupModel"), &group_model);
-    engine.rootContext()->setContextProperty(QStringLiteral("cxxNodeModel"), &node_model);
+    Across across("http://127.0.0.1:11451");
+    engine.rootContext()->setContextProperty(QStringLiteral("cxxGroupModel"), across.group_model.get());
+    engine.rootContext()->setContextProperty(QStringLiteral("cxxNodeModel"), across.node_model.get());
 
     engine.load(url);
 
