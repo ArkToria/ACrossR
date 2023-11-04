@@ -7,13 +7,14 @@ Item {
         if (component.status === Component.Ready)
             return component.createObject(parent)
     }
+    function testObject(o, default_object){
+        return (typeof o !== "undefined") ? o : default_object
+    }
 
-    property var acrossGroupModel: (typeof cxxGroupModel
-                                    !== "undefined") ? cxxGroupModel : cxxObject.createObject(
+    property var acrossGroupModel: testObject(across.groupModel,cxxObject.createObject(
                                                            "GroupModelExample.qml",
-                                                           cxxObject)
-    property var acrossNodeModel: (typeof cxxNodeModel
-                                   !== "undefined") ? cxxNodeModel : cxxObject.createObject(
+                                                           cxxObject))
+    property var acrossNodeModel:  testObject(across.nodeModel,cxxObject.createObject(
                                                           "NodeModelExample.qml",
-                                                          cxxObject)
+                                                          cxxObject))
 }

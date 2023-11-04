@@ -4,7 +4,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "rusty_bridge/profile.h"
 #include "across.h"
 
 inline const QStringList FONT_LIST()
@@ -56,9 +55,8 @@ int main(int argc, char *argv[])
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
 
-    Across across("http://127.0.0.1:11451");
-    engine.rootContext()->setContextProperty(QStringLiteral("cxxGroupModel"), across.group_model.get());
-    engine.rootContext()->setContextProperty(QStringLiteral("cxxNodeModel"), across.node_model.get());
+    Across *across= new Across("http://127.0.0.1:11451",&app);
+    engine.rootContext()->setContextProperty(QStringLiteral("across"), across);
 
     engine.load(url);
 
