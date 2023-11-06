@@ -1,7 +1,8 @@
-use crate::ACROSS_RPC;
+use crate::across_rpc::ACROSS_RPC;
+use crate::runtime::ACROSS_RUNTIME;
 use core_protobuf::acolors_proto::profile_manager_client::ProfileManagerClient;
 use core_protobuf::acolors_proto::*;
-use tonic::transport::Channel;
+
 use tonic::transport::Endpoint;
 
 #[cxx::bridge(namespace = "across::profile")]
@@ -49,8 +50,6 @@ pub mod ffi {
     }
 
     extern "Rust" {
-        fn set_channel(uri: &str) -> Result<()>;
-
         fn count_groups() -> Result<u64>;
         fn list_all_groups() -> Result<GroupList>;
 
@@ -89,8 +88,9 @@ pub fn empty_group_by_id(group_id: i64) -> anyhow::Result<()> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_empty_group_by_id(channel, group_id));
     result
 }
@@ -113,8 +113,9 @@ pub fn update_group_by_id(group_id: i64, use_proxy: bool) -> anyhow::Result<()> 
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_update_group_by_id(channel, group_id, use_proxy));
     result
 }
@@ -134,8 +135,9 @@ pub fn append_node_by_url(group_id: i64, url: String) -> anyhow::Result<i64> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_append_node_by_url(channel, group_id, url));
     result
 }
@@ -158,9 +160,11 @@ pub fn append_node(group_id: i64, node_data: ffi::NodeData) -> anyhow::Result<i6
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
-        .block_on(async_append_node(channel, group_id, node_data.into()));
+    let result = ACROSS_RUNTIME.lock().unwrap().block_on(async_append_node(
+        channel,
+        group_id,
+        node_data.into(),
+    ));
     result
 }
 async fn async_append_group(channel: Endpoint, group_data: GroupData) -> anyhow::Result<i64> {
@@ -177,8 +181,9 @@ pub fn append_group(group_data: ffi::GroupData) -> anyhow::Result<i64> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_append_group(channel, group_data.into()));
     result
 }
@@ -194,8 +199,9 @@ pub fn remove_group_by_id(group_id: i64) -> anyhow::Result<()> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_remove_group_by_id(channel, group_id));
     result
 }
@@ -211,8 +217,9 @@ pub fn remove_node_by_id(node_id: i64) -> anyhow::Result<()> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_remove_node_by_id(channel, node_id));
     result
 }
@@ -228,8 +235,9 @@ pub fn set_node_by_url(node_id: i64, url: String) -> anyhow::Result<()> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_set_node_by_url(channel, node_id, url));
     result
 }
@@ -252,8 +260,9 @@ pub fn set_node_by_id(node_id: i64, node_data: ffi::NodeData) -> anyhow::Result<
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_set_node_by_id(channel, node_id, node_data));
     result
 }
@@ -276,8 +285,9 @@ pub fn set_group_by_id(group_id: i64, group_data: ffi::GroupData) -> anyhow::Res
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let result = lock
-        .runtime
+    let result = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_set_group_by_id(channel, group_id, group_data));
     result
 }
@@ -293,8 +303,9 @@ pub fn get_node_by_id(node_id: i64) -> anyhow::Result<ffi::NodeData> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let node_data = lock
-        .runtime
+    let node_data = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_get_node_by_id(channel, node_id));
     node_data
 }
@@ -310,8 +321,9 @@ pub fn get_group_by_id(group_id: i64) -> anyhow::Result<ffi::GroupData> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let group_data = lock
-        .runtime
+    let group_data = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_get_group_by_id(channel, group_id));
     group_data
 }
@@ -327,8 +339,9 @@ pub fn list_all_nodes(group_id: i64) -> anyhow::Result<ffi::NodeList> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let node_list = lock
-        .runtime
+    let node_list = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
         .block_on(async_list_all_nodes(channel, group_id));
     node_list
 }
@@ -344,7 +357,10 @@ pub fn count_nodes(group_id: i64) -> anyhow::Result<u64> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let count = lock.runtime.block_on(async_count_nodes(channel, group_id));
+    let count = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
+        .block_on(async_count_nodes(channel, group_id));
     count
 }
 async fn async_list_all_groups(channel: Endpoint) -> anyhow::Result<ffi::GroupList> {
@@ -359,13 +375,11 @@ pub fn list_all_groups() -> anyhow::Result<ffi::GroupList> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let group_list = lock.runtime.block_on(async_list_all_groups(channel));
+    let group_list = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
+        .block_on(async_list_all_groups(channel));
     group_list
-}
-pub fn set_channel(uri: &str) -> anyhow::Result<()> {
-    let mut lock = ACROSS_RPC.lock().unwrap();
-    lock.set_channel(Channel::builder(uri.parse().unwrap()));
-    Ok(())
 }
 
 async fn async_count_groups(channel: Endpoint) -> anyhow::Result<u64> {
@@ -380,6 +394,9 @@ pub fn count_groups() -> anyhow::Result<u64> {
         Some(c) => c.clone(),
         None => return Err(anyhow::anyhow!("No Endpoint")),
     };
-    let count = lock.runtime.block_on(async_count_groups(channel));
+    let count = ACROSS_RUNTIME
+        .lock()
+        .unwrap()
+        .block_on(async_count_groups(channel));
     count
 }

@@ -1,5 +1,7 @@
 #include "app.h"
 #include "across.h"
+#include <qcommandlineoption.h>
+#include <qcoreapplication.h>
 #include <qqmlapplicationengine.h>
 
 inline const QStringList FONT_LIST();
@@ -7,12 +9,28 @@ const QStringList FONTS = FONT_LIST();
 const char *APP_NAME = "ACross";
 const char *APP_ICON_FILE = ":qt/qml/misc/design/logo.svg";
 const QString QML_URL = u"qrc:/qt/qml/Main/main.qml"_qs;
-const char *DEFAULT_ACOLORS_URL = "http://127.0.0.1:11451";
+const QString DEFAULT_ACOLORS_URL = u"http://127.0.0.1:%1"_qs;
+const std::uint16_t DEFAULT_PORT = 11451;
 
 App::App(int &argc, char **argv) : QGuiApplication(argc, argv) {
   setApplicationName(APP_NAME);
   setWindowIcon(QIcon(APP_ICON_FILE));
   setFont(QFont(FONTS, 11));
+
+  QCommandLineParser parser;
+  QCommandLineOption portOption(
+      QStringList() << "p"
+                    << "port",
+      QCoreApplication::translate("App", "Acolors server port"),
+      QCoreApplication::translate("App", "port"));
+  parser.addOption(portOption);
+  parser.parse(this->arguments());
+
+  bool ok = false;
+  int port = parser.value(portOption).toInt(&ok);
+  if (!ok) {
+    port = DEFAULT_PORT;
+  }
 
   const QUrl url(QML_URL);
   QObject::connect(
@@ -26,7 +44,8 @@ App::App(int &argc, char **argv) : QGuiApplication(argc, argv) {
   m_engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
   m_engine.addImportPath(":/");
 
-  Across *across = new Across(DEFAULT_ACOLORS_URL, this);
+  auto uri = DEFAULT_ACOLORS_URL.arg(port).toStdString();
+  Across *across = new Across(uri.c_str(), this);
   m_engine.rootContext()->setContextProperty(QStringLiteral("acrossCxx"),
                                              across);
 

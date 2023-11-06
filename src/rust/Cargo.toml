@@ -9,7 +9,7 @@ edition = "2021"
 crate-type = ["staticlib"]
 
 [workspace]
-members = ["components/core_protobuf"]
+members = ["components/core_protobuf", "components/utils"]
 
 [dependencies]
 tokio = { version = "1.18", features = [
@@ -17,6 +17,7 @@ tokio = { version = "1.18", features = [
     "macros",
     "sync",
     "signal",
+    "process",
 ] }
 tonic = "0.9.2"
 prost = "0.11"
@@ -25,8 +26,10 @@ cxx = "1.0"
 lazy_static = "1.0"
 anyhow = "1.0"
 core_protobuf = { path = "components/core_protobuf" }
+utils = { path = "components/utils" }
 serde = "1.0"
 serde_json = "1.0"
+directories = "5.0"
 
 [dev-dependencies]
 core_protobuf = { path = "components/core_protobuf" }
