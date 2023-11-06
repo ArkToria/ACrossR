@@ -1,0 +1,3 @@
+[submodule "submodules/AColoRS"]
+	path = submodules/AColoRS
+	url = https://github.com/ArkToria/AColoRS

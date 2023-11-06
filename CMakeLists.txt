@@ -54,6 +54,8 @@ corrosion_add_cxxbridge(rusty_bridge
     qml_process.rs
 )
 
+corrosion_import_crate(MANIFEST_PATH submodules/AColoRS/Cargo.toml)
+
 aux_source_directory(src/tray/ TRAY_CPP_FILES)
 
 qt_add_executable(${TRAY_APP_NAME}
