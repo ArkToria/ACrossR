@@ -108,5 +108,5 @@ Project {
     supportedLanguages: ["en"]
     primaryLanguage: "en"
 
-    mainUiFile: "content/CustomButton.qml"
+    mainUiFile: "content/App.qml"
 }

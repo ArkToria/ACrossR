@@ -31,13 +31,15 @@ impl Drop for AcolorsManager {
     }
 }
 fn try_find_acolors() -> PathBuf {
+    const EXE_NAME: &str = "acolors";
     if let Ok(mut path) = current_exe() {
-        path.push("acolors");
+        path.pop();
+        path.push(EXE_NAME);
         if path.exists() {
             return path;
         }
     }
-    PathBuf::from("acolors")
+    PathBuf::from(EXE_NAME)
 }
 impl AcolorsManager {
     async fn async_close(manager: &mut ManagerClient<Channel>) -> Result<()> {
