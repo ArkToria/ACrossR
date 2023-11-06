@@ -8,6 +8,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+
 project(across LANGUAGES CXX)
 set(TRAY_APP_NAME ${PROJECT_NAME})
 set(APP_NAME ${PROJECT_NAME}-qml)
@@ -42,6 +44,7 @@ if (Qt6_VERSION VERSION_LESS 6.2.0)
 message(FATAL_ERROR "You need Qt 6.2.0 or newer to build the application.")
 endif()
 
+
 corrosion_import_crate(MANIFEST_PATH src/rust/Cargo.toml)
 corrosion_add_cxxbridge(rusty_bridge
     CRATE 
@@ -54,7 +57,18 @@ corrosion_add_cxxbridge(rusty_bridge
     qml_process.rs
 )
 
-corrosion_import_crate(MANIFEST_PATH submodules/AColoRS/Cargo.toml)
+corrosion_import_crate(
+    MANIFEST_PATH submodules/AColoRS/Cargo.toml 
+    CRATE_TYPES bin
+)
+if ( MSVC )
+    set_target_properties(acolors PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIG>)
+endif ( MSVC )
+IF (WIN32)
+    corrosion_add_target_rustflags(acolors "-C strip=none")
+ENDIF()
+
+
 
 aux_source_directory(src/tray/ TRAY_CPP_FILES)
 
