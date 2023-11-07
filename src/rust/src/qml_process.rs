@@ -1,20 +1,7 @@
 use anyhow::{anyhow, Result};
-use lazy_static::lazy_static;
-use std::{env::current_exe, path::PathBuf, process::Child, sync::Mutex};
+use std::{env::current_exe, path::PathBuf, process::Child};
 
-lazy_static! {
-    pub static ref ACROSS_QML_PROCESS: Mutex<QmlProcess> = Mutex::new(QmlProcess::new());
-}
-
-#[cxx::bridge(namespace = "across::qmlprocess")]
-pub mod ffi {
-    extern "Rust" {
-        fn set_port(port: u16) -> Result<()>;
-        fn start() -> Result<()>;
-        fn close() -> Result<()>;
-        fn force_close();
-    }
-}
+#[derive(Default)]
 pub struct QmlProcess {
     child: Option<Child>,
     port: Option<u16>,
@@ -25,29 +12,7 @@ impl Drop for QmlProcess {
         self.close().unwrap_or_else(|e| println!("{e}"));
     }
 }
-pub fn set_port(port: u16) -> Result<()> {
-    let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
-    lock.port = Some(port);
-    Ok(())
-}
-pub fn start() -> Result<()> {
-    let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
-    lock.start()?;
-    Ok(())
-}
-pub fn force_close() {
-    let lock = ACROSS_QML_PROCESS.lock();
-    if let Ok(mut lock) = lock {
-        if let Err(e) = lock.close() {
-            println!("QML Process closing error: {e}");
-        }
-    }
-}
-pub fn close() -> Result<()> {
-    let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
-    lock.close()?;
-    Ok(())
-}
+
 fn try_find_across_qml() -> PathBuf {
     const EXE_NAME: &str = "across-qml";
     if let Ok(mut path) = current_exe() {
@@ -59,19 +24,21 @@ fn try_find_across_qml() -> PathBuf {
     }
     PathBuf::from(EXE_NAME)
 }
-
+fn qml_command(port: u16, program: PathBuf) -> Result<std::process::Command> {
+    let mut command = std::process::Command::new(program);
+    command.arg("-p").arg(port.to_string());
+    Ok(command)
+}
 impl QmlProcess {
     pub fn start(&mut self) -> Result<()> {
         match self.child {
             Some(_) => return Err(anyhow!("QmlProcess already started")),
             None => {
                 let program = try_find_across_qml();
-                let mut command = std::process::Command::new(program);
-                command.arg("-p").arg(
-                    self.port
-                        .ok_or(anyhow!("QmlProcess port not configured"))?
-                        .to_string(),
-                );
+                let mut command = qml_command(
+                    self.port.ok_or(anyhow!("QmlProcess port not configured"))?,
+                    program,
+                )?;
                 let child = command.spawn()?;
                 self.child = Some(child);
             }
@@ -79,6 +46,7 @@ impl QmlProcess {
 
         Ok(())
     }
+
     pub fn close(&mut self) -> Result<()> {
         let mut child = self.child.take();
         match child.as_mut() {
@@ -98,5 +66,9 @@ impl QmlProcess {
             child: None,
             port: None,
         }
+    }
+
+    pub fn set_port(&mut self, port: u16) {
+        self.port = Some(port);
     }
 }

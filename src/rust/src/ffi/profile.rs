@@ -1,5 +1,4 @@
-use crate::across_rpc::ACROSS_RPC;
-use crate::runtime::ACROSS_RUNTIME;
+use crate::{ACROSS_RPC, ACROSS_RUNTIME};
 use core_protobuf::acolors_proto::profile_manager_client::ProfileManagerClient;
 use core_protobuf::acolors_proto::*;
 
