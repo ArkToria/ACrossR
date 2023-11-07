@@ -1,5 +1,4 @@
-use anyhow::{anyhow, Result};
-use std::{env::current_exe, path::PathBuf, process::Child};
+use std::{env::current_exe, fmt::Display, path::PathBuf, process::Child};
 
 #[derive(Default)]
 pub struct QmlProcess {
@@ -24,22 +23,67 @@ fn try_find_across_qml() -> PathBuf {
     }
     PathBuf::from(EXE_NAME)
 }
-fn qml_command(port: u16, program: PathBuf) -> Result<std::process::Command> {
+fn qml_command(port: u16, program: PathBuf) -> std::process::Command {
     let mut command = std::process::Command::new(program);
     command.arg("-p").arg(port.to_string());
-    Ok(command)
+    command
+}
+#[derive(Debug)]
+pub enum StartError {
+    AlreadyStarted,
+    NotConfigured,
+    ProcessSpawnFailed(std::io::Error),
+}
+impl Display for StartError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            StartError::AlreadyStarted => f.write_str("qml process already started"),
+            StartError::NotConfigured => f.write_str("process arguments not configured"),
+            StartError::ProcessSpawnFailed(_) => f.write_str("failed to spawn process"),
+        }
+    }
+}
+impl std::error::Error for StartError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            StartError::AlreadyStarted => None,
+            StartError::NotConfigured => None,
+            StartError::ProcessSpawnFailed(e) => Some(e),
+        }
+    }
+}
+#[derive(Debug)]
+pub enum CloseError {
+    NotStarted,
+    KillFailed(std::io::Error),
+    WaitFailed(std::io::Error),
+}
+impl Display for CloseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CloseError::NotStarted => f.write_str("qml process not started"),
+            CloseError::KillFailed(_) => f.write_str("failed to kill qml process"),
+            CloseError::WaitFailed(_) => f.write_str("failed to wait qml process exit"),
+        }
+    }
+}
+impl std::error::Error for CloseError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            CloseError::NotStarted => None,
+            CloseError::KillFailed(e) => Some(e),
+            CloseError::WaitFailed(e) => Some(e),
+        }
+    }
 }
 impl QmlProcess {
-    pub fn start(&mut self) -> Result<()> {
+    pub fn start(&mut self) -> Result<(), StartError> {
         match self.child {
-            Some(_) => return Err(anyhow!("QmlProcess already started")),
+            Some(_) => return Err(StartError::AlreadyStarted),
             None => {
                 let program = try_find_across_qml();
-                let mut command = qml_command(
-                    self.port.ok_or(anyhow!("QmlProcess port not configured"))?,
-                    program,
-                )?;
-                let child = command.spawn()?;
+                let mut command = qml_command(self.port.ok_or(StartError::NotConfigured)?, program);
+                let child = command.spawn().map_err(StartError::ProcessSpawnFailed)?;
                 self.child = Some(child);
             }
         }
@@ -47,15 +91,15 @@ impl QmlProcess {
         Ok(())
     }
 
-    pub fn close(&mut self) -> Result<()> {
+    pub fn close(&mut self) -> Result<(), CloseError> {
         let mut child = self.child.take();
         match child.as_mut() {
             Some(c) => {
-                c.kill()?;
-                c.wait()?;
+                c.kill().map_err(CloseError::KillFailed)?;
+                c.wait().map_err(CloseError::WaitFailed)?;
             }
             None => {
-                return Err(anyhow!("QmlProcess not started"));
+                return Err(CloseError::NotStarted);
             }
         }
 

@@ -1,21 +1,22 @@
-use crate::ACROSS_QML_PROCESS;
-use anyhow::Result;
+use crate::{
+    qml_process::{CloseError, StartError},
+    ACROSS_QML_PROCESS,
+};
 
 #[cxx::bridge(namespace = "across::qmlprocess")]
 pub mod ffi {
     extern "Rust" {
-        fn set_port(port: u16) -> Result<()>;
+        fn set_port(port: u16);
         fn start() -> Result<()>;
         fn close() -> Result<()>;
         fn force_close();
     }
 }
-pub fn set_port(port: u16) -> Result<()> {
+pub fn set_port(port: u16) {
     let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
     lock.set_port(port);
-    Ok(())
 }
-pub fn start() -> Result<()> {
+pub fn start() -> Result<(), StartError> {
     let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
     lock.start()?;
     Ok(())
@@ -28,7 +29,7 @@ pub fn force_close() {
         }
     }
 }
-pub fn close() -> Result<()> {
+pub fn close() -> Result<(), CloseError> {
     let mut lock = ACROSS_QML_PROCESS.lock().unwrap();
     lock.close()?;
     Ok(())

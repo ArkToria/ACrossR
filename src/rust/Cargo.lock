@@ -10,6 +10,7 @@ dependencies = [
  "core_protobuf",
  "cxx",
  "directories",
+ "http",
  "lazy_static",
  "prost",
  "prost-types",

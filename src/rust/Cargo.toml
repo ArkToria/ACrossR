@@ -30,6 +30,7 @@ utils = { path = "components/utils" }
 serde = "1.0"
 serde_json = "1.0"
 directories = "5.0"
+http = "*"
 
 [dev-dependencies]
 core_protobuf = { path = "components/core_protobuf" }
