@@ -150,3 +150,50 @@ qt_add_resources(${APP_NAME} misc
 )
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/qmlmodules)
+
+
+#########################
+######## INSTALL ########
+#########################
+option(ENABLE_DEPLOYMENT "Enable fixup_bundle and windeployqt when installing." ON)
+
+if(WIN32 AND ENABLE_DEPLOYMENT)
+    install(TARGETS across RUNTIME DESTINATION .)
+
+    # For Global Target
+    list(APPEND DIRS "${CMAKE_BINARY_DIR}")
+    list(APPEND DIRS "${CMAKE_CURRENT_BINARY_DIR}")
+    list(APPEND DIRS "${Qt6Core_DIR}/../../")
+    list(APPEND DIRS "${Qt6Core_DIR}/../../../bin/")
+
+    if(CMAKE_PREFIX_PATH)
+        foreach(dir ${CMAKE_PREFIX_PATH})
+            list(APPEND DIRS "${dir}/bin" "${dir}/lib")
+        endforeach()
+    endif()
+
+    list(APPEND DIRS "${Qt6Core_DIR}/../..")
+
+    foreach(d ${DIRS})
+        string(REPLACE "\\" "/" newd ${d})
+        list(APPEND NEW_DIRS ${newd})
+    endforeach()
+    set(DIRS ${NEW_DIRS})
+
+    set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
+
+    set(APP "${CMAKE_INSTALL_PREFIX}/across.exe")
+    install(CODE "include(BundleUtilities)")
+    install(CODE "fixup_bundle(\"${APP}\"   \"\"   \"${DIRS}\")")
+    install(CODE "message(\"Now running windeployqt\")")
+    install(CODE "execute_process(COMMAND \"$<TARGET_FILE:Qt::windeployqt>\" \"${APP}\" --no-virtualkeyboard --no-compiler-runtime --no-opengl-sw -qmldir=${CMAKE_CURRENT_SOURCE_DIR}/src/views/ -qmlimport=.)")
+    install(CODE "message(\"Completed\")")
+else()
+    install(TARGETS across RUNTIME DESTINATION bin)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/org.arktoria.across.desktop DESTINATION share/applications)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/design/logo.svg DESTINATION share/icons/hicolor/scalable/apps/ RENAME org.arktoria.across.svg)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/icons/light/tray_logo_running.svg DESTINATION share/icons/hicolor/scalable/apps/ RENAME org.arktoria.across.light.running.svg)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/icons/light/tray_logo_stop.svg DESTINATION share/icons/hicolor/scalable/apps/ RENAME org.arktoria.across.light.stop.svg)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/icons/dark/tray_logo_running.svg DESTINATION share/icons/hicolor/scalable/apps/ RENAME org.arktoria.across.dark.running.svg)
+    install(FILES ${CMAKE_SOURCE_DIR}/misc/icons/dark/tray_logo_stop.svg DESTINATION share/icons/hicolor/scalable/apps/ RENAME org.arktoria.across.dark.stop.svg)
+endif()
