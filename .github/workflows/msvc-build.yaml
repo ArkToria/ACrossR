@@ -30,6 +30,7 @@ jobs:
       - name: "🧰 Checkout"
         uses: actions/checkout@v2
         with:
+          submodules: "true"
           fetch-depth: 0
 
       - name: Install ninja-build tool
