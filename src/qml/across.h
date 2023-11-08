@@ -3,7 +3,7 @@
 
 #include "groupmodel.h"
 #include "nodemodel.h"
-#include "rusty_bridge/across_rpc.h"
+#include "rusty_bridge/ffi/acolors.h"
 #include <QCommandLineParser>
 #include <QObject>
 #include <QQuickItem>

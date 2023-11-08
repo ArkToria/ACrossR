@@ -1,6 +1,8 @@
 use std::fmt::Display;
 
 use acolors_process::AcolorsManager;
+use log::error;
+use log::info;
 use tonic::transport::Channel;
 
 use crate::acolors_process;
@@ -56,11 +58,30 @@ pub fn serve_port() -> Result<u16, NotServedError> {
 
 pub fn set_channel(uri: &str) -> Result<(), http::uri::InvalidUri> {
     let mut lock = ACROSS_RPC.lock().unwrap();
-    lock.set_channel(Channel::builder(uri.parse()?));
+    let uri = match uri.parse() {
+        Ok(uri) => {
+            info!("Acolors set channel: {}", uri);
+            Ok(uri)
+        }
+        Err(e) => {
+            error!("Acolors set channel failed: {}", e);
+            Err(e)
+        }
+    };
+    lock.set_channel(Channel::builder(uri?));
     Ok(())
 }
 async fn async_serve() -> Result<AcolorsManager, AcolorsExecError> {
-    let acolors = AcolorsManager::new().await?;
+    let acolors = match AcolorsManager::new().await {
+        Ok(a) => {
+            info!("Acolors serves");
+            Ok(a)
+        }
+        Err(e) => {
+            info!("Failed to serve acolors: {e}");
+            Err(e)
+        }
+    }?;
     Ok(acolors)
 }
 pub fn serve() -> Result<(), AcolorsExecError> {

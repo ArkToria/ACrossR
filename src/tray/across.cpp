@@ -1,6 +1,6 @@
 #include "across.h"
 #include <cstdio>
-Across::Across(QObject *parent) : QObject(parent) {}
+Across::Across(QObject *parent) : QObject(parent) { across::init(); }
 Across::~Across() { across::acolors::force_close(); }
 void Across::serve() { across::acolors::serve(); }
 void Across::close() { across::acolors::close(); }

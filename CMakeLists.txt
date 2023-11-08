@@ -52,6 +52,7 @@ corrosion_add_cxxbridge(rusty_bridge
     MANIFEST_PATH
     src/rust
     FILES
+    ffi/init.rs
     ffi/profile.rs
     ffi/acolors.rs
     ffi/qml_process.rs

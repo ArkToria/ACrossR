@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <memory>
 
-#include "rusty_bridge/profile.h"
+#include "rusty_bridge/ffi/profile.h"
 
 class GroupModel : public QAbstractListModel {
   Q_OBJECT

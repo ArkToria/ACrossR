@@ -1,8 +1,9 @@
 #ifndef ACROSS_H
 #define ACROSS_H
 
-#include "rusty_bridge/across_rpc.h"
-#include "rusty_bridge/profile.h"
+#include "rusty_bridge/ffi/acolors.h"
+#include "rusty_bridge/ffi/init.h"
+#include "rusty_bridge/ffi/profile.h"
 #include <QObject>
 #include <cstdint>
 #include <qtmetamacros.h>

@@ -1,7 +1,7 @@
 #ifndef QMLPROCSS_H
 #define QMLPROCSS_H
 
-#include "rusty_bridge/qml_process.h"
+#include "rusty_bridge/ffi/qml_process.h"
 #include <QObject>
 #include <cstdint>
 #include <qtmetamacros.h>

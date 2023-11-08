@@ -12,6 +12,7 @@ crate-type = ["staticlib"]
 members = ["components/core_protobuf", "components/utils"]
 
 [dependencies]
+spdlog-rs = { version = "0.3", features = ["log"] }
 tokio = { version = "1.18", features = [
     "rt-multi-thread",
     "macros",
@@ -19,6 +20,7 @@ tokio = { version = "1.18", features = [
     "signal",
     "process",
 ] }
+log = { version = "0.4", features = ["std"] }
 tonic = "0.10.2"
 prost = "0.12"
 prost-types = "0.12"

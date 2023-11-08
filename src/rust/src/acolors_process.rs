@@ -11,6 +11,8 @@ use core_protobuf::acolors_proto::manager_client::ManagerClient;
 use core_protobuf::acolors_proto::ShutdownRequest;
 
 use directories::ProjectDirs;
+use log::error;
+use log::info;
 use tokio::time::sleep;
 use tonic::transport::Channel;
 use tonic::transport::Endpoint;
@@ -103,9 +105,9 @@ impl AcolorsManager {
     pub fn force_close(&mut self) {
         self.child
             .kill()
-            .unwrap_or_else(|e| println!("AcolorsManager child kill Failed : {e}"));
+            .unwrap_or_else(|e| error!("AcolorsManager child kill Failed : {e}"));
         if let Ok(exit) = self.child.wait() {
-            println!("AcolorsManager exit: {exit}");
+            info!("AcolorsManager exit: {exit}");
         }
     }
     pub async fn close(&mut self) -> Result<(), AcolorsClosingError> {

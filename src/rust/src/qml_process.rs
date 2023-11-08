@@ -1,5 +1,7 @@
 use std::{env::current_exe, fmt::Display, path::PathBuf, process::Child};
 
+use log::error;
+
 #[derive(Default)]
 pub struct QmlProcess {
     child: Option<Child>,
@@ -8,7 +10,7 @@ pub struct QmlProcess {
 
 impl Drop for QmlProcess {
     fn drop(&mut self) {
-        self.close().unwrap_or_else(|e| println!("{e}"));
+        self.close().unwrap_or_else(|e| error!("{e}"));
     }
 }
 
@@ -77,7 +79,17 @@ impl std::error::Error for CloseError {
     }
 }
 impl QmlProcess {
+    pub fn check_closed(&mut self) {
+        let is_closed = match self.child.as_mut() {
+            Some(c) => c.try_wait().is_ok(),
+            None => true,
+        };
+        if is_closed && self.child.is_some() {
+            self.child.take();
+        }
+    }
     pub fn start(&mut self) -> Result<(), StartError> {
+        self.check_closed();
         match self.child {
             Some(_) => return Err(StartError::AlreadyStarted),
             None => {

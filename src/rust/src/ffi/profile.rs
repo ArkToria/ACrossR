@@ -78,7 +78,7 @@ pub mod ffi {
 #[derive(Debug)]
 pub enum ProfileError {
     Connect(tonic::transport::Error),
-    Request(tonic::Status),
+    Request(Box<tonic::Status>),
     NoEndpoint,
 }
 impl std::fmt::Display for ProfileError {
@@ -106,7 +106,7 @@ impl From<tonic::transport::Error> for ProfileError {
 }
 impl From<tonic::Status> for ProfileError {
     fn from(err: tonic::Status) -> Self {
-        Self::Request(err)
+        Self::Request(Box::new(err))
     }
 }
 async fn async_empty_group_by_id(channel: Endpoint, group_id: i64) -> Result<(), ProfileError> {
