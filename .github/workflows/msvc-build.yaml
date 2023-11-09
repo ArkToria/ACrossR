@@ -56,19 +56,10 @@ jobs:
           aqtversion: ==1.2.2
           modules: "qt5compat qtimageformats"
 
-      - name: run-vcpkg
-        uses: lukka/run-vcpkg@v10
-        with:
-          vcpkgDirectory: "C:/more-disk-space/vcpkg"
-          vcpkgGitCommitId: 881c1b04a40f258b23880f9ef3ba89b6ed5c8ecf
-          vcpkgJsonGlob: "vcpkg.json"
-
       - name: Build
         run: |
           cmake -S . -B ./out \
-            -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_TARGET_TRIPLET=x64-windows \
-            "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$Qt6_DIR/lib/cmake/Qt6/qt.toolchain.cmake" \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_INSTALL_PREFIX=./out/deploy
           cmake --build ./out --parallel --config Release
